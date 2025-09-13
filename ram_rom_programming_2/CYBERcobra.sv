@@ -12,13 +12,22 @@ module CYBERcobra (
    logic [31:0]                        rf_read_data2;
    logic                               alu_flag;
    logic [31:0]                        alu_result;
+   logic [31:0]                        pc_incr;
+   logic [31:0]                        PC_o;
 
    assign out_o = rf_read_data1;
+   
+   fulladder32 pc_adder(
+                        .a_i(PC),
+                        .b_i(pc_incr),
+                        .carry_i(1'd0),
+                        .sum_o(PC_o)
+               );
 
-   instr_mem im_main(
-                     .read_addr_i(PC),
-                     .read_data_o(instr_bus)
-                     );
+   instr_mem imem(
+                  .read_addr_i(PC),
+                  .read_data_o(instr_bus)
+                  );
 
    register_file rf_main(
                          .clk_i(clk_i),
@@ -41,19 +50,45 @@ module CYBERcobra (
                 );
 
    // pc logic
-   always @ (posedge clk_i or rst_i) begin
-      if (rst_i)
-        PC <= 32'd0;
+   always @ (posedge clk_i or posedge rst_i) begin
+      if (rst_i) begin
+         PC <= 32'd0;
+         pc_incr <= 32'd0;
+      end
       else begin
-         if (instr_bus[31] | instr_bus[30] & alu_flag)
-           PC <= PC + {instr_bus[12:5], 2'b00};
-         else
-           PC <= PC + 32'd4;
+         PC <= PC_o;
       end
    end
 
-   // write select logic
    always @ (posedge clk_i) begin
+      if (instr_bus[31] | instr_bus[30] & alu_flag) begin
+         pc_incr <= {{22{instr_bus[12]}}, {instr_bus[12:5], 2'b00}};
+      end
+      else begin
+         pc_incr <= 32'd4;
+      end
+   end
+   /*
+   always @ (posedge clk_i or posedge rst_i) begin
+      if (rst_i) begin
+         PC <= 32'd0;
+         pc_incr <= 32'd0;
+      end
+      else begin
+         if (instr_bus[31] | instr_bus[30] & alu_flag) begin
+            pc_incr <= {{22{instr_bus[12]}}, {instr_bus[12:5], 2'b00}};
+            PC <= PC_o;
+         end
+         else begin
+            pc_incr <= 32'd4;
+            PC <= PC_o;
+         end
+      end
+   end
+   */
+
+   // write select logic
+   always @ (clk_i) begin
       case (instr_bus[29:28])
         2'd0:
           rf_write_data <= {{9{instr_bus[27]}}, instr_bus[27:5]};
@@ -67,4 +102,3 @@ module CYBERcobra (
    end
 
 endmodule
-
