@@ -14,7 +14,10 @@ module CYBERcobra (
    logic [31:0]                        alu_result;
    logic [31:0]                        pc_incr;
    logic [31:0]                        PC_o;
+   logic                               last_dig_off;
 
+
+   assign last_dig_off = instr_bus[12];
    assign out_o = rf_read_data1;
    
    fulladder32 pc_adder(
@@ -22,7 +25,7 @@ module CYBERcobra (
                         .b_i(pc_incr),
                         .carry_i(1'd0),
                         .sum_o(PC_o)
-               );
+                        );
 
    instr_mem imem(
                   .read_addr_i(PC),
@@ -53,21 +56,27 @@ module CYBERcobra (
    always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) begin
          PC <= 32'd0;
-         pc_incr <= 32'd0;
+         // pc_incr <= 32'd0;
       end
       else begin
          PC <= PC_o;
       end
    end
 
+   assign pc_incr = (instr_bus[31] | instr_bus[30] & alu_flag) ?
+                    {{22{instr_bus[12]}}, {instr_bus[12:5], 2'b0}}
+                    : 32'd4;
+
+   /*
    always @ (posedge clk_i) begin
       if (instr_bus[31] | instr_bus[30] & alu_flag) begin
-         pc_incr <= {{22{instr_bus[12]}}, {instr_bus[12:5], 2'b00}};
+         pc_incr <= {{22{last_dig_off}}, {instr_bus[12:5], 2'b00}};
       end
       else begin
          pc_incr <= 32'd4;
       end
    end
+    */
    /*
    always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) begin
