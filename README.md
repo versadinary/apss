@@ -1,4 +1,4 @@
-## binary multiplication (usnig shifts and addition)
+## binary multiplication (usnig shift and addition)
 ```
        1011   (11 в двоичном виде)
      x 1110   (14 в двоичном виде)
