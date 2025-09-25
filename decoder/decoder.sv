@@ -28,24 +28,41 @@ module decoder (
    assign func7 = fetcher_instr_i[31:25];
 
    always @ (*) begin
-      a_sel_o = 2'd0;
-      b_sel_o = 3'd0;
-      alu_op_o = 5'd0;
-      csr_op_o = 3'd0;
-      csr_we_o = 1'd0;
-      mem_req_o = 1'd0;
-      mem_size_o = 3'd0;
-      gpr_we_o = 1'd0;
-      wb_sel_o = 2'd0;
-      branch_o = 1'd0;
-      jal_o = 1'd0;
-      jalr_o = 1'd0;
-      mret_o = 1'd0;
+      {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
+       mem_size_o, gpr_we_o, wb_sel_o, branch_o, jal_o, jalr_o,
+       mret_o} = 21'd0;
       illegal_instr_o = &opcode[1:0]; // in next usages dusjunct with this vaule
       case (opcode[6:2])
         OP_OPCODE: begin
            gpr_we_o = 1'd1;
            wb_sel_o = WB_EX_RESULT;
+           a_sel_o = OP_A_RS1;
+           b_sel_o = OP_B_RS2;
+           case (func7)
+             3'h00: begin
+                case (func3)
+                  3'h0: alu_op_o = ALU_ADD;
+                  3'h4: alu_op_o = ALU_XOR;
+                  3'h6: alu_op_o = ALU_OR;
+                  3'h7: alu_op_o = ALU_AND;
+                  3'h1: alu_op_o = ALU_SLL;
+                  3'h5: alu_op_o = ALU_SRL;
+                  3'h2: alu_op_o = ALU_SLTS;
+                  3'h3: alu_op_o = ALU_SLTU;
+                  default: illegal_instr_o = illegal_instr_o | 1'd1;
+                endcase // case (func3)
+             end
+             3'h20: begin
+                case (func3)
+                  3'h0: alu_op_o = ALU_SUB;
+                  3'h5: alu_op_o = ALU_SRA;
+                  default: illegal_instr_o = illegal_instr_o | 1'd1;
+                endcase // case (func3)
+             end
+             default: begin
+
+             end
+           endcase // case (func7)
         end
         OP_IMM_OPCODE: begin
 
