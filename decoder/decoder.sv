@@ -71,7 +71,7 @@ module decoder (
              3'h0: alu_op_o = ALU_ADD;
              3'h4: alu_op_o = ALU_XOR;
              3'h6: alu_op_o = ALU_OR;
-             3'h7: alu_op_o = AND;
+             3'h7: alu_op_o = ALU_AND;
              3'h2: alu_op_o = ALU_SLTS;
              3'h3: alu_op_o = ALU_SLTU;
              3'h1: begin
@@ -121,7 +121,7 @@ module decoder (
            branch_o = 1'd1;
            case (func3)
              3'h0: alu_op_o = ALU_EQ;
-             3'h1: alu_op_o = ALU_NEQ;
+             3'h1: alu_op_o = ALU_NE;
              3'h4: alu_op_o = ALU_LTS;
              3'h5: alu_op_o = ALU_GES;
              3'h6: alu_op_o = ALU_LTU;
@@ -131,7 +131,7 @@ module decoder (
         end
         JAL_OPCODE: begin
            a_sel_o = OP_A_CURR_PC;
-           b_sel_o = OP_B_IMM_U; // not sure
+           b_sel_o = OP_B_INCR;
            alu_op_o = ALU_ADD;
            gpr_we_o = 1'b1;
            jal_o = 1'd1;
@@ -144,25 +144,53 @@ module decoder (
            wb_sel_o = WB_EX_RESULT;
            jalr_o = 1'd1;
            if (func3 != 3'd0) illegal_instr_o = illegal_instr_o | 1'd1;
-           else: illegal_instr_o = illegal_instr_o;
+           else illegal_instr_o = illegal_instr_o;
         end
         LUI_OPCODE: begin
-
+           a_sel_o = OP_A_ZERO;
+           b_sel_o = OP_B_IMM_U;
+           alu_op_o = ALU_ADD;
+           wb_sel_o = WB_EX_RESULT;
+           gpr_we_o = 1'b1;
         end
         AUIPC_OPCODE: begin
-
+           a_sel_o = OP_A_CURR_PC;
+           b_sel_o = OP_B_IMM_U;
+           alu_op_o = ALU_ADD;
+           wb_sel_o = WB_EX_RESULT;
+           gpr_we_o = 1'b1;
         end
         MISC_MEM_OPCODE: begin
-
+           if (func3 == 0) illegal_instr_o = illegal_instr_o | 1'd1;
+           else illegal_instr_o = illegal_instr_o;
         end
         SYSTEM_OPCODE: begin
-
+           if (func3 == 3'h0) begin
+              case (fetcher_instr_i[31:7])
+                25'd6307840: mret_o = 1'd1;
+                default: illegal_instr_o = illegal_instr_o | 1'd1;
+              endcase // case (fetcher_instr_i[31:7])
+           end
+           else begin
+              wb_sel_o = WB_CSR_DATA;
+              if (func3 <= 3'h3) a_sel_o = OP_A_RS1;
+              else a_sel_o = 1'd0;
+              case (func3)
+                3'h0: csr_op_o = CSR_RW;
+                3'h2: csr_op_o = CSR_RS;
+                3'h3: csr_op_o = CSR_RC;
+                3'h5: csr_op_o = CSR_RWI;
+                3'h6: csr_op_o = CSR_RSI;
+                3'h7: csr_op_o = CSR_RCI;
+                default: illegal_instr_o = illegal_instr_o | 1'd1;
+              endcase // case (func3)
+           end
         end
-        default: begin
-
-        end
+        default: illegal_instr_o = illegal_instr_o | 1'd1;
       endcase // case (opcode)
-
+      {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
+       mem_size_o, gpr_we_o, wb_sel_o, branch_o, jal_o, jalr_o,
+       mret_o} &= {21{~illegal_instr_o}};
    end
 
 endmodule 
