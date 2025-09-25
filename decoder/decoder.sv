@@ -104,7 +104,16 @@ module decoder (
            endcase // case (func3)
         end
         STORE_OPCODE: begin
-
+           a_sel_o = OP_A_RS1;
+           b_sel_o = OP_B_IMM_S;
+           mem_req_o = 1'b1;
+           mem_we_o = 1'b1;
+           case (func3)
+             3'h0: mem_size_o = LDST_B;
+             3'h1: mem_size_o = LDST_H;
+             3'h2: mem_size_o = LDST_W;
+             default: illegal_instr_o = illegal_instr_o | 1'd1;
+           endcase // case (func3)
         end
         BRANCH_OPCODE: begin
 
