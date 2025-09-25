@@ -30,8 +30,8 @@ module decoder (
    always @ (*) begin
       {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
        mem_size_o, gpr_we_o, wb_sel_o, branch_o, jal_o, jalr_o,
-       mret_o} = 21'd0;
-      illegal_instr_o = &opcode[1:0]; // in next usages dusjunct with this vaule
+       mret_o, mem_we_o} = 27'd0;
+      illegal_instr_o = ~(&opcode[1:0]); // in next usages dusjunct with this vaule
       case (opcode[6:2])
         OP_OPCODE: begin
            gpr_we_o = 1'd1;
@@ -137,8 +137,8 @@ module decoder (
            jal_o = 1'd1;
         end
         JALR_OPCODE: begin
-           a_sel_o = OP_A_RS1;
-           b_sel_o = OP_B_IMM_I;
+           a_sel_o = OP_A_CURR_PC;
+           b_sel_o = OP_B_INCR;
            alu_op_o = ALU_ADD;
            gpr_we_o = 1'b1;
            wb_sel_o = WB_EX_RESULT;
@@ -161,7 +161,7 @@ module decoder (
            gpr_we_o = 1'b1;
         end
         MISC_MEM_OPCODE: begin
-           if (func3 == 0) illegal_instr_o = illegal_instr_o | 1'd1;
+           if (func3 != 0) illegal_instr_o = illegal_instr_o | 1'd1;
            else illegal_instr_o = illegal_instr_o;
         end
         SYSTEM_OPCODE: begin
@@ -173,10 +173,12 @@ module decoder (
            end
            else begin
               wb_sel_o = WB_CSR_DATA;
+              csr_we_o = 1'd1;
+              gpr_we_o = 1'd1;
               if (func3 <= 3'h3) a_sel_o = OP_A_RS1;
               else a_sel_o = 1'd0;
               case (func3)
-                3'h0: csr_op_o = CSR_RW;
+                3'h1: csr_op_o = CSR_RW;
                 3'h2: csr_op_o = CSR_RS;
                 3'h3: csr_op_o = CSR_RC;
                 3'h5: csr_op_o = CSR_RWI;
@@ -190,7 +192,7 @@ module decoder (
       endcase // case (opcode)
       {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
        mem_size_o, gpr_we_o, wb_sel_o, branch_o, jal_o, jalr_o,
-       mret_o} &= {21{~illegal_instr_o}};
+       mret_o} &= {27{~illegal_instr_o}};
    end
 
 endmodule
