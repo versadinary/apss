@@ -116,7 +116,18 @@ module decoder (
            endcase // case (func3)
         end
         BRANCH_OPCODE: begin
-
+           a_sel_o = OP_A_RS1;
+           b_sel_o = OP_B_RS2;
+           branch_o = 1'd1;
+           case (func3)
+             3'h0: alu_op_o = ALU_EQ;
+             3'h1: alu_op_o = ALU_NEQ;
+             3'h4: alu_op_o = ALU_LTS;
+             3'h5: alu_op_o = ALU_GES;
+             3'h6: alu_op_o = ALU_LTU;
+             3'h7: alu_op_o = ALU_GEU;
+             default: illegal_instr_o = illegal_instr_o | 1'd1;
+           endcase // case (func3)
         end
         JAL_OPCODE: begin
 
