@@ -39,7 +39,7 @@ module decoder (
            a_sel_o = OP_A_RS1;
            b_sel_o = OP_B_RS2;
            case (func7)
-             3'h00: begin
+             7'b0: begin
                 case (func3)
                   3'h0: alu_op_o = ALU_ADD;
                   3'h4: alu_op_o = ALU_XOR;
@@ -52,20 +52,41 @@ module decoder (
                   default: illegal_instr_o = illegal_instr_o | 1'd1;
                 endcase // case (func3)
              end
-             3'h20: begin
+             7'b0100000: begin
                 case (func3)
                   3'h0: alu_op_o = ALU_SUB;
                   3'h5: alu_op_o = ALU_SRA;
                   default: illegal_instr_o = illegal_instr_o | 1'd1;
                 endcase // case (func3)
              end
-             default: begin
-
-             end
+             default: illegal_instr_o = illegal_instr_o | 1'd1;
            endcase // case (func7)
         end
         OP_IMM_OPCODE: begin
-
+           gpr_we_o = 1'd1;
+           wb_sel_o = WB_EX_RESULT;
+           a_sel_o = OP_A_RS1;
+           b_sel_o = OP_B_IMM_I;
+           case (func3)
+             3'h0: alu_op_o = ALU_ADD;
+             3'h4: alu_op_o = ALU_XOR;
+             3'h6: alu_op_o = ALU_OR;
+             3'h7: alu_op_o = AND;
+             3'h2: alu_op_o = ALU_SLTS;
+             3'h3: alu_op_o = ALU_SLTU;
+             3'h1: begin
+                if (func7 == 7'b0) alu_op_o = ALU_SLL;
+                else illegal_instr_o = illegal_instr_o | 1'd1;
+             end
+             3'h5: begin
+               case (func7)
+                 7'b0: alu_op_o = ALU_SRL;
+                 7'b0100000: alu_op_o = ALU_SRA;
+                 default: illegal_instr_o = illegal_instr_o | 1'd1;
+               endcase // case (func7)
+             end
+             default: illegal_instr_o = illegal_instr_o | 1'd1;
+           endcase // case (func3)
         end
         LOAD_OPCODE: begin
 
