@@ -106,6 +106,7 @@ module decoder (
         STORE_OPCODE: begin
            a_sel_o = OP_A_RS1;
            b_sel_o = OP_B_IMM_S;
+           alu_op_o = ALU_ADD;
            mem_req_o = 1'b1;
            mem_we_o = 1'b1;
            case (func3)
@@ -192,7 +193,7 @@ module decoder (
       endcase // case (opcode)
       {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
        mem_size_o, gpr_we_o, wb_sel_o, branch_o, jal_o, jalr_o,
-       mret_o} &= {27{~illegal_instr_o}};
+       mret_o, mem_we_o} &= {27{~illegal_instr_o}};
    end
 
 endmodule
