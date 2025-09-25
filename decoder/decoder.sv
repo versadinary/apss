@@ -90,7 +90,7 @@ module decoder (
         end
         LOAD_OPCODE: begin
            gpr_we_o = 1'd1;
-           wb_sel_o = WB_EX_RESULT;
+           wb_sel_o = WB_LSU_DATA;
            a_sel_o = OP_A_RS1;
            b_sel_o = OP_B_IMM_I;
            mem_req_o = 1'b1;
@@ -130,10 +130,21 @@ module decoder (
            endcase // case (func3)
         end
         JAL_OPCODE: begin
-
+           a_sel_o = OP_A_CURR_PC;
+           b_sel_o = OP_B_IMM_U; // not sure
+           alu_op_o = ALU_ADD;
+           gpr_we_o = 1'b1;
+           jal_o = 1'd1;
         end
         JALR_OPCODE: begin
-
+           a_sel_o = OP_A_RS1;
+           b_sel_o = OP_B_IMM_I;
+           alu_op_o = ALU_ADD;
+           gpr_we_o = 1'b1;
+           wb_sel_o = WB_EX_RESULT;
+           jalr_o = 1'd1;
+           if (func3 != 3'd0) illegal_instr_o = illegal_instr_o | 1'd1;
+           else: illegal_instr_o = illegal_instr_o;
         end
         LUI_OPCODE: begin
 
