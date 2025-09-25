@@ -1,5 +1,5 @@
 module decoder (
-                input logic [31:0] fetcher_instr_i,
+                input logic [31:0] fetched_instr_i,
                 output logic [1:0] a_sel_o,
                 output logic [2:0] b_sel_o,
                 output logic [4:0] alu_op_o,
@@ -23,9 +23,9 @@ module decoder (
    logic [2:0]                     func3;
    logic [6:0]                     func7;
 
-   assign opcode = fetcher_instr_i[6:0];
-   assign func3 = fetcher_instr_i[14:12];
-   assign func7 = fetcher_instr_i[31:25];
+   assign opcode = fetched_instr_i[6:0];
+   assign func3 = fetched_instr_i[14:12];
+   assign func7 = fetched_instr_i[31:25];
 
    always @ (*) begin
       {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
@@ -166,10 +166,10 @@ module decoder (
         end
         SYSTEM_OPCODE: begin
            if (func3 == 3'h0) begin
-              case (fetcher_instr_i[31:7])
+              case (fetched_instr_i[31:7])
                 25'd6307840: mret_o = 1'd1;
                 default: illegal_instr_o = illegal_instr_o | 1'd1;
-              endcase // case (fetcher_instr_i[31:7])
+              endcase // case (fetched_instr_i[31:7])
            end
            else begin
               wb_sel_o = WB_CSR_DATA;
@@ -193,4 +193,4 @@ module decoder (
        mret_o} &= {21{~illegal_instr_o}};
    end
 
-endmodule 
+endmodule
