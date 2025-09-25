@@ -17,13 +17,15 @@ module decoder (
                 output logic       mret_o
                 );
 
+   import decoder_pkg::*;
+
    logic [6:0]                     opcode;
    logic [2:0]                     func3;
    logic [6:0]                     func7;
 
-   assign opcode = fetched_instr_i[6:0];
+   assign opcode = fetcher_instr_i[6:0];
    assign func3 = fetcher_instr_i[14:12];
-   assign func7 = fetched_instr_i[31:25];
+   assign func7 = fetcher_instr_i[31:25];
 
    always @ (*) begin
       a_sel_o = 2'd0;
@@ -40,9 +42,10 @@ module decoder (
       jalr_o = 1'd0;
       mret_o = 1'd0;
       illegal_instr_o = &opcode[1:0]; // in next usages dusjunct with this vaule
-      case (opcode[6:2]) begin
+      case (opcode[6:2])
         OP_OPCODE: begin
-
+           gpr_we_o = 1'd1;
+           wb_sel_o = WB_EX_RESULT;
         end
         OP_IMM_OPCODE: begin
 
