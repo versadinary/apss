@@ -89,7 +89,19 @@ module decoder (
            endcase // case (func3)
         end
         LOAD_OPCODE: begin
-
+           gpr_we_o = 1'd1;
+           wb_sel_o = WB_EX_RESULT;
+           a_sel_o = OP_A_RS1;
+           b_sel_o = OP_B_IMM_I;
+           mem_req_o = 1'b1;
+           case (func3)
+             3'h0: mem_size_o = LDST_B;
+             3'h1: mem_size_o = LDST_H;
+             3'h2: mem_size_o = LDST_W;
+             3'h4: mem_size_o = LDST_BU;
+             3'h5: mem_size_o = LDST_HU;
+             default: illegal_instr_o = illegal_instr_o | 1'd1;
+           endcase // case (func3)
         end
         STORE_OPCODE: begin
 
