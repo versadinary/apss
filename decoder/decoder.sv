@@ -41,7 +41,42 @@ module decoder (
       mret_o = 1'd0;
       illegal_instr_o = &opcode[1:0]; // in next usages dusjunct with this vaule
       case (opcode[6:2]) begin
+        OP_OPCODE: begin
 
+        end
+        OP_IMM_OPCODE: begin
+
+        end
+        LOAD_OPCODE: begin
+
+        end
+        STORE_OPCODE: begin
+
+        end
+        BRANCH_OPCODE: begin
+
+        end
+        JAL_OPCODE: begin
+
+        end
+        JALR_OPCODE: begin
+
+        end
+        LUI_OPCODE: begin
+
+        end
+        AUIPC_OPCODE: begin
+
+        end
+        MISC_MEM_OPCODE: begin
+
+        end
+        SYSTEM_OPCODE: begin
+
+        end
+        default: begin
+
+        end
       endcase // case (opcode)
 
    end
