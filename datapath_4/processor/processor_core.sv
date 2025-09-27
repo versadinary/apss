@@ -74,7 +74,7 @@ module processor_core(
    always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) pc <= 32'd0;
       else begin
-         if (~stall_i) pc <= dec_jalr ? reg_jmp : pc_mut;
+         if (~stall_i) pc <= dec_jalr ? {reg_jmp[31:1], 1'b0} : pc_mut;
          else pc <= pc;
       end
    end
