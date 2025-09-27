@@ -69,7 +69,7 @@ module processor_core(
 
    // program_counter logic
    assign sel_imm = dec_branch ? imm_b : imm_j;
-   assign pc_incr = (dec_jal | alu_flag & dec_branch);
+   assign pc_incr = (dec_jal | alu_flag & dec_branch) ? sel_imm : 32'd4;
 
    always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) pc <= 32'd0;
