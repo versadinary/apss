@@ -17,7 +17,7 @@ module processor_system(
                        .stall_i(stall),
                        .instr_i(rom_ins),
                        .mem_rd_i(mrd),
-                       .isntr_addr_o(rom_addr),
+                       .instr_addr_o(rom_addr),
                        .mem_addr_o(maddr),
                        // .mem_size_o(),
                        .mem_req_o(mreq),
