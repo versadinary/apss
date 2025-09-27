@@ -31,7 +31,8 @@ module processor_core(
 
    // pc and constants
    logic [31:0]                           imm_i, imm_u, imm_s,
-                                          imm_s, imm_b, imm_j, pc;
+                                          imm_s, imm_b, imm_j, pc,
+                                          pc_mut, reg_jmp, pc_incr;
 
    // base assignment
    assign imm_i = {{20{instr_i[31]}}, instr_i[31:20]};
@@ -66,6 +67,7 @@ module processor_core(
    end
 
    // program_counter logic
+
 
    // instantiating
    decoder main_decoder(
@@ -106,7 +108,20 @@ module processor_core(
                 .result_o(alu_res)
                 );
 
+   fulladder32 fadd_pc(
+                       .a_i(pc),
+                       .b_i(pc_incr),
+                       .carry_i(1'b0),
+                       .sum_o(pc_mut)
+                       // .carry_o()
+                       );
 
-
+   fulladder32 fadd_jalr(
+                         .a_i(rf_rd1),
+                         .b_i(imm_i),
+                         .carry_i(1'b0),
+                         .sum_o(reg_jmp)
+                         // .carry_o()
+                         );
 
 endmodule // processor_core
