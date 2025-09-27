@@ -45,6 +45,7 @@ module processor_core(
    assign instr_addr_o = pc;
    assign mem_wd_o = rf_rd2;
    assign mem_addr_o = alu_res;
+   assign rf_we = dec_gpr_we & ~stall_i;
 
    // operate logic
    always @ (*) begin
@@ -67,7 +68,10 @@ module processor_core(
    end
 
    // program_counter logic
+   always @ (*) begin
 
+
+   end
 
    // instantiating
    decoder main_decoder(
