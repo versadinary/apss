@@ -3,37 +3,39 @@ module processor_system(
                         input logic rst_i,
                         );
 
-   logic                            stall;
+   logic                            stall, mwe, mreq;
+   logic [31:0]                     mwd, maddr, mrd, rom_ins, rom_addr;
+
 
 
    processor_core core(
                        .clk_i(clk_i),
                        .rst_i(rst_i),
                        .stall_i(stall),
-                       .instr_i(),
-                       .mem_rd_i(),
-                       .isntr_addr_o(),
-                       .mem_addr_o(),
-                       .mem_size_o(),
-                       .mem_req_o(),
-                       .mem_we_o(),
-                       .mem_wd_o()
+                       .instr_i(rom_ins),
+                       .mem_rd_i(mrd),
+                       .isntr_addr_o(rom_addr),
+                       .mem_addr_o(maddr),
+                       // .mem_size_o(),
+                       .mem_req_o(mreq),
+                       .mem_we_o(mwe),
+                       .mem_wd_o(mwd)
                        );
 
    instr_mem imem(
-                  .read_addr_i(),
-                  .read_data_o()
+                  .read_addr_i(rom_addr),
+                  .read_data_o(rom_ins)
                   );
 
    data_mem dmem(
                  .clk_i(clk_i),
-                 .mem_req_i(),
-                 .write_enable_i(),
-                 .byte_enable_i(),
-                 .addr_i(),
-                 .write_data_i(),
-                 .read_data_o(),
-                 .ready_o()
+                 .mem_req_i(mreq),
+                 .write_enable_i(mwe),
+                 .byte_enable_i(4'b1111),
+                 .addr_i(maddr),
+                 .write_data_i(mwd),
+                 .read_data_o(mrd)
+                 // .ready_o()
                  );
 
 endmodule // processor_system
