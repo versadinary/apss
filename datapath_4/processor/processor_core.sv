@@ -47,7 +47,7 @@ module processor_core(
    assign mem_addr_o = alu_res;
    assign rf_we = dec_gpr_we & ~stall_i;
 
-   // operate logic
+   // operate logic (right side of the diagram)
    always @ (*) begin
       case (dec_a_sel)
         OP_A_RS1: alu_a = rf_rd1;
