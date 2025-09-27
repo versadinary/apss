@@ -30,7 +30,7 @@ module processor_core(
    logic                                  alu_flag;
 
    // pc and constants
-   logic [31:0]                           imm_i, imm_u, imm_s,
+   logic [31:0]                           imm_i, imm_u, imm_s, sel_imm,
                                           imm_s, imm_b, imm_j, pc,
                                           pc_mut, reg_jmp, pc_incr;
 
@@ -68,10 +68,7 @@ module processor_core(
    end
 
    // program_counter logic
-   always @ (*) begin
 
-
-   end
 
    // instantiating
    decoder main_decoder(
