@@ -27,6 +27,10 @@ module processor_core(
    logic [31:0]                           alu_a, alu_b, alu_res;
    logic                                  alu_flag;
 
+   // pc and constants
+   logic [31:0]                           imm_i, imm_u, imm_s,
+                                          imm_s, imm_b, imm_j, pc;
+
    decoder main_decoder(
                         .fetched_instr_i(instr_i),
                         .a_sel_o(dec_a_sel),
