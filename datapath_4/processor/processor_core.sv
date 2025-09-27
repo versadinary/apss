@@ -25,7 +25,7 @@ module processor_core(
    logic [4:0]                            dec_alu_op;
    logic                                  dec_jalr, dec_jal, dec_branch, dec_gpr_we;
 
-   // alu signal
+   // alu signals
    logic [31:0]                           alu_a, alu_b, alu_res;
    logic                                  alu_flag;
 
