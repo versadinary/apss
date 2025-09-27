@@ -12,6 +12,14 @@ module processor_core(
                       output logic [31:0] mem_wd_o
                       );
 
+   // register file signals
+   logic [31:0]                           rf_rd1;
+   logic [31:0]                           rf_rd2;
+   logic [4:0]                            rf_ra1;
+   logic [4:0]                            rf_ra2;
+   logic [4:0]                            rf_wa;
+   logic [31:0]                           wb_data;
+   logic                                  rf_we;
 
 
 endmodule // processor_core
