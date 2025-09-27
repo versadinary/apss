@@ -14,10 +14,6 @@ module processor_core(
 
    import decoder_pkg::*;
 
-   // additional wires for instantiation
-   logic                                  mreq_o = mem_req_o, msize_o = mem_size_o;
-
-
    // register file signals
    logic [31:0]                           rf_rd1, rf_rd2, wb_data;
    logic [4:0]                            rf_ra1, rf_ra2, rf_wa;
@@ -91,15 +87,15 @@ module processor_core(
                         .alu_op_o(dec_alu_op),
                          // .csr_op_o(),
                          // .csr_we_o(),
-                        .mem_req_o(mreq_o),
+                        .mem_req_o(mem_req_o),
                         .mem_we_o(mem_we_o),
-                        .mem_size_o(msize_o),
+                        .mem_size_o(mem_size_o),
                         .gpr_we_o(dec_gpr_we),
                         .wb_sel_o(dec_wb_sel),
                          // .illegal_instr_o(),
                         .branch_o(dec_branch),
                         .jal_o(dec_jal),
-                        .jalr_o(dec_jalr),
+                        .jalr_o(dec_jalr)
                          // .mret_o()
                         );
 
