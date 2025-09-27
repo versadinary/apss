@@ -21,7 +21,7 @@ module processor_core(
    logic [2:0]                            dec_b_sel;
    logic [1:0]                            dec_wb_sel, dec_a_sel;
    logic [4:0]                            dec_alu_op;
-   logic                                  dec_jalr, dec_jal, dec_branch;
+   logic                                  dec_jalr, dec_jal, dec_branch, dec_gpr_we;
 
    // alu signal
    logic                                  alu_flag;
@@ -36,7 +36,7 @@ module processor_core(
                         .mem_req_o(mem_req_o),
                         .mem_we_o(mem_we_o),
                         .mem_size_o(mem_size_o),
-                         // .gpr_we_o(),
+                        .gpr_we_o(dec_gpr_we),
                         .wb_sel_o(dec_wb_sel),
                          // .illegal_instr_o(),
                         .branch_o(dec_branch),
