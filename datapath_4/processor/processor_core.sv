@@ -3,7 +3,7 @@ module processor_core(
                       input logic         rst_i,
                       input logic         stall_i,
                       input logic [31:0]  instr_i,
-                      input logic [31:0]  mem_rd,
+                      input logic [31:0]  mem_rd_i,
                       output logic [31:0] isntr_addr_o,
                       output logic [31:0] mem_addr_o,
                       output logic [2:0]  mem_size_o,
@@ -11,6 +11,8 @@ module processor_core(
                       output logic        mem_we_o,
                       output logic [31:0] mem_wd_o
                       );
+
+   import decoder_pkg::*;
 
    // register file signals
    logic [31:0]                           rf_rd1, rf_rd2, wb_data;
@@ -42,6 +44,28 @@ module processor_core(
    assign instr_addr_o = pc;
    assign mem_wd_o = rf_rd2;
    assign mem_addr_o = alu_res;
+
+   // operate logic
+   always @ (*) begin
+      case (dec_a_sel)
+        OP_A_RS1: alu_a = rf_rd1;
+        OP_A_CURR_PC: alu_a = pc;
+        OP_A_ZERO: alu_a = 32'b0; // no default
+      endcase // case (dec_a_sel)
+      case (dec_b_sel)
+        OP_B_RS2: alu_b = rf_rd2;
+        OP_B_IMM_I: alu_b = imm_i;
+        OP_B_IMM_U: alu_b = imm_u;
+        OP_B_IMM_S: alu_b = imm_s;
+        OP_B_INCR: alu_b = 32'd4; // no default mb illegal_instr handle it but idk
+      endcase // case (dec_b_sel)
+      case (dec_wb_sel)
+        WB_EX_RESULT: wb_data = alu_res;
+        WB_LSU_DATA: wb_data = mem_rd_i;
+      endcase // case (dec_wb_sel)
+   end
+
+   // program_counter logic
 
    // instantiating
    decoder main_decoder(
