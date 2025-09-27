@@ -45,6 +45,17 @@ module processor_core(
                          // .mret_o()
                         );
 
+   register_file rf_main(
+                         .clk_i(clk_i),
+                         .write_enable_i(rf_we),
+                         .write_addr_i(rf_wa),
+                         .read_addr1_i(rf_ra1),
+                         .read_addr2_i(rf_ra2),
+                         .write_data_i(wb_data),
+                         .read_data1_o(rf_rd1),
+                         .read_data2_o(rf_rd2)
+                         );
+
 
 
 endmodule // processor_core
