@@ -68,7 +68,16 @@ module processor_core(
    end
 
    // program_counter logic
+   assign sel_imm = dec_branch ? imm_b : imm_j;
+   assign pc_incr = (dec_jal | alu_flag & dec_branch);
 
+   always @ (posedge clk or posedge rst_i) begin
+      if (rst_i) pc <= 32'd0;
+      else begin
+         if (~stall_i) pc <= dec_jalr ? reg_jmp : pc_mut;
+         else pc <= pc;
+      end
+   end
 
    // instantiating
    decoder main_decoder(
