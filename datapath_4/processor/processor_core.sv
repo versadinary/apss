@@ -13,13 +13,17 @@ module processor_core(
                       );
 
    // register file signals
-   logic [31:0]                           rf_rd1;
-   logic [31:0]                           rf_rd2;
-   logic [4:0]                            rf_ra1;
-   logic [4:0]                            rf_ra2;
-   logic [4:0]                            rf_wa;
-   logic [31:0]                           wb_data;
+   logic [31:0]                           rf_rd1, rf_rd2, wb_data;
+   logic [4:0]                            rf_ra1, rf_ra2, rf_wa;
    logic                                  rf_we;
+
+   // decoder signals
+   logic [2:0]                            dec_mem_size, dec_b_sel;
+   logic [1:0]                            dec_wb_sel, dec_a_sel;
+   logic [4:0]                            dec_alu_op;
+   logic                                  dec_jalr, dec_jal, dec_branch;
+   logic                                  dec_mem_req, dec_mem_we_o;
+
 
 
 endmodule // processor_core
