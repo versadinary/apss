@@ -1,6 +1,6 @@
 module processor_system(
                         input logic clk_i,
-                        input logic rst_i,
+                        input logic rst_i
                         );
 
    logic                            stall, mwe, mreq;
