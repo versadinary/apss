@@ -4,7 +4,7 @@ module processor_core(
                       input logic         stall_i,
                       input logic [31:0]  instr_i,
                       input logic [31:0]  mem_rd_i,
-                      output logic [31:0] isntr_addr_o,
+                      output logic [31:0] instr_addr_o,
                       output logic [31:0] mem_addr_o,
                       output logic [2:0]  mem_size_o,
                       output logic        mem_req_o,
@@ -40,7 +40,7 @@ module processor_core(
    assign imm_s = {{20{instr_i[31]}}, instr_i[31:25], instr_i[11:7]};
    assign imm_b = {{19{instr_i[31]}}, instr_i[31], instr_i[7],
                    instr_i[30:25], instr_i[11:8], 1'b0};
-   assign imm_j = {{11{instr_i[31]}}, instr_i[31], isntr_i[19:12],
+   assign imm_j = {{11{instr_i[31]}}, instr_i[31], instr_i[19:12],
                    instr_i[20], instr_i[30:21], 1'b0};
    assign instr_addr_o = pc;
    assign mem_wd_o = rf_rd2;
