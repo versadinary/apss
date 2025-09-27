@@ -18,11 +18,32 @@ module processor_core(
    logic                                  rf_we;
 
    // decoder signals
-   logic [2:0]                            dec_mem_size, dec_b_sel;
+   logic [2:0]                            dec_b_sel;
    logic [1:0]                            dec_wb_sel, dec_a_sel;
    logic [4:0]                            dec_alu_op;
    logic                                  dec_jalr, dec_jal, dec_branch;
-   logic                                  dec_mem_req, dec_mem_we_o;
+
+   // alu signal
+   logic                                  alu_flag;
+
+   decoder main_decoder(
+                        .fetched_instr_i(instr_i),
+                        .a_sel_o(dec_a_sel),
+                        .b_sel_o(dec_b_sel),
+                        .alu_op_o(dec_alu_op),
+                         // .csr_op_o(),
+                         // .csr_we_o(),
+                        .mem_req_o(mem_req_o),
+                        .mem_we_o(mem_we_o),
+                        .mem_size_o(mem_size_o),
+                         // .gpr_we_o(),
+                        .wb_sel_o(dec_wb_sel),
+                         // .illegal_instr_o(),
+                        .branch_o(dec_branch),
+                        .jal_o(dec_jal),
+                        .jalr_o(dec_jalr),
+                         // .mret_o()
+                        );
 
 
 
