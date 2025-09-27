@@ -24,6 +24,7 @@ module processor_core(
    logic                                  dec_jalr, dec_jal, dec_branch, dec_gpr_we;
 
    // alu signal
+   logic [31:0]                           alu_a, alu_b, alu_res;
    logic                                  alu_flag;
 
    decoder main_decoder(
@@ -55,6 +56,15 @@ module processor_core(
                          .read_data1_o(rf_rd1),
                          .read_data2_o(rf_rd2)
                          );
+
+   alu alu_main(
+                .a_i(alu_a),
+                .b_i(alu_b),
+                .alu_op_i(dec_alu_op),
+                .flag_o(alu_flag),
+                .result_o(alu_res)
+                );
+
 
 
 
