@@ -6,7 +6,10 @@ module processor_system(
    logic                            stall, mwe, mreq;
    logic [31:0]                     mwd, maddr, mrd, rom_ins, rom_addr;
 
-
+   always @ (posedge clk_i or posedge rst_i) begin
+      if (rst_i) stall <= 1'd0;
+      else stall <= ~stall & mreq;
+   end
 
    processor_core core(
                        .clk_i(clk_i),
