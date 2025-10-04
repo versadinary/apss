@@ -3,12 +3,14 @@ module processor_system(
                         input logic rst_i
                         );
 
-   logic                            stall, mwe, mreq;
+   logic                            stall, stall_tg, mwe, mreq;
    logic [31:0]                     mwd, maddr, mrd, rom_ins, rom_addr;
 
+   assign stall = ~stall_tg & mreq;
+
    always @ (posedge clk_i or posedge rst_i) begin
-      if (rst_i) stall <= 1'd0;
-      else stall <= ~stall & mreq;
+      if (rst_i) stall_tg <= 1'd0;
+      else stall_tg <= stall;
    end
 
    processor_core core(
