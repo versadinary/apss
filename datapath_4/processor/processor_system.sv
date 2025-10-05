@@ -8,7 +8,7 @@ module processor_system(
 
    assign stall = ~stall_tg & mreq;
 
-   always @ (posedge clk_i or posedge rst_i) begin
+   always @ (posedge clk_i) begin
       if (rst_i) stall_tg <= 1'd0;
       else stall_tg <= stall;
    end
