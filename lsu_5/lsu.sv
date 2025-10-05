@@ -28,6 +28,10 @@ module lsu(
    assign byte_offset = core_addr_i[1:0];
    assign half_offset = core_addr_i[1];
 
+   assign mem_addr_o = core_addr_i;
+   assign mem_req_o = core_req_i;
+   assign mem_we_o = core_we_i;
+
    // byte enable logic
    always @ (*) begin
       case (core_size_i)
@@ -45,6 +49,40 @@ module lsu(
         LDST_W: mem_wd_o = core_wd_i;
         LDST_B: mem_wd_o = {{4{core_wd_i[7:0]}}};
         default: mem_wd_o = 32'd0;
+      endcase // case (core_size_i)
+   end
+
+   // core read data logic
+   always @ (*) begin
+      case (core_size_i)
+        LDST_W: core_rd_o = mem_rd_i;
+        LDST_B: begin
+           case (byte_offset)
+             2'b00: core_rd_o = {{24{mem_rd_i[7]}}, mem_rd_i[7:0]};
+             2'b01: core_rd_o = {{24{mem_rd_i[15]}}, mem_rd_i[15:8]};
+             2'b10: core_rd_o = {{24{mem_rd_i[23]}}, mem_rd_i[23:16]};
+             2'b11: core_rd_o = {{24{mem_rd_i[31]}}, mem_rd_i[31:24]};
+           endcase // case (byte_offset)
+        end
+        LDST_BU:
+          case (byte_offset)
+             2'b00: core_rd_o = {24'b0, mem_rd_i[7:0]};
+             2'b01: core_rd_o = {24'b0, mem_rd_i[15:8]};
+             2'b10: core_rd_o = {24'b0, mem_rd_i[23:16]};
+             2'b11: core_rd_o = {24'b0, mem_rd_i[31:24]};
+          endcase // case (byte_offset)
+        LDST_H: begin
+           case (half_offset)
+             1'd0: core_rd_o = {{16{mem_rd_i[15]}}, mem_rd_i[15:0]};
+             1'd1: core_rd_o = {{16{mem_rd_i[31]}}, mem_rd_i[31:16]};
+           endcase // case (half_offset)
+        end
+        LDST_HU: begin
+           case (half_offset)
+             1'd0: core_rd_o = {16'd0, mem_rd_i[15:0]};
+             1'd1: core_rd_o = {16'd0, mem_rd_i[31:16]};
+           endcase // case (half_offset)
+        end
       endcase // case (core_size_i)
    end
 
