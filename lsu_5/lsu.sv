@@ -88,7 +88,7 @@ module lsu(
    end
 
    // core stall logic
-   always @ (posedge clk) begin
+   always @ (posedge clk_i) begin
       if (rst_i) stall_tg <= 1'b0;
       else stall_tg <= stall_comb;
    end
