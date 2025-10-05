@@ -55,7 +55,7 @@ module processor_system(
                  .byte_enable_i(dmem_be),
                  .addr_i(dmem_a),
                  .write_data_i(dmem_a),
-                 .read_data_o(dmem_rd)
+                 .read_data_o(dmem_rd),
                  .ready_o(ready)
                  );
 
