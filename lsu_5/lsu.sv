@@ -25,6 +25,7 @@ module lsu(
 
    logic [1:0]                 byte_offset;
    logic                       half_offset;
+   logic                       stall_tg, stall_comb;
    assign byte_offset = core_addr_i[1:0];
    assign half_offset = core_addr_i[1];
 
@@ -85,5 +86,13 @@ module lsu(
         end
       endcase // case (core_size_i)
    end
+
+   // core stall logic
+   always @ (posedge clk) begin
+      if (rst_i) stall_tg <= 1'b0;
+      else stall_tg <= stall_comb;
+   end
+
+   assign stall_comb = core_req_i & ~(stall_tg & mem_ready_i);
 
 endmodule // lsu
