@@ -1,6 +1,6 @@
 	li x1 0 # result
 	li x2 -23213 # first operand (sw_i)
-	li x3 1 # 1 constant for shifting and last bit checking
+	addi x3 x0 1 # 1 constant for shifting and last bit checking
 	li x4 203 # second operand (a)
 
 loop:
