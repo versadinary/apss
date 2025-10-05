@@ -27,6 +27,25 @@ module processor_system(
                        .mem_wd_o(mwd)
                        );
 
+   lsu lsu_main(
+                .clk_i(),
+                .rst_i(),
+                .core_req_i(),
+                .core_we_i(),
+                .core_size_i(),
+                .core_addr_i(),
+                .core_wd_i(),
+                .core_rd_o(),
+                .core_stall_o(),
+                .mem_req_o(),
+                .mem_we_o(),
+                .mem_be_o(),
+                .mem_addr_o(),
+                .mem_wd_o(),
+                .mem_rd_i(),
+                .mem_ready_i()
+                );
+
    instr_mem imem(
                   .read_addr_i(rom_addr),
                   .read_data_o(rom_ins)
