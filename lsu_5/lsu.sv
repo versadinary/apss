@@ -38,5 +38,14 @@ module lsu(
       endcase // case (core_size_i)
    end
 
+   // memory write data logic
+   always @ (*) begin
+      case (core_size_i)
+        LDST_H: mem_wd_o = {{2{core_wd_i[15:0]}}};
+        LDST_W: mem_wd_o = core_wd_i;
+        LDST_B: mem_wd_o = {{4{core_wd_i[7:0]}}};
+        default: mem_wd_o = 32'd0;
+      endcase // case (core_size_i)
+   end
 
 endmodule // lsu
