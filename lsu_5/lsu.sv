@@ -32,6 +32,7 @@ module lsu(
    assign mem_addr_o = core_addr_i;
    assign mem_req_o = core_req_i;
    assign mem_we_o = core_we_i;
+   assign core_stall_o = stall_comb;
 
    // byte enable logic
    always @ (*) begin
