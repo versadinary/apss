@@ -1,0 +1,14 @@
+0.6
+2018.3
+Dec  7 2018
+00:33:28
+E:/lab1/alu/alu.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
+E:/lab1/alu/alu.srcs/sim_1/new/lab_01_tb_fulladder.sv,1757227554,systemVerilog,,,,lab_01_tb_fulladder,,,,,,,,
+E:/lab1/alu/alu.srcs/sim_1/new/lab_01_tb_fulladder32.sv,1757233455,systemVerilog,,,,lab_01_tb_fulladder32,,,,,,,,
+E:/lab1/alu/alu.srcs/sim_1/new/lab_01_tb_fulladder4.sv,1757228864,systemVerilog,,,,lab_01_tb_fulladder4,,,,,,,,
+E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv,1757245713,systemVerilog,,,,alu_ref;lab_02_tb_alu,,,,,,,,
+E:/lab1/alu/alu.srcs/sources_1/new/alu.sv,1757245601,systemVerilog,,E:/lab1/alu/alu.srcs/sources_1/new/fulladder.sv,,alu,,,,,,,,
+E:/lab1/alu/alu.srcs/sources_1/new/alu_opcodes_pkg.sv,1757242751,systemVerilog,E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv;E:/lab1/alu/alu.srcs/sources_1/new/alu.sv,E:/lab1/alu/alu.srcs/sources_1/new/alu.sv,,alu_opcodes_pkg,,,,,,,,
+E:/lab1/alu/alu.srcs/sources_1/new/fulladder.sv,1757230451,systemVerilog,,E:/lab1/alu/alu.srcs/sources_1/new/fulladder32.sv,,fulladder,,,,,,,,
+E:/lab1/alu/alu.srcs/sources_1/new/fulladder32.sv,1757233752,systemVerilog,,E:/lab1/alu/alu.srcs/sources_1/new/fulladder4.sv,,fulladder32,,,,,,,,
+E:/lab1/alu/alu.srcs/sources_1/new/fulladder4.sv,1757232210,systemVerilog,,E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv,,fulladder4,,,,,,,,

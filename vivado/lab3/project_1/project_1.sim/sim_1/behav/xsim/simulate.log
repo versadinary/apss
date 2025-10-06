@@ -1,0 +1,8 @@
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Test has been started
+
+Test has been finished
+Number of errors:           0
+
+$finish called at time : 211665 ns : File "E:/lab3/project_1/project_1.srcs/sim_1/new/lab_05_tb_decoder.sv" Line 139

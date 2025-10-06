@@ -1,0 +1,15 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: E:/vivado/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 4d4d7e5264524db1b505363b42d8d07e --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot lab_02_tb_alu_behav xil_defaultlib.lab_02_tb_alu xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:103]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:113]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:139]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:148]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:157]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:167]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:186]
+WARNING: [VRFC 10-3597] non-void function 'randomize' called as a task without void casting [E:/lab1/alu/alu.srcs/sim_1/new/lab_02_tb_alu.sv:187]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

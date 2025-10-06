@@ -1,0 +1,12 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: E:/vivado/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 560fad31fc344444bd91f39fa4f99634 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot lab_07_tb_processor_system_behav xil_defaultlib.lab_07_tb_processor_system xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'mem_rd_i' [E:/lab5/l5_lsu/processor/processor_system.sv:42]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'read_data_o' [E:/lab5/l5_lsu/processor/processor_system.sv:58]
+Completed static elaboration
+WARNING: [XSIM 43-4455] File "E:/lab4/datapath_4/tb/lab_07_tb_processor_system.sv" Line 36 : Unsupported feature in assertion/property/sequence 'past'. It will be ignored.
+WARNING: [XSIM 43-4127] File "E:/lab4/datapath_4/tb/lab_07_tb_processor_system.sv" Line 36 : The "System Verilog Assertion" is not supported yet for simulation. The statement will be ignored.
+WARNING: [XSIM 43-4127] File "E:/lab4/datapath_4/tb/lab_07_tb_processor_system.sv" Line 41 : The "System Verilog Assertion" is not supported yet for simulation. The statement will be ignored.
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

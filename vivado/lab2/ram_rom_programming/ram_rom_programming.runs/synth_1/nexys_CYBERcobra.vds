@@ -1,0 +1,505 @@
+#-----------------------------------------------------------
+# Vivado v2018.3 (64-bit)
+# SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+# IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+# Start of session at: Tue Sep 16 15:02:14 2025
+# Process ID: 5860
+# Current directory: E:/lab2/ram_rom_programming/ram_rom_programming.runs/synth_1
+# Command line: vivado.exe -log nexys_CYBERcobra.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source nexys_CYBERcobra.tcl
+# Log file: E:/lab2/ram_rom_programming/ram_rom_programming.runs/synth_1/nexys_CYBERcobra.vds
+# Journal file: E:/lab2/ram_rom_programming/ram_rom_programming.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source nexys_CYBERcobra.tcl -notrace
+Command: synth_design -top nexys_CYBERcobra -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 13376 
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 430.871 ; gain = 98.055
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'nexys_CYBERcobra' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:65]
+	Parameter ILL_INSTR_MSG bound to: 128'b00000000000000000000000000011100000000000000000000000000000100010000000000000000000000000001000100000000000000000000000000011110 
+INFO: [Synth 8-6157] synthesizing module 'char2semseg' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:293]
+	Parameter HEX_ONLY bound to: 1'b0 
+	Parameter BLANK bound to: 7'b1111111 
+INFO: [Synth 8-6155] done synthesizing module 'char2semseg' (1#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:293]
+INFO: [Synth 8-6157] synthesizing module 'sync' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:427]
+	Parameter SYNC_STAGES bound to: 32'b00000000000000000000000000000011 
+INFO: [Synth 8-6155] done synthesizing module 'sync' (2#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:427]
+INFO: [Synth 8-6157] synthesizing module 'debounce' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:401]
+	Parameter MAX_COUNT bound to: 32'b00000000000000000010011100010000 
+	Parameter COUNTER_WIDTH bound to: 32'sb00000000000000000000000000001110 
+INFO: [Synth 8-6155] done synthesizing module 'debounce' (3#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:401]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [E:/vivado/Vivado/2018.3/scripts/rt/data/unisim_comp.v:609]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (4#1) [E:/vivado/Vivado/2018.3/scripts/rt/data/unisim_comp.v:609]
+INFO: [Synth 8-6157] synthesizing module 'CYBERcobra' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/CYBERcobra.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'fulladder32' [E:/lab1/alu/alu.srcs/sources_1/new/fulladder32.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'fulladder4' [E:/lab1/alu/alu.srcs/sources_1/new/fulladder4.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'fulladder' [E:/lab1/alu/alu.srcs/sources_1/new/fulladder.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'fulladder' (5#1) [E:/lab1/alu/alu.srcs/sources_1/new/fulladder.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'fulladder4' (6#1) [E:/lab1/alu/alu.srcs/sources_1/new/fulladder4.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'fulladder32' (7#1) [E:/lab1/alu/alu.srcs/sources_1/new/fulladder32.sv:1]
+WARNING: [Synth 8-350] instance 'pc_adder' of module 'fulladder32' requires 5 connections, but only 4 given [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/CYBERcobra.sv:21]
+INFO: [Synth 8-6157] synthesizing module 'instr_mem' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/instr_mem.sv:1]
+INFO: [Synth 8-3876] $readmem data file 'program1.mem' is read successfully [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/instr_mem.sv:14]
+INFO: [Synth 8-6155] done synthesizing module 'instr_mem' (8#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/instr_mem.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'register_file' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/register_file.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'register_file' (9#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/register_file.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'alu' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/alu.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'alu' (10#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/alu.sv:1]
+WARNING: [Synth 8-567] referenced signal 'instr_bus' should be on the sensitivity list [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/CYBERcobra.sv:98]
+WARNING: [Synth 8-567] referenced signal 'alu_result' should be on the sensitivity list [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/CYBERcobra.sv:98]
+WARNING: [Synth 8-567] referenced signal 'sw_i' should be on the sensitivity list [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/CYBERcobra.sv:98]
+INFO: [Synth 8-6155] done synthesizing module 'CYBERcobra' (11#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/CYBERcobra.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'nexys_CYBERcobra_decoder' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:216]
+INFO: [Synth 8-6155] done synthesizing module 'nexys_CYBERcobra_decoder' (12#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:216]
+INFO: [Synth 8-155] case statement is not full and has no default [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:131]
+INFO: [Synth 8-6157] synthesizing module 'semseg_one2many' [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:350]
+	Parameter SEMSEGS_NUM bound to: 32'b00000000000000000000000000001000 
+	Parameter COUNTER_WIDTH bound to: 32'sb00000000000000000000000000001010 
+INFO: [Synth 8-294] found qualifier unique on case statement: implementing as parallel_case [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:383]
+INFO: [Synth 8-6155] done synthesizing module 'semseg_one2many' (13#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:350]
+INFO: [Synth 8-6155] done synthesizing module 'nexys_CYBERcobra' (14#1) [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:65]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[22]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[21]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[20]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[19]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[18]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[17]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[16]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[15]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[14]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[13]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[12]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[11]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[10]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[9]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[8]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[7]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[6]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[5]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[4]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[3]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[2]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[1]
+WARNING: [Synth 8-3331] design nexys_CYBERcobra_decoder has unconnected port instr_i[0]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 486.980 ; gain = 154.164
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[31] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[30] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[29] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[28] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[27] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[26] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[25] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[24] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin nexys_CYBERcobra_decoder:instr_i[23] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:120]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[2].char2semseg:char_i[3] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[2].char2semseg:char_i[2] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[2].char2semseg:char_i[1] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[2].char2semseg:char_i[0] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[3].char2semseg:char_i[3] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[3].char2semseg:char_i[2] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[3].char2semseg:char_i[1] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+WARNING: [Synth 8-3295] tying undriven pin CHAR2SEMSEG_GEN[3].char2semseg:char_i[0] to constant 0 [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/nexys_cybercobra.sv:172]
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 486.980 ; gain = 154.164
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 486.980 ; gain = 154.164
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/constrs_1/new/nexys_a7_100t.xdc]
+Finished Parsing XDC File [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/constrs_1/new/nexys_a7_100t.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [E:/lab2/ram_rom_programming/ram_rom_programming.srcs/constrs_1/new/nexys_a7_100t.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/nexys_CYBERcobra_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/nexys_CYBERcobra_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 831.156 ; gain = 0.000
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 831.215 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 831.215 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.006 . Memory (MB): peak = 831.215 ; gain = 0.000
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 831.215 ; gain = 498.398
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:09 ; elapsed = 00:00:11 . Memory (MB): peak = 831.215 ; gain = 498.398
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:09 ; elapsed = 00:00:12 . Memory (MB): peak = 831.215 ; gain = 498.398
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5544] ROM "ROM" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5546] ROM "alu_op_type" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-5545] ROM "semseg" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:09 ; elapsed = 00:00:12 . Memory (MB): peak = 831.215 ; gain = 498.398
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
+	   2 Input     10 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
+	   3 Input      1 Bit         XORs := 64    
+	   2 Input      1 Bit         XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 1     
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
++---Muxes : 
+	  13 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 4     
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input      7 Bit        Muxes := 16    
+	   6 Input      7 Bit        Muxes := 4     
+	   2 Input      6 Bit        Muxes := 1     
+	  17 Input      6 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   4 Input      4 Bit        Muxes := 1     
+	   3 Input      3 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module nexys_CYBERcobra 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      7 Bit        Muxes := 8     
+	   6 Input      7 Bit        Muxes := 4     
+	  17 Input      6 Bit        Muxes := 1     
+Module sync 
+Detailed RTL Component Info : 
++---Registers : 
+	                3 Bit    Registers := 1     
+Module debounce 
+Detailed RTL Component Info : 
++---Registers : 
+	                1 Bit    Registers := 1     
+Module fulladder 
+Detailed RTL Component Info : 
++---XORs : 
+	   3 Input      1 Bit         XORs := 1     
+Module instr_mem 
+Detailed RTL Component Info : 
++---Muxes : 
+	  13 Input     32 Bit        Muxes := 1     
+Module register_file 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 2     
+Module alu 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	   2 Input      1 Bit        Muxes := 1     
+Module CYBERcobra 
+Detailed RTL Component Info : 
++---Registers : 
+	               32 Bit    Registers := 1     
++---Muxes : 
+	   4 Input     32 Bit        Muxes := 1     
+	   2 Input     32 Bit        Muxes := 1     
+Module nexys_CYBERcobra_decoder 
+Detailed RTL Component Info : 
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---Muxes : 
+	   2 Input      6 Bit        Muxes := 1     
+	   2 Input      5 Bit        Muxes := 1     
+	   4 Input      4 Bit        Muxes := 1     
+	   3 Input      3 Bit        Muxes := 1     
+Module semseg_one2many 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     10 Bit       Adders := 1     
++---Registers : 
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 1     
+Module char2semseg 
+Detailed RTL Component Info : 
++---Muxes : 
+	   2 Input      7 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-5546] ROM "nexys_CYBERcobra_decoder/alu_op_type" won't be mapped to RAM because it is too sparse
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\dut/PC_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\dut/PC_reg[1] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:21 . Memory (MB): peak = 831.215 ; gain = 498.398
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+ROM:
++-----------------+---------------------------------------+---------------+----------------+
+|Module Name      | RTL Object                            | Depth x Width | Implemented As | 
++-----------------+---------------------------------------+---------------+----------------+
+|nexys_CYBERcobra | op_chars                              | 32x6          | LUT            | 
+|nexys_CYBERcobra | op_chars                              | 32x6          | LUT            | 
+|nexys_CYBERcobra | op_chars                              | 32x6          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[0].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[1].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[2].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[3].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[4].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[5].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[6].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | CHAR2SEMSEG_GEN[7].char2semseg/semseg | 32x7          | LUT            | 
+|nexys_CYBERcobra | op_chars                              | 32x6          | LUT            | 
+|nexys_CYBERcobra | op_chars                              | 32x6          | LUT            | 
+|nexys_CYBERcobra | op_chars                              | 32x6          | LUT            | 
++-----------------+---------------------------------------+---------------+----------------+
+
+
+Distributed RAM: Preliminary Mapping  Report (see note below)
++-----------------+------------------------+-----------+----------------------+---------------+
+|Module Name      | RTL Object             | Inference | Size (Depth x Width) | Primitives    | 
++-----------------+------------------------+-----------+----------------------+---------------+
+|nexys_CYBERcobra | dut/rf_main/rf_mem_reg | Implied   | 32 x 32              | RAM32M x 12   | 
++-----------------+------------------------+-----------+----------------------+---------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 833.836 ; gain = 501.020
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 853.906 ; gain = 521.090
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping  Report
++-----------------+------------------------+-----------+----------------------+---------------+
+|Module Name      | RTL Object             | Inference | Size (Depth x Width) | Primitives    | 
++-----------------+------------------------+-----------+----------------------+---------------+
+|nexys_CYBERcobra | dut/rf_main/rf_mem_reg | Implied   | 32 x 32              | RAM32M x 12   | 
++-----------------+------------------------+-----------+----------------------+---------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     2|
+|2     |CARRY4 |    30|
+|3     |LUT1   |    17|
+|4     |LUT2   |    22|
+|5     |LUT3   |    47|
+|6     |LUT4   |   138|
+|7     |LUT5   |   116|
+|8     |LUT6   |   573|
+|9     |RAM32M |    12|
+|10    |FDCE   |    41|
+|11    |FDPE   |     7|
+|12    |FDRE   |    18|
+|13    |IBUF   |    19|
+|14    |OBUF   |    32|
++------+-------+------+
+
+Report Instance Areas: 
++------+------------------+----------------+------+
+|      |Instance          |Module          |Cells |
++------+------------------+----------------+------+
+|1     |top               |                |  1074|
+|2     |  debounce        |debounce        |    32|
+|3     |  dut             |CYBERcobra      |   828|
+|4     |    alu_main      |alu             |    20|
+|5     |    imem          |instr_mem       |   430|
+|6     |    rf_main       |register_file   |   348|
+|7     |  semseg_one2many |semseg_one2many |    62|
+|8     |  sync            |sync            |    20|
++------+------------------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:23 . Memory (MB): peak = 920.211 ; gain = 243.160
+Synthesis Optimization Complete : Time (s): cpu = 00:00:26 ; elapsed = 00:00:29 . Memory (MB): peak = 920.211 ; gain = 587.395
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 42 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 920.211 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 12 instances were transformed.
+  RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 12 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+49 Infos, 44 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:32 . Memory (MB): peak = 920.211 ; gain = 600.449
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 920.211 ; gain = 0.000
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'E:/lab2/ram_rom_programming/ram_rom_programming.runs/synth_1/nexys_CYBERcobra.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file nexys_CYBERcobra_utilization_synth.rpt -pb nexys_CYBERcobra_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Sep 16 15:02:55 2025...
