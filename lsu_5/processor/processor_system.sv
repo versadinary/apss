@@ -6,9 +6,9 @@ module processor_system(
    logic                            stall, stall_tg, mwe, mreq;
    logic [31:0]                     mwd, maddr, mrd, rom_ins, rom_addr;
    logic [2:0]                      msize;
-   logic                            dmem_req, dmem_we, dmem_rd, ready;
+   logic                            dmem_req, dmem_we, ready;
    logic [3:0]                      dmem_be;
-   logic [31:0]                     dmem_wd, dmem_a;
+   logic [31:0]                     dmem_wd, dmem_a, dmem_rd;
 
    processor_core core(
                        .clk_i(clk_i),
