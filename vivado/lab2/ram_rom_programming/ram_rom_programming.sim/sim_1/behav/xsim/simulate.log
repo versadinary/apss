@@ -1,8 +1,0 @@
-Vivado Simulator 2018.3
-Time resolution is 1 ps
-Test has been started
-
- The test is over 
- See the internal signals of the CYBERcobra on the waveform 
-
-$finish called at time : 10010 ns : File "E:/lab2/ram_rom_programming/ram_rom_programming.srcs/sources_1/new/lab_04_tb_cybercobra.sv" Line 26
