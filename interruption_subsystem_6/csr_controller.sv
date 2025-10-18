@@ -40,13 +40,13 @@ module csr_controller(
 
    always @ (*) begin
       case (opcode_i)
-        CSR_RW: csr = rs1_data_i;
-        CSR_RS: csr = rs1_data_i | csr;
-        CSR_RC: csr = ~rs1_data_i & csr;
-        CSR_RWI: csr = imm_data_i;
-        CSR_RSI: csr = csr | imm_data_i;
-        CSR_RCI: csr = csr & ~imm_data_i;
-        default: csr = '0;
+        CSR_RW: reg_data = rs1_data_i;
+        CSR_RS: reg_data = rs1_data_i | csr;
+        CSR_RC: reg_data = ~rs1_data_i & csr;
+        CSR_RWI: reg_data = imm_data_i;
+        CSR_RSI: reg_data = csr | imm_data_i;
+        CSR_RCI: reg_data = csr & ~imm_data_i;
+        default: reg_data = '0;
       endcase // case (opcode_i)
    end
 
