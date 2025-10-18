@@ -1,4 +1,4 @@
-module csr_constroller(
+module csr_controller(
                        input logic         clk_i,
                        input logic         rst_i,
                        input logic         trap_i,
