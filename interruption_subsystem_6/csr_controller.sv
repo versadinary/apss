@@ -66,27 +66,27 @@ module csr_controller(
          if (rst_i) mie_q <= 'd0;
          else mie_q <= reg_data;
       end
-      else mie_en = mie_en;
+      else mie_q = mie_q;
       if (mtvec_en) begin
          if (rst_i) mtvec_q <= 'd0;
          else mtvec_q <= reg_data;
       end
-      else mtvec_en = mtvec_en;
+      else mtvec_q = mtvec_q;
       if (mscratch_en) begin
          if (rst_i) mscratch_q <= 'd0;
          else mscratch_q <= reg_data;
       end
-      else mscratch_en = mscratch_en;
+      else mscratch_q = mscratch_q;
       if (mepc_en) begin
          if (rst_i) mepc_q <= 'd0;
          else mepc_q <= trap_i ? reg_data : pc_i;
       end
-      else mepc_en = mepc_en;
+      else mepc_q = mepc_q;
       if (mcause_en) begin
          if (rst_i) mcause_q <= 'd0;
          else mcause_q <= trap_i ? reg_data : mcause_i;
       end
-      else mcause_en = mcause_en;
+      else mcause_q = mcause_q;
    end
 
    always @ (*) begin
