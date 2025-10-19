@@ -80,7 +80,7 @@ module csr_controller(
       else mscratch_q = mscratch_q;
       if (mepc_en) begin
          if (rst_i) mepc_q <= 'd0;
-         else mepc_q <= trap_i ?  pc_i : reg_data;
+         else mepc_q <= trap_i ? pc_i : reg_data;
       end
       else mepc_q <= mepc_q;
       if (mcause_en) begin
