@@ -63,31 +63,19 @@ module csr_controller(
    end
 
    always @ (posedge clk_i or posedge rst_i) begin
-      if (mie_en) begin
-         if (rst_i) mie_q <= 'd0;
-         else mie_q <= reg_data;
+      if (rst_i) {mie_en, mtvec_en, mscratch_en, mepc_en, mcause_en} = 'd0;
+      else begin
+         if (mie_en) mie_q <= reg_data;
+         else mie_q <= mie_q;
+         if (mtvec_en) mtvec_q <= reg_data;
+         else mtvec_q <= mtvec_q;
+         if (mscratch_en) mscratch_q <= reg_data;
+         else mscratch_q <= mscratch_q;
+         if (mepc_en) mepc_q <= trap_i ? pc_i : reg_data;
+         else mepc_q <= mepc_q;
+         if (mcause_en) mcause_q <= trap_i ? mcause_i : reg_data;
+         else mcause_q <= mcause_q;
       end
-      else mie_q <= mie_q;
-      if (mtvec_en) begin
-         if (rst_i) mtvec_q <= 'd0;
-         else mtvec_q <= reg_data;
-      end
-      else mtvec_q <= mtvec_q;
-      if (mscratch_en) begin
-         if (rst_i) mscratch_q <= 'd0;
-         else mscratch_q <= reg_data;
-      end
-      else mscratch_q = mscratch_q;
-      if (mepc_en) begin
-         if (rst_i) mepc_q <= 'd0;
-         else mepc_q <= trap_i ? pc_i : reg_data;
-      end
-      else mepc_q <= mepc_q;
-      if (mcause_en) begin
-         if (rst_i) mcause_q <= 'd0;
-         else mcause_q <= trap_i ? mcause_i : reg_data;
-      end
-      else mcause_q <= mcause_q;
    end
 
    always @ (*) begin
