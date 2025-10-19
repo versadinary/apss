@@ -37,6 +37,7 @@ module csr_controller(
    assign mie_o = mie_q;
    assign mtvec_o = mtvec_q;
    assign mepc_o = mepc_q;
+   assign read_data_o = csr;
 
    always @ (*) begin
       case (opcode_i)
@@ -79,12 +80,12 @@ module csr_controller(
       else mscratch_q = mscratch_q;
       if (mepc_en) begin
          if (rst_i) mepc_q <= 'd0;
-         else mepc_q <= trap_i ? reg_data : pc_i;
+         else mepc_q <= trap_i ?  pc_i : reg_data;
       end
       else mepc_q <= mepc_q;
       if (mcause_en) begin
          if (rst_i) mcause_q <= 'd0;
-         else mcause_q <= trap_i ? reg_data : mcause_i;
+         else mcause_q <= trap_i ? mcause_i : reg_data;
       end
       else mcause_q <= mcause_q;
    end
