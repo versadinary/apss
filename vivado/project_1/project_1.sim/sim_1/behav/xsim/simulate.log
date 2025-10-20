@@ -1,0 +1,9 @@
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+
+Test has been started.
+
+ The test is over 
+ See the internal signals of the module on the waveform 
+
+$finish called at time : 840 ns : File "E:/lab5/lsu_5/tb/lab_07_tb_processor_system.sv" Line 30

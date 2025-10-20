@@ -1,0 +1,21 @@
+0.6
+2018.3
+Dec  7 2018
+00:33:28
+E:/lab5/lsu_5/alu.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/pkg/csr_pkg.sv,,alu,,,,,,,,
+E:/lab5/lsu_5/data_mem.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/decoder_pkg.sv,,data_mem,,,,,,,,
+E:/lab5/lsu_5/decoder.sv,1759683654,systemVerilog,,E:/lab5/lsu_5/fadd/fulladder.sv,,decoder,,,,,,,,
+E:/lab5/lsu_5/decoder_pkg.sv,1759673284,systemVerilog,E:/lab5/lsu_5/decoder.sv;E:/lab5/lsu_5/lsu.sv;E:/lab5/lsu_5/processor/processor_core.sv,E:/lab5/lsu_5/decoder.sv,,decoder_pkg,,,,,,,,
+E:/lab5/lsu_5/fadd/fulladder.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/fadd/fulladder32.sv,,fulladder,,,,,,,,
+E:/lab5/lsu_5/fadd/fulladder32.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/fadd/fulladder4.sv,,fulladder32,,,,,,,,
+E:/lab5/lsu_5/fadd/fulladder4.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/instr_mem.sv,,fulladder4,,,,,,,,
+E:/lab5/lsu_5/instr_mem.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/lsu.sv,,instr_mem,,,,,,,,
+E:/lab5/lsu_5/lsu.sv,1759684607,systemVerilog,,E:/lab5/lsu_5/processor/processor_core.sv,,lsu,,,,,,,,
+E:/lab5/lsu_5/pkg/alu_opcodes_pkg.sv,1759673247,systemVerilog,E:/lab5/lsu_5/alu.sv;E:/lab5/lsu_5/decoder_pkg.sv,E:/lab5/lsu_5/alu.sv,,alu_opcodes_pkg,,,,,,,,
+E:/lab5/lsu_5/pkg/csr_pkg.sv,1759673247,systemVerilog,E:/lab5/lsu_5/decoder_pkg.sv,E:/lab5/lsu_5/pkg/memory_pkg.sv,,csr_pkg,,,,,,,,
+E:/lab5/lsu_5/pkg/memory_pkg.sv,1759673247,systemVerilog,E:/lab5/lsu_5/data_mem.sv;E:/lab5/lsu_5/instr_mem.sv,E:/lab5/lsu_5/data_mem.sv,,memory_pkg,,,,,,,,
+E:/lab5/lsu_5/processor/processor_core.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/processor/processor_system.sv,,processor_core,,,,,,,,
+E:/lab5/lsu_5/processor/processor_system.sv,1760791676,systemVerilog,,E:/lab5/lsu_5/register_file.sv,,processor_system,,,,,,,,
+E:/lab5/lsu_5/register_file.sv,1759674702,systemVerilog,,E:/lab5/lsu_5/tb/lab_07_tb_processor_system.sv,,register_file,,,,,,,,
+E:/lab5/lsu_5/tb/lab_07_tb_processor_system.sv,1759682957,systemVerilog,,,,lab_07_tb_processor_system,,,,,,,,
+E:/lab5/project_1/project_1.sim/sim_1/behav/xsim/glbl.v,1544155481,verilog,,,,glbl,,,,,,,,
