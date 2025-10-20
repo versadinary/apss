@@ -29,7 +29,7 @@ module interrupt_controller(
 
    assign exc_h_d = exc_rst;
    assign irq_h_d = irq_rst;
-   assign irq_o = ~(exc_set | irq_h_q) & (irq_req_i & mret_i);
+   assign irq_out = ~(exc_set | irq_h_q) & (irq_req_i & mret_i);
    assign irq_ret_o = mret_i & ~exc_set;
    assign irq_o = irq_out;
    assign irq_cause_o = 32'h8000_0010;
