@@ -1,0 +1,27 @@
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+
+
+===========================
+
+Press button 'Run All' (F3)
+
+===========================
+
+
+TEST 01. Granted request.
+TEST 02. Forbidden request.
+TEST 03. Another request while handling previous.
+TEST 04. Request while unhandled exception.
+TEST 05. MRET while handling interrupt only.
+TEST 06. MRET while handling exception only.
+TEST 07. MRET while handling interrupt and exception.
+TEST 08. Two MRETs while handling interrupt and exception.
+TEST 09. MRET while unhandled interrupt and subsequent request.
+TEST 10. MRET while unhandled exception and subsequent request.
+TEST 11. MRET while unhandled interrupt and exception and subsequent request.
+TEST 12. Two MRETs while unhandled interrupt and exception and susbsequent request.
+TEST 13. Request next cycle after excetion.
+TEST 14. Request same cycle with the exception.
+Simulation finished. Number of errors:           0
+$finish called at time : 845 ns : File "E:/lab6/project_1/project_1.srcs/sim_1/new/lab10_tb_irq.sv" Line 54
