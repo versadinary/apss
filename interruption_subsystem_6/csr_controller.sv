@@ -57,8 +57,8 @@ module csr_controller(
         MIE_ADDR: mie_en = write_enable_i;
         MTVEC_ADDR: mtvec_en = write_enable_i;
         MSCRATCH_ADDR: mscratch_en = write_enable_i;
-        MEPC_ADDR: mepc_en = write_enable_i | trap_i;
-        MCAUSE_ADDR: mcause_en = write_enable_i | trap_i;
+        MEPC_ADDR: mepc_en = write_enable_i;
+        MCAUSE_ADDR: mcause_en = write_enable_i;
       endcase // case (addr_i)
    end
 
@@ -71,9 +71,9 @@ module csr_controller(
          else mtvec_q <= mtvec_q;
          if (mscratch_en) mscratch_q <= reg_data;
          else mscratch_q <= mscratch_q;
-         if (mepc_en) mepc_q <= trap_i ? pc_i : reg_data;
+         if (mepc_en | trap_i) mepc_q <= trap_i ? pc_i : reg_data;
          else mepc_q <= mepc_q;
-         if (mcause_en) mcause_q <= trap_i ? mcause_i : reg_data;
+         if (mcause_en | trap_i) mcause_q <= trap_i ? mcause_i : reg_data;
          else mcause_q <= mcause_q;
       end
    end
