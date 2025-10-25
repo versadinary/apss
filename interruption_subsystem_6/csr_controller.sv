@@ -63,7 +63,7 @@ module csr_controller(
    end
 
    always @ (posedge clk_i or posedge rst_i) begin
-      if (rst_i) {mie_en, mtvec_en, mscratch_en, mepc_en, mcause_en} = 'd0;
+      if (rst_i) {mie_q, mtvec_q, mscratch_q, mepc_q, mcause_q} = 'd0;
       else begin
          if (mie_en) mie_q <= reg_data;
          else mie_q <= mie_q;
