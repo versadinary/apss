@@ -19,7 +19,6 @@ module processor_core(
    import decoder_pkg::*;
 
    // interruptions and exceptions logic
-
    csr_controller csr_main(
                            .clk_i(),
                            .rst_i(),
@@ -102,7 +101,7 @@ module processor_core(
         OP_B_IMM_I: alu_b = imm_i;
         OP_B_IMM_U: alu_b = imm_u;
         OP_B_IMM_S: alu_b = imm_s;
-        OP_B_INCR: alu_b = 32'd4; // no default mb illegal_instr handle it but idk
+        OP_B_INCR: alu_b = 32'd4;
       endcase // case (dec_b_sel)
       case (dec_wb_sel)
         WB_EX_RESULT: wb_data = alu_res;
