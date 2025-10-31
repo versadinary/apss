@@ -34,9 +34,7 @@ module processor_core(
    assign mem_req_o = ~trap & dmem_req;
    assign mem_we_o = ~trap & dmem_we;
 
-
    // interruptions and exceptions logic
-
    interrupt_controller irq_main(
                                  clk_i(clk_i),
                                  rst_i(rst_i),
@@ -123,6 +121,7 @@ module processor_core(
       case (dec_wb_sel)
         WB_EX_RESULT: wb_data = alu_res;
         WB_LSU_DATA: wb_data = mem_rd_i;
+        WB_CSR_DATA: wb_data = csr_wd;
       endcase // case (dec_wb_sel)
    end
 
