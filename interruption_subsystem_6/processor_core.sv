@@ -21,6 +21,13 @@ module processor_core(
    logic [31:0]                           irq_cause;
    logic [31:0]                           mie;
    logic [2:0]                            csr_opcode;
+   logic                                  csr_write_en;
+   logic                                  trap;
+   logic [31:0]                           mepc, mtvec;
+
+   assign trap = irq | illegal_inst;
+
+
 
 
    // interruptions and exceptions logic
@@ -41,11 +48,11 @@ module processor_core(
    csr_controller csr_main(
                            .clk_i(clk_i),
                            .rst_i(rst_i),
-                           .trap_i(),
+                           .trap_i(trap),
 
-                           .opcode_i(),
+                           .opcode_i(csr_opcode),
 
-                           .addr_i(),
+                           .addr_i(instr_i[31:20]),
                            .pc_i(),
                            .mcause_i(),
                            .rs1_data_i(),
@@ -54,8 +61,8 @@ module processor_core(
 
                            .read_data_o(),
                            .mie_o(),
-                           .mepc_o(),
-                           .mtvec_o()
+                           .mepc_o(mepc),
+                           .mtvec_o(mtvec)
                            );
 
    // register file signals
@@ -121,7 +128,11 @@ module processor_core(
    always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) pc <= 32'd0;
       else begin
-         if (~stall_i) pc <= dec_jalr ? {reg_jmp[31:1], 1'b0} : pc_mut;
+         if (~stall_i | trap) begin
+            if (mret) pc <= mepc;
+            else if (trap) pc <= mtvec;
+            else pc <= dec_jalr ? {reg_jmp[31:1], 1'b0} : pc_mut;
+         end
          else pc <= pc;
       end
    end
