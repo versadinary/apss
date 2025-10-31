@@ -34,6 +34,7 @@ module processor_core(
    assign mem_req_o = ~trap & dmem_req;
    assign mem_we_o = ~trap & dmem_we;
 
+
    // interruptions and exceptions logic
    interrupt_controller irq_main(
                                  clk_i(clk_i),
