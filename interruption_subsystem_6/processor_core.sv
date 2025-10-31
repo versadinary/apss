@@ -24,6 +24,9 @@ module processor_core(
    logic                                  csr_write_en;
    logic                                  trap;
    logic [31:0]                           mepc, mtvec;
+   logic [31:0]                           imm_z;
+   logic [31:0]                           csr_wd;
+   assign imm_z = {{27{1'd0}}, instr_i[19:15]};
 
    assign trap = irq | illegal_inst;
 
@@ -53,14 +56,14 @@ module processor_core(
                            .opcode_i(csr_opcode),
 
                            .addr_i(instr_i[31:20]),
-                           .pc_i(),
-                           .mcause_i(),
-                           .rs1_data_i(),
-                           .imm_data_i(),
-                           .write_enable_i(),
+                           .pc_i(pc),
+                           .mcause_i(illegal_inst ? 32'h0000_0002 : irq_cause),
+                           .rs1_data_i(rf_rd1),
+                           .imm_data_i(imm_z),
+                           .write_enable_i(csr_write_en),
 
-                           .read_data_o(),
-                           .mie_o(),
+                           .read_data_o(csr_wd),
+                           .mie_o(mie),
                            .mepc_o(mepc),
                            .mtvec_o(mtvec)
                            );
