@@ -30,7 +30,9 @@ module processor_core(
 
    assign trap = irq | illegal_inst;
 
-
+   logic                                  dmem_req, dmem_we;
+   assign mem_req_o = ~trap & dmem_req;
+   assign mem_we_o = ~trap & dmem_we;
 
 
    // interruptions and exceptions logic
@@ -148,8 +150,8 @@ module processor_core(
                         .alu_op_o(dec_alu_op),
                         .csr_op_o(csr_opcode),
                         .csr_we_o(csr_write_en),
-                        .mem_req_o(mem_req_o),
-                        .mem_we_o(mem_we_o),
+                        .mem_req_o(dmem_req),
+                        .mem_we_o(dmem_we),
                         .mem_size_o(mem_size_o),
                         .gpr_we_o(dec_gpr_we),
                         .wb_sel_o(dec_wb_sel),
