@@ -17,11 +17,30 @@ module processor_core(
                       );
 
    import decoder_pkg::*;
+   logic                                  mret, irq, illegal_inst;
+   logic [31:0]                           irq_cause;
+   logic [31:0]                           mie;
+   logic [2:0]                            csr_opcode;
+
 
    // interruptions and exceptions logic
+
+   interrupt_controller irq_main(
+                                 clk_i(clk_i),
+                                 rst_i(rst_i),
+                                 exception_i(illegal_inst),
+                                 irq_req_i(irq_req_i),
+                                 mie_i(mie[16]),
+                                 mret_i(mret),
+
+                                 irq_ret_o(irq_ret_o),
+                                 irq_cause_o(irq_cause),
+                                 irq_o(irq)
+                                 );
+
    csr_controller csr_main(
-                           .clk_i(),
-                           .rst_i(),
+                           .clk_i(clk_i),
+                           .rst_i(rst_i),
                            .trap_i(),
 
                            .opcode_i(),
@@ -38,20 +57,6 @@ module processor_core(
                            .mepc_o(),
                            .mtvec_o()
                            );
-
-   interrupt_controller irq_main(
-                                 clk_i(),
-                                 rst_i(),
-                                 exception_i(),
-                                 irq_req_i(),
-                                 mie_i(),
-                                 mret_i(),
-
-                                 irq_ret_o(),
-                                 irq_cause_o(),
-                                 irq_o()
-                                 );
-
 
    // register file signals
    logic [31:0]                           rf_rd1, rf_rd2, wb_data;
@@ -127,18 +132,18 @@ module processor_core(
                         .a_sel_o(dec_a_sel),
                         .b_sel_o(dec_b_sel),
                         .alu_op_o(dec_alu_op),
-                         // .csr_op_o(),
-                         // .csr_we_o(),
+                        .csr_op_o(csr_opcode),
+                        .csr_we_o(csr_write_en),
                         .mem_req_o(mem_req_o),
                         .mem_we_o(mem_we_o),
                         .mem_size_o(mem_size_o),
                         .gpr_we_o(dec_gpr_we),
                         .wb_sel_o(dec_wb_sel),
-                         // .illegal_instr_o(),
+                        .illegal_instr_o(illegal_inst),
                         .branch_o(dec_branch),
                         .jal_o(dec_jal),
                         .jalr_o(dec_jalr)
-                         // .mret_o()
+                        .mret_o(mret)
                         );
 
    register_file rf_main(
