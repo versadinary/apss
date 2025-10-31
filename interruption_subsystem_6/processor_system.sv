@@ -9,6 +9,7 @@ module processor_system(
    logic                            dmem_req, dmem_we, ready;
    logic [3:0]                      dmem_be;
    logic [31:0]                     dmem_wd, dmem_a, dmem_rd;
+   logic                            irq_req, irq_ret;
 
    processor_core core(
                        .clk_i(clk_i),
@@ -16,12 +17,15 @@ module processor_system(
                        .stall_i(stall),
                        .instr_i(rom_ins),
                        .mem_rd_i(mrd),
+                       .irq_req_i(irq_req),
+
                        .instr_addr_o(rom_addr),
                        .mem_addr_o(maddr),
                        .mem_size_o(msize),
                        .mem_req_o(mreq),
                        .mem_we_o(mwe),
                        .mem_wd_o(mwd)
+                       .irq_ret_o(irq_ret)
                        );
 
    lsu lsu_main(
