@@ -99,7 +99,7 @@ module processor_core(
    assign instr_addr_o = pc;
    assign mem_wd_o = rf_rd2;
    assign mem_addr_o = alu_res;
-   assign rf_we = dec_gpr_we & ~stall_i;
+   assign rf_we = dec_gpr_we & ~(stall_i | trap);
    assign rf_ra1 = instr_i[19:15];
    assign rf_ra2 = instr_i[24:20];
    assign rf_wa = instr_i[11:7];
