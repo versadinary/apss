@@ -24,7 +24,7 @@ module processor_system(
                        .mem_size_o(msize),
                        .mem_req_o(mreq),
                        .mem_we_o(mwe),
-                       .mem_wd_o(mwd)
+                       .mem_wd_o(mwd),
                        .irq_ret_o(irq_ret)
                        );
 
