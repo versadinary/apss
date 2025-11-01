@@ -17,6 +17,28 @@ module processor_core(
                       );
 
    import decoder_pkg::*;
+
+   // register file signals
+   logic [31:0]                           rf_rd1, rf_rd2, wb_data;
+   logic [4:0]                            rf_ra1, rf_ra2, rf_wa;
+   logic                                  rf_we;
+
+   // decoder signals
+   logic [2:0]                            dec_b_sel;
+   logic [1:0]                            dec_wb_sel, dec_a_sel;
+   logic [4:0]                            dec_alu_op;
+   logic                                  dec_jalr, dec_jal, dec_branch, dec_gpr_we;
+
+   // alu signals
+   logic [31:0]                           alu_a, alu_b, alu_res;
+   logic                                  alu_flag;
+
+   // pc and constants
+   logic [31:0]                           imm_i, imm_u, sel_imm,
+                                          imm_s, imm_b, imm_j, pc,
+                                          pc_mut, reg_jmp, pc_incr;
+
+
    logic                                  mret, irq, illegal_inst;
    logic [31:0]                           irq_cause;
    logic [31:0]                           mie;
@@ -69,25 +91,6 @@ module processor_core(
                            .mtvec_o(mtvec)
                            );
 
-   // register file signals
-   logic [31:0]                           rf_rd1, rf_rd2, wb_data;
-   logic [4:0]                            rf_ra1, rf_ra2, rf_wa;
-   logic                                  rf_we;
-
-   // decoder signals
-   logic [2:0]                            dec_b_sel;
-   logic [1:0]                            dec_wb_sel, dec_a_sel;
-   logic [4:0]                            dec_alu_op;
-   logic                                  dec_jalr, dec_jal, dec_branch, dec_gpr_we;
-
-   // alu signals
-   logic [31:0]                           alu_a, alu_b, alu_res;
-   logic                                  alu_flag;
-
-   // pc and constants
-   logic [31:0]                           imm_i, imm_u, sel_imm,
-                                          imm_s, imm_b, imm_j, pc,
-                                          pc_mut, reg_jmp, pc_incr;
 
    // base assignment
    assign imm_i = {{20{instr_i[31]}}, instr_i[31:20]};
