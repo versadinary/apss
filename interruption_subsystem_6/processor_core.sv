@@ -12,7 +12,7 @@ module processor_core(
                       output logic [2:0]  mem_size_o,
                       output logic        mem_req_o,
                       output logic        mem_we_o,
-                      output logic [31:0] mem_wd_o
+                      output logic [31:0] mem_wd_o,
                       output logic        irq_ret_o
                       );
 
@@ -37,16 +37,16 @@ module processor_core(
 
    // interruptions and exceptions logic
    interrupt_controller irq_main(
-                                 clk_i(clk_i),
-                                 rst_i(rst_i),
-                                 exception_i(illegal_inst),
-                                 irq_req_i(irq_req_i),
-                                 mie_i(mie[16]),
-                                 mret_i(mret),
+                                 .clk_i(clk_i),
+                                 .rst_i(rst_i),
+                                 .exception_i(illegal_inst),
+                                 .irq_req_i(irq_req_i),
+                                 .mie_i(mie[16]),
+                                 .mret_i(mret),
 
-                                 irq_ret_o(irq_ret_o),
-                                 irq_cause_o(irq_cause),
-                                 irq_o(irq)
+                                 .irq_ret_o(irq_ret_o),
+                                 .irq_cause_o(irq_cause),
+                                 .irq_o(irq)
                                  );
 
    csr_controller csr_main(
@@ -158,7 +158,7 @@ module processor_core(
                         .illegal_instr_o(illegal_inst),
                         .branch_o(dec_branch),
                         .jal_o(dec_jal),
-                        .jalr_o(dec_jalr)
+                        .jalr_o(dec_jalr),
                         .mret_o(mret)
                         );
 
