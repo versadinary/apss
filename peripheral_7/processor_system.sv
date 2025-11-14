@@ -122,8 +122,8 @@ module processor_system(
                    .write_data_i(lsu_wd),
                    .write_enable_i(lsu_we),
                    .read_data_o(ps2_rd),
-                   .interrupt_request_o(),
-                   .interrupt_return_i(),
+                   .interrupt_request_o(irq_req),
+                   .interrupt_return_i(irq_ret),
                    .kclk_i(kclk_i),
                    .kdata_i(kdata_i)
                    );
