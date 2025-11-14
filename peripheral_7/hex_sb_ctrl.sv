@@ -64,20 +64,19 @@ module hex_sb_ctrl(
          endcase
       end
       else if (req_i) begin
-         32'h00: read_data_o <= {0, hex0};
-         32'h04: read_data_o <= {0, hex1};
-         32'h08: read_data_o <= {0, hex2};
-         32'h0C: read_data_o <= {0, hex3};
-         32'h10: read_data_o <= {0, hex4};
-         32'h14: read_data_o <= {0, hex5};
-         32'h18: read_data_o <= {0, hex6};
-         32'h1C: read_data_o <= {0, hex7};
-         32'h20: read_data_o <= {0, bitmask};
-         default: read_data_o <= read_data_o;
+         case (addr_i)
+           32'h00: read_data_o <= {0, hex0};
+           32'h04: read_data_o <= {0, hex1};
+           32'h08: read_data_o <= {0, hex2};
+           32'h0C: read_data_o <= {0, hex3};
+           32'h10: read_data_o <= {0, hex4};
+           32'h14: read_data_o <= {0, hex5};
+           32'h18: read_data_o <= {0, hex6};
+           32'h1C: read_data_o <= {0, hex7};
+           32'h20: read_data_o <= {0, bitmask};
+           default: read_data_o <= read_data_o;
+         endcase
       end
-
-
-      end
-
-
    end
+
+endmodule
