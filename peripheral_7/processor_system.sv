@@ -23,7 +23,10 @@ module processor_system(
                         output logic        vga_vs_o    // Линия вертикальной синхронизации vga
 
 );
-//...
+
+   import decoder_pkg::*;
+   import peripheral_pkg::*;
+
    logic                                    sysclk, rst;
    sys_clk_rst_gen divider(
                            .ex_clk_i(clk_i),
@@ -43,6 +46,7 @@ module processor_system(
    logic                            irq_req, irq_ret;
    logic [31:0]                     dmem_rd, hex_rd, ps2_rd;
    logic [255:0]                    ohe;
+
    assign ohe = 256'd1 << addr[31:24];
 
    processor_core core(
@@ -88,7 +92,7 @@ module processor_system(
 
    data_mem dmem(
                  .clk_i(sysclk),
-                 .mem_req_i(lsu_req),
+                 .mem_req_i(lsu_req & ohe[DMEM_ADDR_HIGH]),
                  .write_enable_i(lsu_we),
                  .byte_enable_i(lsu_be),
                  .addr_i({8'd0, addr[23:0]}),
@@ -102,7 +106,7 @@ module processor_system(
                    .clk_i(sysclk),
                    .rst_i(rst),
                    .addr_i({8'd0, addr[23:0]}),
-                   .req_i(),
+                   .req_i(lsu_req & ohe[HEX_ADDR_HIGH]),
                    .write_data_i(lsu_wd),
                    .write_enable_i(lsu_we),
                    .read_data_o(hex_rd),
@@ -114,7 +118,7 @@ module processor_system(
                    .clk_i(sysclk),
                    .rst_i(rst),
                    .addr_i({8'd0, addr[23:0]}),
-                   .req_i(),
+                   .req_i(lsu_req & ohe[PS2_ADDR_HIGH]),
                    .write_data_i(lsu_wd),
                    .write_enable_i(lsu_we),
                    .read_data_o(ps2_rd),
