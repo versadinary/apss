@@ -24,6 +24,13 @@ module processor_system(
 
 );
 //...
-   logic                                    test;
+   logic                                    sysclk, rst;
+   sys_clk_rst_gen divider(
+                           .ex_clk_i(clk_i),
+                           .ex_areset_n_i(resetn_i),
+                           .div_i(5),
+                           .sys_clk_o(sysclk),
+                           .sys_reset_o(rst)
+                        );
 
 endmodule
