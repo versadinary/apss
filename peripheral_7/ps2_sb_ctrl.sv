@@ -62,8 +62,8 @@ module ps2_sb_ctrl(
 
   always @ (*) begin
     case (addr_i[7:0])
-      8'h00: read_data_o = {0, scan_code};
-      8'h04: read_data_o = {0, scan_code_is_unread};
+      8'h00: read_data_o = {24'd0, scan_code};
+      8'h04: read_data_o = {31'd0, scan_code_is_unread};
       8'h24: read_data_o = 32'b0;
     endcase
   end
