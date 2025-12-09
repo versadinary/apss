@@ -7,20 +7,26 @@ void int_handler(void) {
 }
 
 unsigned ps2_to_int(unsigned ps2) {
-    unsigned codes[] = {0x45, 0x16, 0x1e, 
-                        0x26, 0x25, 0x2e,
-                        0x36, 0x3d, 0x3e,
-                        0x46, 0x1c, 0x32,
-                        0x21, 0x23, 0x24, 0x26};
+    switch (ps2) {
+        case 0x45: return 0;
+        case 0x26: return 1;
+        case 0x36: return 2;
+        case 0x46: return 3;
+        case 0x21: return 4;
+        case 0x16: return 5;
+        case 0x25: return 6;
+        case 0x3d: return 7;
+        case 0x1c: return 8;
+        case 0x23: return 9;
+        case 0x1e: return 10; 
+        case 0x2e: return 11;
+        case 0x3e: return 12;
+        case 0x32: return 13;
+        case 0x24: return 14; 
+        case 0x2b: return 15;
+    }
 
-    unsigned vals[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                        0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
-
-    int i = 0;
-    for (; i < sizeof(codes) / sizeof(*codes) && ps2 != codes[i]; i++);
-
-    return vals[i];
-
+    return 0;
 }
 
 int scan(unsigned* digit) {
