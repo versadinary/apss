@@ -36,7 +36,7 @@ int scan(unsigned* digit) {
     while (sc == 0xf0);
     if (sc == 0x5a) return 1;
     if (sc == 0x76) return 2;
-    *digit = ps2_to_int(sc);
+    *digit = 12;
 
     return 0;
 }
