@@ -4,6 +4,8 @@ volatile uint32_t sc = 0;
 
 void int_handler(void) {
     sc = ps2_ptr->scan_code;      
+    hex_ptr->bitmask = 1;
+    hex_ptr->hex0 = sc;
 }
 
 unsigned ps2_to_int(unsigned ps2) {
@@ -28,7 +30,7 @@ unsigned ps2_to_int(unsigned ps2) {
 
     return 0;
 }
-
+/*
 int scan(unsigned* digit) {
     sc = 0;
     while (!sc);
@@ -47,13 +49,13 @@ void print(unsigned* digit, unsigned pos) {
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
-
-int main() {
+*/
+int main() { /*
     unsigned d = 0;
     int pos = 0;
     while (scan(&d) < 1) {
         print(&d, pos++);
     }
-
+        */
     return 0;
 }
