@@ -4,8 +4,6 @@ volatile uint32_t sc = 0;
 
 void int_handler(void) {
     sc = ps2_ptr->scan_code;      
-    hex_ptr->bitmask = 1;
-    hex_ptr->hex0 = sc;
 }
 
 unsigned ps2_to_int(unsigned ps2) {
@@ -25,12 +23,12 @@ unsigned ps2_to_int(unsigned ps2) {
         case 0x21: return 12;
         case 0x23: return 13;
         case 0x24: return 14; 
-        case 0x15: return 15;
+        case 0x2b: return 15;
     }
 
     return 0;
 }
-/*
+
 int scan(unsigned* digit) {
     sc = 0;
     while (!sc);
@@ -39,17 +37,40 @@ int scan(unsigned* digit) {
     if (sc == 0x5a) return 1;
     if (sc == 0x76) return 2;
     *digit = ps2_to_int(sc);
-    sc = 0;
 
     return 0;
 }
 
 void print(unsigned* digit, unsigned pos) {
-    *(&hex_ptr->hex0 + pos) = *digit;
+    switch (pos) {
+        case 0: 
+            hex_ptr->hex0 = *digit;
+            break;
+        case 1:
+            hex_ptr->hex1 = *digit;
+            break;
+        case 2:
+            hex_ptr->hex2 = *digit;
+            break;
+        case 3:
+            hex_ptr->hex3 = *digit;
+            break;
+        case 4:
+            hex_ptr->hex4 = *digit;
+            break;
+        case 5:
+            hex_ptr->hex5 = *digit;
+            break;
+        case 6:
+            hex_ptr->hex6 = *digit;
+            break;
+        case 7:
+            hex_ptr->hex7 = *digit;
+    }
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
-*/
+
 int main() { /*
     unsigned d = 0;
     int pos = 0;
@@ -57,5 +78,8 @@ int main() { /*
         print(&d, pos++);
     }
         */
+    unsigned d;
+    scan(&d);
+    print(&d, 1);
     return 0;
 }
