@@ -42,7 +42,7 @@ int scan(unsigned* digit) {
 }
 
 void print(unsigned* digit, unsigned pos) {
-    switch (pos) {
+    /*switch (pos) {
         case 0: 
             hex_ptr->hex0 = *digit;
             break;
@@ -66,7 +66,8 @@ void print(unsigned* digit, unsigned pos) {
             break;
         case 7:
             hex_ptr->hex7 = *digit;
-    }
+    }*/
+    hex_ptr->hex0 = *digit;
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
