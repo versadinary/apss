@@ -36,11 +36,17 @@ int scan(unsigned* digit) {
     return 0;
 }
 
+void print(unsigned* digit, unsigned pos) {
+    *(&hex_ptr->hex0 + pos) = *digit;
+    hex_ptr->bitmask += 1;
+    hex_ptr->bitmask <<= 1;
+}
+
 int main() {
     unsigned d = 0;
+    int pos = 0;
     while (scan(&d) < 1) {
-        hex_ptr->bitmask += 1;
-        hex_ptr->bitmask <<= 1;
+        print(&d, pos++);
     }
 
     return 0;
