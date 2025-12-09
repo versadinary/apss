@@ -27,12 +27,8 @@ int scan(unsigned* digit) {
     sc = 0;
     while (!sc) {
         if (sc == 0x5a) return 1;
-        if (sc == 0x76) {
-            hex_ptr->rst = 1;   
-            return 2;
-        }
+        if (sc == 0x76) return 2;
         *digit = ps2_to_int(sc);
-        hex_ptr->bitmask += 1;
     }
     while (sc != 0xf0);
     while (sc == 0xf0);
@@ -41,11 +37,10 @@ int scan(unsigned* digit) {
 }
 
 int main() {
-    unsigned a = 0, b = 0;
     unsigned d = 0;
     while (scan(&d) < 1) {
-        
-        a <<= 4;
+        hex_ptr->bitmask += 1;
+        hex_ptr->bitmask <<= 1;
     }
 
     return 0;
