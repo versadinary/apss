@@ -9,21 +9,21 @@ void int_handler(void) {
 unsigned ps2_to_int(unsigned ps2) {
     switch (ps2) {
         case 0x45: return 0;
-        case 0x26: return 1;
-        case 0x36: return 2;
-        case 0x46: return 3;
-        case 0x21: return 4;
-        case 0x16: return 5;
-        case 0x25: return 6;
+        case 0x16: return 1;
+        case 0x1e: return 2;
+        case 0x26: return 3;
+        case 0x25: return 4;
+        case 0x2e: return 5;
+        case 0x36: return 6;
         case 0x3d: return 7;
-        case 0x1c: return 8;
-        case 0x23: return 9;
-        case 0x1e: return 10; 
-        case 0x2e: return 11;
-        case 0x3e: return 12;
-        case 0x32: return 13;
+        case 0x3e: return 8;
+        case 0x46: return 9;
+        case 0x1c: return 10; 
+        case 0x32: return 11;
+        case 0x21: return 12;
+        case 0x23: return 13;
         case 0x24: return 14; 
-        case 0x2b: return 15;
+        case 0x15: return 15;
     }
 
     return 0;
