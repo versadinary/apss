@@ -43,8 +43,8 @@ int scan(unsigned* digit) {
 
 void print(unsigned* digit, unsigned pos) {
     *(&hex_ptr->hex0 + pos) = *digit;
-    hex_ptr->bitmask += 1;
     hex_ptr->bitmask <<= 1;
+    hex_ptr->bitmask += 1;
 }
 
 int main() {
