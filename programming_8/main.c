@@ -31,13 +31,12 @@ unsigned ps2_to_int(unsigned ps2) {
 
 int scan(unsigned* digit) {
     sc = 0;
-    while (!sc) {
-        if (sc == 0x5a) return 1;
-        if (sc == 0x76) return 2;
-        *digit = ps2_to_int(sc);
-    }
+    while (!sc);
     while (sc != 0xf0);
     while (sc == 0xf0);
+    if (sc == 0x5a) return 1;
+    if (sc == 0x76) return 2;
+    *digit = ps2_to_int(sc);
 
     return 0;
 }
