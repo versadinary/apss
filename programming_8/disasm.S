@@ -29,7 +29,7 @@ Disassembly of section .text:
 00000040 <_main_call>:
   40:	00000513          	li	a0,0
   44:	00000593          	li	a1,0
-  48:	2ac000ef          	jal	2f4 <main>
+  48:	2d0000ef          	jal	318 <main>
 
 0000004c <_endless_loop>:
   4c:	0000006f          	j	4c <_endless_loop>
@@ -194,43 +194,61 @@ Disassembly of section .text:
  2a0:	02010413          	add	s0,sp,32
  2a4:	fea42623          	sw	a0,-20(s0)
  2a8:	feb42423          	sw	a1,-24(s0)
- 2ac:	040007b7          	lui	a5,0x4000
- 2b0:	fec42703          	lw	a4,-20(s0)
- 2b4:	00072703          	lw	a4,0(a4)
- 2b8:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
- 2bc:	040007b7          	lui	a5,0x4000
- 2c0:	0207a703          	lw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
- 2c4:	040007b7          	lui	a5,0x4000
- 2c8:	00171713          	sll	a4,a4,0x1
- 2cc:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 2ac:	fe842783          	lw	a5,-24(s0)
+ 2b0:	00079a63          	bnez	a5,2c4 <print+0x2c>
+ 2b4:	040007b7          	lui	a5,0x4000
+ 2b8:	fec42703          	lw	a4,-20(s0)
+ 2bc:	00072703          	lw	a4,0(a4)
+ 2c0:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
+ 2c4:	fe842703          	lw	a4,-24(s0)
+ 2c8:	00100793          	li	a5,1
+ 2cc:	00f71a63          	bne	a4,a5,2e0 <print+0x48>
  2d0:	040007b7          	lui	a5,0x4000
- 2d4:	0207a703          	lw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
- 2d8:	040007b7          	lui	a5,0x4000
- 2dc:	00170713          	add	a4,a4,1
- 2e0:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
- 2e4:	00000013          	nop
- 2e8:	01c12403          	lw	s0,28(sp)
- 2ec:	02010113          	add	sp,sp,32
- 2f0:	00008067          	ret
+ 2d4:	fec42703          	lw	a4,-20(s0)
+ 2d8:	00072703          	lw	a4,0(a4)
+ 2dc:	00e7a223          	sw	a4,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
+ 2e0:	040007b7          	lui	a5,0x4000
+ 2e4:	0207a703          	lw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 2e8:	040007b7          	lui	a5,0x4000
+ 2ec:	00171713          	sll	a4,a4,0x1
+ 2f0:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 2f4:	040007b7          	lui	a5,0x4000
+ 2f8:	0207a703          	lw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 2fc:	040007b7          	lui	a5,0x4000
+ 300:	00170713          	add	a4,a4,1
+ 304:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 308:	00000013          	nop
+ 30c:	01c12403          	lw	s0,28(sp)
+ 310:	02010113          	add	sp,sp,32
+ 314:	00008067          	ret
 
-000002f4 <main>:
- 2f4:	fe010113          	add	sp,sp,-32
- 2f8:	00112e23          	sw	ra,28(sp)
- 2fc:	00812c23          	sw	s0,24(sp)
- 300:	02010413          	add	s0,sp,32
- 304:	fec40793          	add	a5,s0,-20
- 308:	00078513          	mv	a0,a5
- 30c:	f05ff0ef          	jal	210 <scan>
- 310:	fec40793          	add	a5,s0,-20
- 314:	00100593          	li	a1,1
- 318:	00078513          	mv	a0,a5
- 31c:	f7dff0ef          	jal	298 <print>
- 320:	00000793          	li	a5,0
- 324:	00078513          	mv	a0,a5
- 328:	01c12083          	lw	ra,28(sp)
- 32c:	01812403          	lw	s0,24(sp)
- 330:	02010113          	add	sp,sp,32
- 334:	00008067          	ret
+00000318 <main>:
+ 318:	fe010113          	add	sp,sp,-32
+ 31c:	00112e23          	sw	ra,28(sp)
+ 320:	00812c23          	sw	s0,24(sp)
+ 324:	02010413          	add	s0,sp,32
+ 328:	fe042423          	sw	zero,-24(s0)
+ 32c:	fe042623          	sw	zero,-20(s0)
+ 330:	0240006f          	j	354 <main+0x3c>
+ 334:	fec42783          	lw	a5,-20(s0)
+ 338:	00178713          	add	a4,a5,1
+ 33c:	fee42623          	sw	a4,-20(s0)
+ 340:	00078713          	mv	a4,a5
+ 344:	fe840793          	add	a5,s0,-24
+ 348:	00070593          	mv	a1,a4
+ 34c:	00078513          	mv	a0,a5
+ 350:	f49ff0ef          	jal	298 <print>
+ 354:	fe840793          	add	a5,s0,-24
+ 358:	00078513          	mv	a0,a5
+ 35c:	eb5ff0ef          	jal	210 <scan>
+ 360:	00050793          	mv	a5,a0
+ 364:	fcf058e3          	blez	a5,334 <main+0x1c>
+ 368:	00000793          	li	a5,0
+ 36c:	00078513          	mv	a0,a5
+ 370:	01c12083          	lw	ra,28(sp)
+ 374:	01812403          	lw	s0,24(sp)
+ 378:	02010113          	add	sp,sp,32
+ 37c:	00008067          	ret
 
 Disassembly of section .data:
 
@@ -377,7 +395,7 @@ Disassembly of section .riscv.attributes:
   18:	7032                	.insn	2, 0x7032
   1a:	5f31                	.insn	2, 0x5f31
   1c:	697a                	.insn	2, 0x697a
-  1e:	32727363          	bgeu	tp,t2,344 <main+0x50>
+  1e:	32727363          	bgeu	tp,t2,344 <main+0x2c>
   22:	3070                	.insn	2, 0x3070
   24:	0800                	.insn	2, 0x0800
   26:	0a01                	.insn	2, 0x0a01

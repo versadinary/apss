@@ -42,6 +42,8 @@ int scan(unsigned* digit) {
 }
 
 void print(unsigned* digit, unsigned pos) {
+    if (pos == 0) hex_ptr->hex0 = *digit; 
+    if (pos == 1) hex_ptr->hex1 = *digit; 
     /*switch (pos) {
         case 0: 
             hex_ptr->hex0 = *digit;
@@ -67,20 +69,16 @@ void print(unsigned* digit, unsigned pos) {
         case 7:
             hex_ptr->hex7 = *digit;
     }*/
-    hex_ptr->hex0 = *digit;
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
 
-int main() { /*
+int main() { 
     unsigned d = 0;
     int pos = 0;
     while (scan(&d) < 1) {
         print(&d, pos++);
     }
-        */
-    unsigned d;
-    scan(&d);
-    print(&d, 1);
+        
     return 0;
 }
