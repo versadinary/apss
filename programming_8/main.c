@@ -1,6 +1,6 @@
 #include "platform.h"
 
-volatile int sc = 0;
+volatile uint32_t sc = 0;
 
 void int_handler(void) {
     sc = ps2_ptr->scan_code;      
