@@ -36,6 +36,12 @@ int scan(unsigned* digit) {
 void print(unsigned* digit, unsigned pos) {
     if (pos == 0) hex_ptr->hex0 = *digit; 
     if (pos == 1) hex_ptr->hex1 = *digit; 
+    if (pos == 2) hex_ptr->hex2 = *digit; 
+    if (pos == 3) hex_ptr->hex3 = *digit; 
+    if (pos == 4) hex_ptr->hex4 = *digit; 
+    if (pos == 5) hex_ptr->hex5 = *digit; 
+    if (pos == 6) hex_ptr->hex6 = *digit; 
+    if (pos == 7) hex_ptr->hex7 = *digit; 
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
