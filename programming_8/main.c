@@ -36,7 +36,7 @@ int scan(unsigned* digit) {
     while (sc == 0xf0);
     if (sc == 0x5a) return 1;
     if (sc == 0x76) return 2;
-    *digit = 12;
+    *digit = sc;
 
     return 0;
 }
@@ -58,7 +58,8 @@ int main() {
     unsigned d = 0;
     int pos = 0;
     while (scan(&d) < 1) {
-        print(&d, pos++);
+        print(&d, pos);
+        pos += 1;
     }
         
     return 0;

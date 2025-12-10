@@ -179,8 +179,8 @@ Disassembly of section .text:
  26c:	00f71663          	bne	a4,a5,278 <scan+0x68>
  270:	00200793          	li	a5,2
  274:	0140006f          	j	288 <_stack_size+0x8>
- 278:	fec42783          	lw	a5,-20(s0)
- 27c:	00c00713          	li	a4,12
+ 278:	0c402703          	lw	a4,196(zero) # c4 <sc>
+ 27c:	fec42783          	lw	a5,-20(s0)
  280:	00e7a023          	sw	a4,0(a5)
  284:	00000793          	li	a5,0
  288:	00078513          	mv	a0,a5
@@ -272,14 +272,14 @@ Disassembly of section .text:
  3d0:	fe042423          	sw	zero,-24(s0)
  3d4:	fe042623          	sw	zero,-20(s0)
  3d8:	0240006f          	j	3fc <main+0x3c>
- 3dc:	fec42783          	lw	a5,-20(s0)
- 3e0:	00178713          	add	a4,a5,1
- 3e4:	fee42623          	sw	a4,-20(s0)
- 3e8:	00078713          	mv	a4,a5
- 3ec:	fe840793          	add	a5,s0,-24
- 3f0:	00070593          	mv	a1,a4
- 3f4:	00078513          	mv	a0,a5
- 3f8:	ea1ff0ef          	jal	298 <print>
+ 3dc:	fec42703          	lw	a4,-20(s0)
+ 3e0:	fe840793          	add	a5,s0,-24
+ 3e4:	00070593          	mv	a1,a4
+ 3e8:	00078513          	mv	a0,a5
+ 3ec:	eadff0ef          	jal	298 <print>
+ 3f0:	fec42783          	lw	a5,-20(s0)
+ 3f4:	00178793          	add	a5,a5,1
+ 3f8:	fef42623          	sw	a5,-20(s0)
  3fc:	fe840793          	add	a5,s0,-24
  400:	00078513          	mv	a0,a5
  404:	e0dff0ef          	jal	210 <scan>
