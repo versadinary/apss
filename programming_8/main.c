@@ -13,24 +13,22 @@ int scan(unsigned* digit) {
     while (sc == 0xf0);
     if (sc == 0x5a) return 1;
     if (sc == 0x76) return 2;
-    switch (sc) {
-        case 0x45: *digit = 0;
-        case 0x16: *digit = 1;
-        case 0x1e: *digit = 2;
-        case 0x26: *digit = 3;
-        case 0x25: *digit = 4;
-        case 0x2e: *digit = 5;
-        case 0x36: *digit = 6;
-        case 0x3d: *digit = 7;
-        case 0x3e: *digit = 8;
-        case 0x46: *digit = 9;
-        case 0x1c: *digit = 10; 
-        case 0x32: *digit = 11;
-        case 0x21: *digit = 12;
-        case 0x23: *digit = 13;
-        case 0x24: *digit = 14; 
-        case 0x2b: *digit = 15;
-    }
+    if (sc == 0x45) *digit = 0;
+    if (sc == 0x16) *digit = 1;
+    if (sc == 0x1e) *digit = 2;
+    if (sc == 0x26) *digit = 3;
+    if (sc == 0x25) *digit = 4;
+    if (sc == 0x2e) *digit = 5;
+    if (sc == 0x36) *digit = 6;
+    if (sc == 0x3d) *digit = 7;
+    if (sc == 0x3e) *digit = 8;
+    if (sc == 0x46) *digit = 9;
+    if (sc == 0x1c) *digit = 10; 
+    if (sc == 0x32) *digit = 11;
+    if (sc == 0x21) *digit = 12;
+    if (sc == 0x23) *digit = 13;
+    if (sc == 0x24) *digit = 14; 
+    if (sc == 0x2b) *digit = 15;
 
     return 0;
 }
