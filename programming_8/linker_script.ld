@@ -27,7 +27,7 @@ ENTRY(_start)                           /* мы сообщаем компоно�
 */
 MEMORY
 {
-  instr_mem (x) : ORIGIN = 0x00000000, LENGTH = 2K
+  instr_mem (x) : ORIGIN = 0x00000000, LENGTH = 1K
   data_mem (!x) : ORIGIN = 0x00000000, LENGTH = 2K
 }
 

@@ -6,29 +6,6 @@ void int_handler(void) {
     sc = ps2_ptr->scan_code;      
 }
 
-unsigned ps2_to_int(unsigned ps2) {
-    switch (ps2) {
-        case 0x45: return 0;
-        case 0x16: return 1;
-        case 0x1e: return 2;
-        case 0x26: return 3;
-        case 0x25: return 4;
-        case 0x2e: return 5;
-        case 0x36: return 6;
-        case 0x3d: return 7;
-        case 0x3e: return 8;
-        case 0x46: return 9;
-        case 0x1c: return 10; 
-        case 0x32: return 11;
-        case 0x21: return 12;
-        case 0x23: return 13;
-        case 0x24: return 14; 
-        case 0x2b: return 15;
-    }
-
-    return 0;
-}
-
 int scan(unsigned* digit) {
     sc = 0;
     while (!sc);
@@ -36,7 +13,24 @@ int scan(unsigned* digit) {
     while (sc == 0xf0);
     if (sc == 0x5a) return 1;
     if (sc == 0x76) return 2;
-    *digit = ps2_to_int(sc);
+    switch (sc) {
+        case 0x45: *digit = 0;
+        case 0x16: *digit = 1;
+        case 0x1e: *digit = 2;
+        case 0x26: *digit = 3;
+        case 0x25: *digit = 4;
+        case 0x2e: *digit = 5;
+        case 0x36: *digit = 6;
+        case 0x3d: *digit = 7;
+        case 0x3e: *digit = 8;
+        case 0x46: *digit = 9;
+        case 0x1c: *digit = 10; 
+        case 0x32: *digit = 11;
+        case 0x21: *digit = 12;
+        case 0x23: *digit = 13;
+        case 0x24: *digit = 14; 
+        case 0x2b: *digit = 15;
+    }
 
     return 0;
 }
@@ -44,12 +38,6 @@ int scan(unsigned* digit) {
 void print(unsigned* digit, unsigned pos) {
     if (pos == 0) hex_ptr->hex0 = *digit; 
     if (pos == 1) hex_ptr->hex1 = *digit; 
-    if (pos == 2) hex_ptr->hex2 = *digit; 
-    if (pos == 3) hex_ptr->hex3 = *digit; 
-    if (pos == 4) hex_ptr->hex4 = *digit; 
-    if (pos == 5) hex_ptr->hex5 = *digit; 
-    if (pos == 6) hex_ptr->hex6 = *digit; 
-    if (pos == 7) hex_ptr->hex7 = *digit; 
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
