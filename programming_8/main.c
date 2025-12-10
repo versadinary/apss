@@ -69,6 +69,30 @@ int main() {
         b <<= 4;
     }
     b >>= 4;
+    unsigned res = 0;
+    hex_ptr->rst = 1;
+    hex_ptr->rst = 0;
+    while (b > 0) {
+        if (b & 1) res += a;
+        a <<= 1;
+        b >>= 1;
+    }
+    hex_ptr->bitmask = 0xff;
+    hex_ptr->hex0 = res;
+    res >>= 4;
+    hex_ptr->hex1 = res;
+    res >>= 4;
+    hex_ptr->hex2 = res;
+    res >>= 4;
+    hex_ptr->hex3 = res;
+    res >>= 4;
+    hex_ptr->hex4 = res;
+    res >>= 4;
+    hex_ptr->hex5 = res;
+    res >>= 4;
+    hex_ptr->hex6 = res;
+    res >>= 4;
+    hex_ptr->hex7 = res;
 
 
     return 0;

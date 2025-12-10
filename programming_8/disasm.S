@@ -305,17 +305,17 @@ Disassembly of section .text:
  464:	00008067          	ret
 
 00000468 <main>:
- 468:	fe010113          	add	sp,sp,-32
- 46c:	00112e23          	sw	ra,28(sp)
- 470:	00812c23          	sw	s0,24(sp)
- 474:	02010413          	add	s0,sp,32
- 478:	fe042023          	sw	zero,-32(s0)
+ 468:	fd010113          	add	sp,sp,-48
+ 46c:	02112623          	sw	ra,44(sp)
+ 470:	02812423          	sw	s0,40(sp)
+ 474:	03010413          	add	s0,sp,48
+ 478:	fc042e23          	sw	zero,-36(s0)
  47c:	fe042623          	sw	zero,-20(s0)
  480:	fe042423          	sw	zero,-24(s0)
  484:	fe042223          	sw	zero,-28(s0)
  488:	0400006f          	j	4c8 <main+0x60>
  48c:	fec42703          	lw	a4,-20(s0)
- 490:	fe040793          	add	a5,s0,-32
+ 490:	fdc40793          	add	a5,s0,-36
  494:	00070593          	mv	a1,a4
  498:	00078513          	mv	a0,a5
  49c:	ea5ff0ef          	jal	340 <print>
@@ -323,13 +323,13 @@ Disassembly of section .text:
  4a4:	00178793          	add	a5,a5,1
  4a8:	fef42623          	sw	a5,-20(s0)
  4ac:	fe842703          	lw	a4,-24(s0)
- 4b0:	fe042783          	lw	a5,-32(s0)
+ 4b0:	fdc42783          	lw	a5,-36(s0)
  4b4:	00f707b3          	add	a5,a4,a5
  4b8:	fef42423          	sw	a5,-24(s0)
  4bc:	fe842783          	lw	a5,-24(s0)
  4c0:	00479793          	sll	a5,a5,0x4
  4c4:	fef42423          	sw	a5,-24(s0)
- 4c8:	fe040793          	add	a5,s0,-32
+ 4c8:	fdc40793          	add	a5,s0,-36
  4cc:	00078513          	mv	a0,a5
  4d0:	c79ff0ef          	jal	148 <scan>
  4d4:	00050793          	mv	a5,a0
@@ -346,10 +346,10 @@ Disassembly of section .text:
  500:	040007b7          	lui	a5,0x4000
  504:	0207a223          	sw	zero,36(a5) # 4000024 <_gbl_ptr+0x3fff824>
  508:	fe042623          	sw	zero,-20(s0)
- 50c:	fe042023          	sw	zero,-32(s0)
+ 50c:	fc042e23          	sw	zero,-36(s0)
  510:	0400006f          	j	550 <main+0xe8>
  514:	fec42703          	lw	a4,-20(s0)
- 518:	fe040793          	add	a5,s0,-32
+ 518:	fdc40793          	add	a5,s0,-36
  51c:	00070593          	mv	a1,a4
  520:	00078513          	mv	a0,a5
  524:	e1dff0ef          	jal	340 <print>
@@ -357,13 +357,13 @@ Disassembly of section .text:
  52c:	00178793          	add	a5,a5,1
  530:	fef42623          	sw	a5,-20(s0)
  534:	fe442703          	lw	a4,-28(s0)
- 538:	fe042783          	lw	a5,-32(s0)
+ 538:	fdc42783          	lw	a5,-36(s0)
  53c:	00f707b3          	add	a5,a4,a5
  540:	fef42223          	sw	a5,-28(s0)
  544:	fe442783          	lw	a5,-28(s0)
  548:	00479793          	sll	a5,a5,0x4
  54c:	fef42223          	sw	a5,-28(s0)
- 550:	fe040793          	add	a5,s0,-32
+ 550:	fdc40793          	add	a5,s0,-36
  554:	00078513          	mv	a0,a5
  558:	bf1ff0ef          	jal	148 <scan>
  55c:	00050793          	mv	a5,a0
@@ -374,12 +374,82 @@ Disassembly of section .text:
  570:	fe442783          	lw	a5,-28(s0)
  574:	4047d793          	sra	a5,a5,0x4
  578:	fef42223          	sw	a5,-28(s0)
- 57c:	00000793          	li	a5,0
- 580:	00078513          	mv	a0,a5
- 584:	01c12083          	lw	ra,28(sp)
- 588:	01812403          	lw	s0,24(sp)
- 58c:	02010113          	add	sp,sp,32
- 590:	00008067          	ret
+ 57c:	fe042023          	sw	zero,-32(s0)
+ 580:	040007b7          	lui	a5,0x4000
+ 584:	00100713          	li	a4,1
+ 588:	02e7a223          	sw	a4,36(a5) # 4000024 <_gbl_ptr+0x3fff824>
+ 58c:	040007b7          	lui	a5,0x4000
+ 590:	0207a223          	sw	zero,36(a5) # 4000024 <_gbl_ptr+0x3fff824>
+ 594:	0380006f          	j	5cc <_stack_ptr+0x4c>
+ 598:	fe442783          	lw	a5,-28(s0)
+ 59c:	0017f793          	and	a5,a5,1
+ 5a0:	00078a63          	beqz	a5,5b4 <_stack_ptr+0x34>
+ 5a4:	fe842783          	lw	a5,-24(s0)
+ 5a8:	fe042703          	lw	a4,-32(s0)
+ 5ac:	00f707b3          	add	a5,a4,a5
+ 5b0:	fef42023          	sw	a5,-32(s0)
+ 5b4:	fe842783          	lw	a5,-24(s0)
+ 5b8:	00179793          	sll	a5,a5,0x1
+ 5bc:	fef42423          	sw	a5,-24(s0)
+ 5c0:	fe442783          	lw	a5,-28(s0)
+ 5c4:	4017d793          	sra	a5,a5,0x1
+ 5c8:	fef42223          	sw	a5,-28(s0)
+ 5cc:	fe442783          	lw	a5,-28(s0)
+ 5d0:	fcf044e3          	bgtz	a5,598 <_stack_ptr+0x18>
+ 5d4:	040007b7          	lui	a5,0x4000
+ 5d8:	0ff00713          	li	a4,255
+ 5dc:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 5e0:	040007b7          	lui	a5,0x4000
+ 5e4:	fe042703          	lw	a4,-32(s0)
+ 5e8:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
+ 5ec:	fe042783          	lw	a5,-32(s0)
+ 5f0:	0047d793          	srl	a5,a5,0x4
+ 5f4:	fef42023          	sw	a5,-32(s0)
+ 5f8:	040007b7          	lui	a5,0x4000
+ 5fc:	fe042703          	lw	a4,-32(s0)
+ 600:	00e7a223          	sw	a4,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
+ 604:	fe042783          	lw	a5,-32(s0)
+ 608:	0047d793          	srl	a5,a5,0x4
+ 60c:	fef42023          	sw	a5,-32(s0)
+ 610:	040007b7          	lui	a5,0x4000
+ 614:	fe042703          	lw	a4,-32(s0)
+ 618:	00e7a423          	sw	a4,8(a5) # 4000008 <_gbl_ptr+0x3fff808>
+ 61c:	fe042783          	lw	a5,-32(s0)
+ 620:	0047d793          	srl	a5,a5,0x4
+ 624:	fef42023          	sw	a5,-32(s0)
+ 628:	040007b7          	lui	a5,0x4000
+ 62c:	fe042703          	lw	a4,-32(s0)
+ 630:	00e7a623          	sw	a4,12(a5) # 400000c <_gbl_ptr+0x3fff80c>
+ 634:	fe042783          	lw	a5,-32(s0)
+ 638:	0047d793          	srl	a5,a5,0x4
+ 63c:	fef42023          	sw	a5,-32(s0)
+ 640:	040007b7          	lui	a5,0x4000
+ 644:	fe042703          	lw	a4,-32(s0)
+ 648:	00e7a823          	sw	a4,16(a5) # 4000010 <_gbl_ptr+0x3fff810>
+ 64c:	fe042783          	lw	a5,-32(s0)
+ 650:	0047d793          	srl	a5,a5,0x4
+ 654:	fef42023          	sw	a5,-32(s0)
+ 658:	040007b7          	lui	a5,0x4000
+ 65c:	fe042703          	lw	a4,-32(s0)
+ 660:	00e7aa23          	sw	a4,20(a5) # 4000014 <_gbl_ptr+0x3fff814>
+ 664:	fe042783          	lw	a5,-32(s0)
+ 668:	0047d793          	srl	a5,a5,0x4
+ 66c:	fef42023          	sw	a5,-32(s0)
+ 670:	040007b7          	lui	a5,0x4000
+ 674:	fe042703          	lw	a4,-32(s0)
+ 678:	00e7ac23          	sw	a4,24(a5) # 4000018 <_gbl_ptr+0x3fff818>
+ 67c:	fe042783          	lw	a5,-32(s0)
+ 680:	0047d793          	srl	a5,a5,0x4
+ 684:	fef42023          	sw	a5,-32(s0)
+ 688:	040007b7          	lui	a5,0x4000
+ 68c:	fe042703          	lw	a4,-32(s0)
+ 690:	00e7ae23          	sw	a4,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
+ 694:	00000793          	li	a5,0
+ 698:	00078513          	mv	a0,a5
+ 69c:	02c12083          	lw	ra,44(sp)
+ 6a0:	02812403          	lw	s0,40(sp)
+ 6a4:	03010113          	add	sp,sp,48
+ 6a8:	00008067          	ret
 
 Disassembly of section .comment:
 
