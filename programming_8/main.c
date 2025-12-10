@@ -46,7 +46,7 @@ void print(unsigned* digit, unsigned pos) {
     hex_ptr->bitmask += 1;
 }
 
-int main() { 
+void product() {
     unsigned d = 0;
     int pos = 0;
     int a = 0;
@@ -94,6 +94,15 @@ int main() {
     res >>= 4;
     hex_ptr->hex7 = res;
 
+}
+
+int main() { 
+    while (1) {
+        int a = 0;
+        product();
+        if (scan(&a) == 1)
+            hex_ptr->rst = 1;
+    }
 
     return 0;
 }
