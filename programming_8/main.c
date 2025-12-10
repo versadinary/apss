@@ -6,7 +6,7 @@ void int_handler(void) {
     sc = ps2_ptr->scan_code;      
 }
 
-/*unsigned ps2_to_int(unsigned ps2) {
+unsigned ps2_to_int(unsigned ps2) {
     switch (ps2) {
         case 0x45: return 0;
         case 0x16: return 1;
@@ -27,7 +27,7 @@ void int_handler(void) {
     }
 
     return 0;
-}*/
+}
 
 int scan(unsigned* digit) {
     sc = 0;
@@ -36,7 +36,7 @@ int scan(unsigned* digit) {
     while (sc == 0xf0);
     if (sc == 0x5a) return 1;
     if (sc == 0x76) return 2;
-    *digit = sc;
+    *digit = ps2_to_int(sc);
 
     return 0;
 }
