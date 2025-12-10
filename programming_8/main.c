@@ -49,10 +49,27 @@ void print(unsigned* digit, unsigned pos) {
 int main() { 
     unsigned d = 0;
     int pos = 0;
-    while (scan(&d) < 1) {
+    int a = 0;
+    int b = 0;
+    while (scan(&d) < 1 && pos < 8) {
         print(&d, pos);
         pos += 1;
+        a += d;
+        a <<= 4;
     }
-        
+    a >>= 4;
+    hex_ptr->rst = 1;
+    hex_ptr->rst = 0;
+    pos = 0;
+    d = 0;
+    while (scan(&d) < 1 && pos < 8) {
+        print(&d, pos);
+        pos += 1;
+        b += d;
+        b <<= 4;
+    }
+    b >>= 4;
+
+
     return 0;
 }
