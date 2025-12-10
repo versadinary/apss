@@ -179,8 +179,8 @@ Disassembly of section .text:
  26c:	00f71663          	bne	a4,a5,278 <scan+0x68>
  270:	00200793          	li	a5,2
  274:	0140006f          	j	288 <_stack_size+0x8>
- 278:	fec42783          	lw	a5,-20(s0)
- 27c:	00c00713          	li	a4,12
+ 278:	0c402703          	lw	a4,196(zero) # c4 <sc>
+ 27c:	fec42783          	lw	a5,-20(s0)
  280:	00e7a023          	sw	a4,0(a5)
  284:	00000793          	li	a5,0
  288:	00078513          	mv	a0,a5
@@ -229,26 +229,28 @@ Disassembly of section .text:
  324:	02010413          	add	s0,sp,32
  328:	fe042423          	sw	zero,-24(s0)
  32c:	fe042623          	sw	zero,-20(s0)
- 330:	0240006f          	j	354 <main+0x3c>
+ 330:	02c0006f          	j	35c <main+0x44>
  334:	fec42783          	lw	a5,-20(s0)
- 338:	00178713          	add	a4,a5,1
- 33c:	fee42623          	sw	a4,-20(s0)
- 340:	00078713          	mv	a4,a5
- 344:	fe840793          	add	a5,s0,-24
- 348:	00070593          	mv	a1,a4
- 34c:	00078513          	mv	a0,a5
- 350:	f49ff0ef          	jal	298 <print>
- 354:	fe840793          	add	a5,s0,-24
- 358:	00078513          	mv	a0,a5
- 35c:	eb5ff0ef          	jal	210 <scan>
- 360:	00050793          	mv	a5,a0
- 364:	fcf058e3          	blez	a5,334 <main+0x1c>
- 368:	00000793          	li	a5,0
- 36c:	00078513          	mv	a0,a5
- 370:	01c12083          	lw	ra,28(sp)
- 374:	01812403          	lw	s0,24(sp)
- 378:	02010113          	add	sp,sp,32
- 37c:	00008067          	ret
+ 338:	00178793          	add	a5,a5,1
+ 33c:	00078713          	mv	a4,a5
+ 340:	fe840793          	add	a5,s0,-24
+ 344:	00070593          	mv	a1,a4
+ 348:	00078513          	mv	a0,a5
+ 34c:	f4dff0ef          	jal	298 <print>
+ 350:	fec42783          	lw	a5,-20(s0)
+ 354:	00178793          	add	a5,a5,1
+ 358:	fef42623          	sw	a5,-20(s0)
+ 35c:	fe840793          	add	a5,s0,-24
+ 360:	00078513          	mv	a0,a5
+ 364:	eadff0ef          	jal	210 <scan>
+ 368:	00050793          	mv	a5,a0
+ 36c:	fcf054e3          	blez	a5,334 <main+0x1c>
+ 370:	00000793          	li	a5,0
+ 374:	00078513          	mv	a0,a5
+ 378:	01c12083          	lw	ra,28(sp)
+ 37c:	01812403          	lw	s0,24(sp)
+ 380:	02010113          	add	sp,sp,32
+ 384:	00008067          	ret
 
 Disassembly of section .data:
 
