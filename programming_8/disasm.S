@@ -179,8 +179,8 @@ Disassembly of section .text:
  26c:	00f71663          	bne	a4,a5,278 <scan+0x68>
  270:	00200793          	li	a5,2
  274:	0140006f          	j	288 <_stack_size+0x8>
- 278:	0c402703          	lw	a4,196(zero) # c4 <sc>
- 27c:	fec42783          	lw	a5,-20(s0)
+ 278:	fec42783          	lw	a5,-20(s0)
+ 27c:	00c00713          	li	a4,12
  280:	00e7a023          	sw	a4,0(a5)
  284:	00000793          	li	a5,0
  288:	00078513          	mv	a0,a5
