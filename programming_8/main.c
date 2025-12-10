@@ -6,7 +6,7 @@ void int_handler(void) {
     sc = ps2_ptr->scan_code;      
 }
 
-unsigned ps2_to_int(unsigned ps2) {
+/*unsigned ps2_to_int(unsigned ps2) {
     switch (ps2) {
         case 0x45: return 0;
         case 0x16: return 1;
@@ -27,7 +27,7 @@ unsigned ps2_to_int(unsigned ps2) {
     }
 
     return 0;
-}
+}*/
 
 int scan(unsigned* digit) {
     sc = 0;
@@ -44,31 +44,12 @@ int scan(unsigned* digit) {
 void print(unsigned* digit, unsigned pos) {
     if (pos == 0) hex_ptr->hex0 = *digit; 
     if (pos == 1) hex_ptr->hex1 = *digit; 
-    /*switch (pos) {
-        case 0: 
-            hex_ptr->hex0 = *digit;
-            break;
-        case 1:
-            hex_ptr->hex1 = *digit;
-            break;
-        case 2:
-            hex_ptr->hex2 = *digit;
-            break;
-        case 3:
-            hex_ptr->hex3 = *digit;
-            break;
-        case 4:
-            hex_ptr->hex4 = *digit;
-            break;
-        case 5:
-            hex_ptr->hex5 = *digit;
-            break;
-        case 6:
-            hex_ptr->hex6 = *digit;
-            break;
-        case 7:
-            hex_ptr->hex7 = *digit;
-    }*/
+    if (pos == 2) hex_ptr->hex2 = *digit; 
+    if (pos == 3) hex_ptr->hex3 = *digit; 
+    if (pos == 4) hex_ptr->hex4 = *digit; 
+    if (pos == 5) hex_ptr->hex5 = *digit; 
+    if (pos == 6) hex_ptr->hex6 = *digit; 
+    if (pos == 7) hex_ptr->hex7 = *digit; 
     hex_ptr->bitmask <<= 1;
     hex_ptr->bitmask += 1;
 }
@@ -77,8 +58,7 @@ int main() {
     unsigned d = 0;
     int pos = 0;
     while (scan(&d) < 1) {
-        print(&d, pos + 1);
-        pos += 1;
+        print(&d, pos++);
     }
         
     return 0;
