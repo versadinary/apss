@@ -104,10 +104,10 @@ module bluster
 
     /* ~fsm */
 
-    /* uart_tx signalos */
+    /* uart_tx signals */
 
     assign tx_valid = (!tx_busy) && (state == INIT_MSG || state == SIZE_ACK || state == FLASH_ACK);
-    always_comb begin 
+    always_comb begin
         case (state)
             INIT_MSG: tx_data = init_msg;
             SIZE_ACK: tx_data = flash_size;
@@ -116,7 +116,7 @@ module bluster
         endcase
     end
 
-    /* ~uart_tx signalos */
+    /* ~uart_tx signals */
 
     /* imem interface */
 

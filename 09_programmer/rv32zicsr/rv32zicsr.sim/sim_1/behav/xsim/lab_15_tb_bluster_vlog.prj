@@ -1,0 +1,16 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../pkg/memory_pkg.sv" \
+"../../../../../pkg/bluster_pkg.sv" \
+"../../../../../rtl/system/bluster.sv" \
+"../../../../../rtl/dev/data_mem.sv" \
+"../../../../../rtl/system/rw_instr_mem.sv" \
+"../../../../../rtl/dev/uart_rx.sv" \
+"../../../../../rtl/dev/uart_tx.sv" \
+"../../../../../tb/lab_15_tb_bluster.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
