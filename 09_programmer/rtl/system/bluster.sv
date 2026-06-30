@@ -45,7 +45,7 @@ module bluster
 
    always_ff @(posedge clk_i or posedge rst_i) begin
        if (rst_i) begin
-            next_state <= RCV_NEXT_COMMAND;
+            state <= RCV_NEXT_COMMAND;
        end
        else begin
            state <= next_state;
@@ -120,7 +120,7 @@ module bluster
 
     /* imem interface */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_comb begin
         if (rst_i) begin
             instr_addr_o <= 'd0;
             instr_wdata_o <= 'd0;
@@ -132,9 +132,9 @@ module bluster
             instr_addr_o <= flash_addr + flash_counter - 1;
         end
         else begin
-            data_wdata_o <= data_wdata_o;
-            data_addr_o <= data_addr_o;
-            data_we_o <= 'd0;
+            instr_wdata_o = instr_wdata_o;
+            instr_addr_o = instr_addr_o;
+            instr_we_o = 'd0;
         end
     end
 
@@ -142,21 +142,21 @@ module bluster
 
     /* dmem interface */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_comb begin
         if (rst_i) begin
-            data_addr_o <= 'd0;
-            data_wdata_o <= 'd0;
-            data_we_o <= 'd0;
+            data_addr_o = 'd0;
+            data_wdata_o = 'd0;
+            data_we_o = 'd0;
         end
         else if (state == FLASH && rx_valid && flash_addr >= INSTR_MEM_SIZE_BYTES) begin
-            data_wdata_o <= {data_wdata_o[23:0], rx_data};
-            data_we_o <= (flash_counter[1:0] == 2'b01);
-            data_addr_o <= flash_addr + flash_counter - 1;
+            data_wdata_o = {data_wdata_o[23:0], rx_data};
+            data_we_o = (flash_counter[1:0] == 2'b01);
+            data_addr_o = flash_addr + flash_counter - 1;
         end
         else begin
-            data_addr_o <= data_addr_o;
-            data_wdata_o <= data_wdata_o;
-            data_we_o <= 'd0;
+            data_addr_o = data_addr_o;
+            data_wdata_o = data_wdata_o;
+            data_we_o = 'd0;
         end
     end
 
@@ -206,26 +206,26 @@ module bluster
    assign next_round = (flash_addr     != '1)  && !rx_busy;
 
    logic [7:0] [7:0]  flash_size_ascii, flash_addr_ascii;
-   // Блок generate позволяет создавать структуры модуля цикличным или условным
-   // образом. В данном случае, при описании непрерывных присваиваний была
-   // обнаружена закономерность, позволяющая описать четверки присваиваний в более
-   // общем виде, который был описан в виде цикла.
-   // Важно понимать, данный цикл лишь автоматизирует описание присваиваний и во
-   // время синтеза схемы развернется в четыре четверки непрерывных присваиваний.
+   // Р‘Р»РѕРє generate РїРѕР·РІРѕР»СЏРµС‚ СЃРѕР·РґР°РІР°С‚СЊ СЃС‚СЂСѓРєС‚СѓСЂС‹ РјРѕРґСѓР»СЏ С†РёРєР»РёС‡РЅС‹Рј РёР»Рё СѓСЃР»РѕРІРЅС‹Рј
+   // РѕР±СЂР°Р·РѕРј. Р’ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ, РїСЂРё РѕРїРёСЃР°РЅРёРё РЅРµРїСЂРµСЂС‹РІРЅС‹С… РїСЂРёСЃРІР°РёРІР°РЅРёР№ Р±С‹Р»Р°
+   // РѕР±РЅР°СЂСѓР¶РµРЅР° Р·Р°РєРѕРЅРѕРјРµСЂРЅРѕСЃС‚СЊ, РїРѕР·РІРѕР»СЏСЋС‰Р°СЏ РѕРїРёСЃР°С‚СЊ С‡РµС‚РІРµСЂРєРё РїСЂРёСЃРІР°РёРІР°РЅРёР№ РІ Р±РѕР»РµРµ
+   // РѕР±С‰РµРј РІРёРґРµ, РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» РѕРїРёСЃР°РЅ РІ РІРёРґРµ С†РёРєР»Р°.
+   // Р’Р°Р¶РЅРѕ РїРѕРЅРёРјР°С‚СЊ, РґР°РЅРЅС‹Р№ С†РёРєР» Р»РёС€СЊ Р°РІС‚РѕРјР°С‚РёР·РёСЂСѓРµС‚ РѕРїРёСЃР°РЅРёРµ РїСЂРёСЃРІР°РёРІР°РЅРёР№ Рё РІРѕ
+   // РІСЂРµРјСЏ СЃРёРЅС‚РµР·Р° СЃС…РµРјС‹ СЂР°Р·РІРµСЂРЅРµС‚СЃСЏ РІ С‡РµС‚С‹СЂРµ С‡РµС‚РІРµСЂРєРё РЅРµРїСЂРµСЂС‹РІРЅС‹С… РїСЂРёСЃРІР°РёРІР°РЅРёР№.
    genvar             i;
    generate
       for(i=0; i < 4; i=i+1) begin
-         // Данная логика преобразовывает сигналы flash_size и flash_addr,
-         // которые представляют собой "сырые" двоичные числа в ASCII-символы[1]
+         // Р”Р°РЅРЅР°СЏ Р»РѕРіРёРєР° РїСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµС‚ СЃРёРіРЅР°Р»С‹ flash_size Рё flash_addr,
+         // РєРѕС‚РѕСЂС‹Рµ РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‚ СЃРѕР±РѕР№ "СЃС‹СЂС‹Рµ" РґРІРѕРёС‡РЅС‹Рµ С‡РёСЃР»Р° РІ ASCII-СЃРёРјРІРѕР»С‹[1]
 
-         // Разделяем каждый байт flash_size и flash_addr на два ниббла.
-         // Ниббл — это 4 бита. Каждый ниббл можно описать 16-битной цифрой.
-         // Если ниббл меньше 10 (4'ha), он описывается цифрами 0-9. Чтобы представить
-         // его ascii-кодом, необходимо прибавить к нему число 8'h30
-         // (ascii-код символа '0').
-         // Если ниббл больше либо равен 10, он описывается буквами a-f. Для его
-         // представления в виде ascii-кода, необходимо прибавить число 8'h57
-         // (это уменьшенный на 10 ascii-код символа 'a' = 8'h61).
+         // Р Р°Р·РґРµР»СЏРµРј РєР°Р¶РґС‹Р№ Р±Р°Р№С‚ flash_size Рё flash_addr РЅР° РґРІР° РЅРёР±Р±Р»Р°.
+         // РќРёР±Р±Р» вЂ” СЌС‚Рѕ 4 Р±РёС‚Р°. РљР°Р¶РґС‹Р№ РЅРёР±Р±Р» РјРѕР¶РЅРѕ РѕРїРёСЃР°С‚СЊ 16-Р±РёС‚РЅРѕР№ С†РёС„СЂРѕР№.
+         // Р•СЃР»Рё РЅРёР±Р±Р» РјРµРЅСЊС€Рµ 10 (4'ha), РѕРЅ РѕРїРёСЃС‹РІР°РµС‚СЃСЏ С†РёС„СЂР°РјРё 0-9. Р§С‚РѕР±С‹ РїСЂРµРґСЃС‚Р°РІРёС‚СЊ
+         // РµРіРѕ ascii-РєРѕРґРѕРј, РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРёР±Р°РІРёС‚СЊ Рє РЅРµРјСѓ С‡РёСЃР»Рѕ 8'h30
+         // (ascii-РєРѕРґ СЃРёРјРІРѕР»Р° '0').
+         // Р•СЃР»Рё РЅРёР±Р±Р» Р±РѕР»СЊС€Рµ Р»РёР±Рѕ СЂР°РІРµРЅ 10, РѕРЅ РѕРїРёСЃС‹РІР°РµС‚СЃСЏ Р±СѓРєРІР°РјРё a-f. Р”Р»СЏ РµРіРѕ
+         // РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІ РІРёРґРµ ascii-РєРѕРґР°, РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРёР±Р°РІРёС‚СЊ С‡РёСЃР»Рѕ 8'h57
+         // (СЌС‚Рѕ СѓРјРµРЅСЊС€РµРЅРЅС‹Р№ РЅР° 10 ascii-РєРѕРґ СЃРёРјРІРѕР»Р° 'a' = 8'h61).
          assign flash_size_ascii[i*2]    = flash_size[i][3:0] < 4'ha ? flash_size[i][3:0] + 8'h30 :
                                            flash_size[i][3:0] + 8'h57;
          assign flash_size_ascii[i*2+1]  = flash_size[i][7:4] < 4'ha ? flash_size[i][7:4] + 8'h30 :
@@ -239,7 +239,7 @@ module bluster
    endgenerate
 
    logic [INIT_MSG_SIZE-1:0][7:0] init_msg;
-   // ascii-код строки "ready for flash starting from 0xflash_addr\n"
+   // ascii-РєРѕРґ СЃС‚СЂРѕРєРё "ready for flash starting from 0xflash_addr\n"
    assign init_msg = { 8'h72, 8'h65, 8'h61, 8'h64, 8'h79, 8'h20, 8'h66, 8'h6F,
                        8'h72, 8'h20, 8'h66, 8'h6C, 8'h61, 8'h73, 8'h68, 8'h20,
                        8'h73, 8'h74, 8'h61, 8'h72, 8'h74, 8'h69, 8'h6E, 8'h67,
@@ -247,7 +247,7 @@ module bluster
                        flash_addr_ascii, 8'h0a};
 
    logic [FLASH_MSG_SIZE-1:0][7:0] flash_msg;
-   //ascii-код строки: "finished write 0xflash_size bytes starting from 0xflash_addr\n"
+   //ascii-РєРѕРґ СЃС‚СЂРѕРєРё: "finished write 0xflash_size bytes starting from 0xflash_addr\n"
    assign flash_msg = {8'h66, 8'h69, 8'h6E, 8'h69, 8'h73, 8'h68, 8'h65, 8'h64,
                        8'h20, 8'h77, 8'h72, 8'h69, 8'h74, 8'h65, 8'h20, 8'h30,
                        8'h78,      flash_size_ascii,      8'h20, 8'h62, 8'h79,
