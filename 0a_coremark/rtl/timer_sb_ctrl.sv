@@ -22,11 +22,16 @@ module timer_sb_ctrl(
     enum logic [1:0] {OFF, NTIMES, FOREVER} mode, next_mode;
     logic [31:0] repeat_counter;
     logic [63:0] system_counter_at_start;
+    logic rst;
+    assign rst = req_i && write_enable_i && (addr_i[7:0] == 8'h24);
 
     /* system_counter */
 
     always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
+            system_counter <= 'd0;
+        end
+        else if (rst) begin
             system_counter <= 'd0;
         end
         else begin
@@ -40,6 +45,9 @@ module timer_sb_ctrl(
 
     always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
+            delay <= 'd0;
+        end
+        else if (rst) begin
             delay <= 'd0;
         end
         else if (req_i && write_enable_i) begin
@@ -58,7 +66,11 @@ module timer_sb_ctrl(
     always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
             mode <= OFF;
-        end else begin
+        end
+        else if (rst) begin
+            mode <= OFF;
+        end
+        else begin
             mode <= next_mode;
         end
     end
@@ -99,6 +111,9 @@ module timer_sb_ctrl(
         else if (repeat_counter) begin
             repeat_counter -= (system_counter_at_start + delay == system_counter);
         end
+        else if (rst) begin
+            repeat_counter = 'd0;
+        end
         else begin
             repeat_counter = repeat_counter;
         end
@@ -135,6 +150,10 @@ module timer_sb_ctrl(
                interrupt_request_o = 1'b0;
             end
         end
+        else if (rst) begin
+            system_counter_at_start = 'd0;
+            interrupt_request_o = 'd0;
+        end
         else begin
             interrupt_request_o = 1'b0;
         end
@@ -162,14 +181,6 @@ module timer_sb_ctrl(
 
     /* program reset */
 
-    /*always_ff @(posedge clk_i) begin
-        if (req_i && write_enable_i && (addr_i[7:0] == 8'h24)) begin
-            system_counter = 'd0;
-            delay = 'd0;
-            mode = OFF;
-            repeat_counter = 'd0;
-        end
-    end*/
 
     /* ~program_reset */
 
