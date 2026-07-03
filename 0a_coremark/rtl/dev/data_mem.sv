@@ -23,6 +23,10 @@ assign ready_o = 1'b1;
 import memory_pkg::DATA_MEM_SIZE_WORDS;
 logic [31:0] ram [DATA_MEM_SIZE_WORDS];
 
+initial begin
+    $readmemh("coremark_data.mem", ram);
+  end
+
 always_ff @(posedge clk_i) begin
   case(1)
     !mem_req_i||write_enable_i: read_data_o <= read_data_o;

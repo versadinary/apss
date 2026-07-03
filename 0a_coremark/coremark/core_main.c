@@ -48,6 +48,11 @@ static ee_u16 state_known_crc[]  = { (ee_u16)0x5e47,
                                     (ee_u16)0xe5a4,
                                     (ee_u16)0x8e3a,
                                     (ee_u16)0x8d84 };
+
+void int_handler() {
+
+}
+
 void *
 iterate(void *pres)
 {

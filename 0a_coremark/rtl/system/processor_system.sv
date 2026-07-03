@@ -150,7 +150,7 @@ module processor_system(
                  );
 
 
-   hex_sb_ctrl hex(
+   /*hex_sb_ctrl hex(
                    .clk_i(sysclk),
                    .rst_i(rst),
                    .addr_i({8'd0, mem_addr[23:0]}),
@@ -160,9 +160,9 @@ module processor_system(
                    .read_data_o(hex_rd),
                    .hex_led(hex_led_o),
                    .hex_sel(hex_sel_o)
-                   );
+                   );*/
 
-   ps2_sb_ctrl ps2(
+   /*ps2_sb_ctrl ps2(
                    .clk_i(sysclk),
                    .rst_i(rst),
                    .addr_i({8'd0, mem_addr[23:0]}),
@@ -174,7 +174,7 @@ module processor_system(
                    .interrupt_return_i(irq_ret),
                    .kclk_i(kclk_i),
                    .kdata_i(kdata_i)
-                   );
+                   );*/
 
     timer_sb_ctrl timer(
                     .clk_i(sysclk),
@@ -200,9 +200,9 @@ module processor_system(
 
    always @ (*) begin
       case (mem_addr[31:24])
-        DMEM_ADDR_HIGH: lsu_rd = dmem_rd;
-        HEX_ADDR_HIGH: lsu_rd = hex_rd;
-        PS2_ADDR_HIGH: lsu_rd = ps2_rd;
+        //DMEM_ADDR_HIGH: lsu_rd = dmem_rd;
+        //HEX_ADDR_HIGH: lsu_rd = hex_rd;
+        //PS2_ADDR_HIGH: lsu_rd = ps2_rd;
         TIMER_ADDR_HIGH: lsu_rd = tim_rd;
         TX_ADDR_HIGH: lsu_rd = ua_tx;
       endcase

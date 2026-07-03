@@ -18,9 +18,9 @@ module bluster
    );
 
    import memory_pkg::INSTR_MEM_SIZE_BYTES;
-   import bluster_pkg::INIT_MSG_SIZE;
-   import bluster_pkg::FLASH_MSG_SIZE;
-   import bluster_pkg::ACK_MSG_SIZE;
+  localparam INIT_MSG_SIZE  = 41;
+  localparam FLASH_MSG_SIZE = 57;
+  localparam ACK_MSG_SIZE   = 4;
 
    enum                 logic [2:0] {
                                      RCV_NEXT_COMMAND,
@@ -55,45 +55,24 @@ module bluster
     always_comb begin
         case (state)
             RCV_NEXT_COMMAND: begin
-                size_counter -= rx_valid;
-                flash_counter = flash_size;
-                msg_counter = INIT_MSG_SIZE-1;
                 next_state = size_fin ? (next_round ? INIT_MSG : FINISH) : state;
             end
             INIT_MSG: begin
-                size_counter = 'd4;
-                flash_counter = flash_size;
-                msg_counter -= tx_valid;
                 next_state = send_fin ? RCV_SIZE : state;
             end
             RCV_SIZE: begin
-                size_counter -= rx_valid;
-                flash_counter = flash_size;
-                msg_counter = ACK_MSG_SIZE - 1;
                 next_state = size_fin ? SIZE_ACK : state;
             end
             SIZE_ACK: begin
-                size_counter = 'd4;
-                flash_counter = flash_size;
-                msg_counter -= tx_valid;
                 next_state = send_fin ? FLASH : state;
             end
             FLASH: begin
-                size_counter = 'd4;
-                flash_counter -= rx_valid;
-                msg_counter = FLASH_MSG_SIZE-1;
                 next_state = flash_fin ? FLASH_ACK : state;
             end
             FLASH_ACK: begin
-                size_counter = 'd4;
-                flash_counter = flash_size;
-                msg_counter -= tx_valid;
                 next_state = send_fin ? RCV_NEXT_COMMAND : state;
             end
             FINISH: begin
-                size_counter = 'd4;
-                flash_counter = flash_size;
-                msg_counter = INIT_MSG_SIZE-1;
                 next_state = state;
             end
             default: begin
@@ -104,37 +83,75 @@ module bluster
 
     /* ~fsm */
 
-    /* uart_tx signals */
+    /* counters */
 
-    assign tx_valid = (!tx_busy) && (state == INIT_MSG || state == SIZE_ACK || state == FLASH_ACK);
     always_comb begin
-        case (state)
-            INIT_MSG: tx_data = init_msg;
-            SIZE_ACK: tx_data = flash_size;
-            FLASH_ACK: tx_data = flash_msg;
-            default: tx_data = 'd0;
-        endcase
+        if (rst_i) begin
+            size_counter = 'd4;
+            flash_counter = flash_size;
+            msg_counter = INIT_MSG_SIZE-1;
+        end
+        else begin
+            case (state)
+                RCV_NEXT_COMMAND: begin
+                    // size_counter = size_counter - (rx_valid == 1);
+                    size_counter = rx_valid ? size_counter - 1 : size_counter;
+                    flash_counter = flash_size;
+                    msg_counter = INIT_MSG_SIZE-1;
+                end
+                INIT_MSG: begin
+                    size_counter = 'd4;
+                    flash_counter = flash_size;
+                    msg_counter = INIT_MSG_SIZE-1;
+                end
+                RCV_SIZE: begin
+                    size_counter = size_counter - rx_valid;
+                    flash_counter = flash_size;
+                    msg_counter = ACK_MSG_SIZE-1;
+                end
+                SIZE_ACK: begin
+                    size_counter = 'd4;
+                    flash_counter = flash_size;
+                    msg_counter = msg_counter - tx_valid;
+                end
+                FLASH: begin
+                    size_counter = 'd4;
+                    flash_counter = flash_counter - rx_valid;
+                    msg_counter = FLASH_MSG_SIZE-1;
+                end
+                FLASH_ACK: begin
+                    size_counter = 'd4;
+                    flash_counter = flash_size;
+                    msg_counter = msg_counter - tx_valid;
+                end
+                FINISH: begin
+                    size_counter = 'd4;
+                    flash_counter = flash_size;
+                    msg_counter = msg_counter;
+                end
+            endcase
+        end
     end
 
-    /* ~uart_tx signals */
+    /* ~counters */
 
     /* imem interface */
 
-    always_comb begin
+    always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
             instr_addr_o <= 'd0;
             instr_wdata_o <= 'd0;
             instr_we_o <= 'd0;
         end
-        else if (state == FLASH && rx_valid && flash_addr < INSTR_MEM_SIZE_BYTES) begin
+        else if ((state == FLASH) && rx_valid && (flash_addr < INSTR_MEM_SIZE_BYTES)) begin
             instr_wdata_o <= {instr_wdata_o[23:0], rx_data};
             instr_we_o <= (flash_counter[1:0] == 2'b01);
             instr_addr_o <= flash_addr + flash_counter - 1;
         end
         else begin
-            instr_wdata_o = instr_wdata_o;
-            instr_addr_o = instr_addr_o;
-            instr_we_o = 'd0;
+            instr_wdata_o <= instr_wdata_o;
+            instr_addr_o <= instr_addr_o;
+            instr_we_o <= 'd0;
         end
     end
 
@@ -142,21 +159,21 @@ module bluster
 
     /* dmem interface */
 
-    always_comb begin
+    always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
-            data_addr_o = 'd0;
-            data_wdata_o = 'd0;
-            data_we_o = 'd0;
+            data_addr_o <= 'd0;
+            data_wdata_o <= 'd0;
+            data_we_o <= 'd0;
         end
-        else if (state == FLASH && rx_valid && flash_addr >= INSTR_MEM_SIZE_BYTES) begin
-            data_wdata_o = {data_wdata_o[23:0], rx_data};
-            data_we_o = (flash_counter[1:0] == 2'b01);
-            data_addr_o = flash_addr + flash_counter - 1;
+        else if ((state == FLASH) && rx_valid && (flash_addr >= INSTR_MEM_SIZE_BYTES)) begin
+            data_wdata_o <= {data_wdata_o[23:0], rx_data};
+            data_we_o <= (flash_counter[1:0] == 2'b01);
+            data_addr_o <= flash_addr + flash_counter - 1;
         end
         else begin
-            data_addr_o = data_addr_o;
-            data_wdata_o = data_wdata_o;
-            data_we_o = 'd0;
+            data_addr_o <= data_addr_o;
+            data_wdata_o <= data_wdata_o;
+            data_we_o <= 'd0;
         end
     end
 
@@ -168,7 +185,7 @@ module bluster
         if (rst_i) begin
             flash_size <= 'd0;
         end
-        else if (state == RCV_SIZE && rx_valid) begin
+        else if ((state == RCV_SIZE) && rx_valid) begin
             flash_size <= {flash_size[2:0], rx_data};
         end
         else begin
@@ -184,7 +201,7 @@ module bluster
         if (rst_i) begin
             flash_addr <= 'd0;
         end
-        else if (state == RCV_NEXT_COMMAND && rx_valid) begin
+        else if ((state == RCV_NEXT_COMMAND) && rx_valid) begin
             flash_addr <= {flash_addr[2:0], rx_data};
         end
         else begin
@@ -196,7 +213,7 @@ module bluster
 
     /* core_reset_o */
 
-    assign core_reset_o = state != FINISH;
+    assign core_reset_o = (state != FINISH);
 
     /* ~core_reset_o */
 
@@ -206,26 +223,11 @@ module bluster
    assign next_round = (flash_addr     != '1)  && !rx_busy;
 
    logic [7:0] [7:0]  flash_size_ascii, flash_addr_ascii;
-   // Р‘Р»РѕРє generate РїРѕР·РІРѕР»СЏРµС‚ СЃРѕР·РґР°РІР°С‚СЊ СЃС‚СЂСѓРєС‚СѓСЂС‹ РјРѕРґСѓР»СЏ С†РёРєР»РёС‡РЅС‹Рј РёР»Рё СѓСЃР»РѕРІРЅС‹Рј
-   // РѕР±СЂР°Р·РѕРј. Р’ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ, РїСЂРё РѕРїРёСЃР°РЅРёРё РЅРµРїСЂРµСЂС‹РІРЅС‹С… РїСЂРёСЃРІР°РёРІР°РЅРёР№ Р±С‹Р»Р°
-   // РѕР±РЅР°СЂСѓР¶РµРЅР° Р·Р°РєРѕРЅРѕРјРµСЂРЅРѕСЃС‚СЊ, РїРѕР·РІРѕР»СЏСЋС‰Р°СЏ РѕРїРёСЃР°С‚СЊ С‡РµС‚РІРµСЂРєРё РїСЂРёСЃРІР°РёРІР°РЅРёР№ РІ Р±РѕР»РµРµ
-   // РѕР±С‰РµРј РІРёРґРµ, РєРѕС‚РѕСЂС‹Р№ Р±С‹Р» РѕРїРёСЃР°РЅ РІ РІРёРґРµ С†РёРєР»Р°.
-   // Р’Р°Р¶РЅРѕ РїРѕРЅРёРјР°С‚СЊ, РґР°РЅРЅС‹Р№ С†РёРєР» Р»РёС€СЊ Р°РІС‚РѕРјР°С‚РёР·РёСЂСѓРµС‚ РѕРїРёСЃР°РЅРёРµ РїСЂРёСЃРІР°РёРІР°РЅРёР№ Рё РІРѕ
-   // РІСЂРµРјСЏ СЃРёРЅС‚РµР·Р° СЃС…РµРјС‹ СЂР°Р·РІРµСЂРЅРµС‚СЃСЏ РІ С‡РµС‚С‹СЂРµ С‡РµС‚РІРµСЂРєРё РЅРµРїСЂРµСЂС‹РІРЅС‹С… РїСЂРёСЃРІР°РёРІР°РЅРёР№.
+
    genvar             i;
    generate
       for(i=0; i < 4; i=i+1) begin
-         // Р”Р°РЅРЅР°СЏ Р»РѕРіРёРєР° РїСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµС‚ СЃРёРіРЅР°Р»С‹ flash_size Рё flash_addr,
-         // РєРѕС‚РѕСЂС‹Рµ РїСЂРµРґСЃС‚Р°РІР»СЏСЋС‚ СЃРѕР±РѕР№ "СЃС‹СЂС‹Рµ" РґРІРѕРёС‡РЅС‹Рµ С‡РёСЃР»Р° РІ ASCII-СЃРёРјРІРѕР»С‹[1]
 
-         // Р Р°Р·РґРµР»СЏРµРј РєР°Р¶РґС‹Р№ Р±Р°Р№С‚ flash_size Рё flash_addr РЅР° РґРІР° РЅРёР±Р±Р»Р°.
-         // РќРёР±Р±Р» вЂ” СЌС‚Рѕ 4 Р±РёС‚Р°. РљР°Р¶РґС‹Р№ РЅРёР±Р±Р» РјРѕР¶РЅРѕ РѕРїРёСЃР°С‚СЊ 16-Р±РёС‚РЅРѕР№ С†РёС„СЂРѕР№.
-         // Р•СЃР»Рё РЅРёР±Р±Р» РјРµРЅСЊС€Рµ 10 (4'ha), РѕРЅ РѕРїРёСЃС‹РІР°РµС‚СЃСЏ С†РёС„СЂР°РјРё 0-9. Р§С‚РѕР±С‹ РїСЂРµРґСЃС‚Р°РІРёС‚СЊ
-         // РµРіРѕ ascii-РєРѕРґРѕРј, РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРёР±Р°РІРёС‚СЊ Рє РЅРµРјСѓ С‡РёСЃР»Рѕ 8'h30
-         // (ascii-РєРѕРґ СЃРёРјРІРѕР»Р° '0').
-         // Р•СЃР»Рё РЅРёР±Р±Р» Р±РѕР»СЊС€Рµ Р»РёР±Рѕ СЂР°РІРµРЅ 10, РѕРЅ РѕРїРёСЃС‹РІР°РµС‚СЃСЏ Р±СѓРєРІР°РјРё a-f. Р”Р»СЏ РµРіРѕ
-         // РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РІ РІРёРґРµ ascii-РєРѕРґР°, РЅРµРѕР±С…РѕРґРёРјРѕ РїСЂРёР±Р°РІРёС‚СЊ С‡РёСЃР»Рѕ 8'h57
-         // (СЌС‚Рѕ СѓРјРµРЅСЊС€РµРЅРЅС‹Р№ РЅР° 10 ascii-РєРѕРґ СЃРёРјРІРѕР»Р° 'a' = 8'h61).
          assign flash_size_ascii[i*2]    = flash_size[i][3:0] < 4'ha ? flash_size[i][3:0] + 8'h30 :
                                            flash_size[i][3:0] + 8'h57;
          assign flash_size_ascii[i*2+1]  = flash_size[i][7:4] < 4'ha ? flash_size[i][7:4] + 8'h30 :
@@ -239,7 +241,7 @@ module bluster
    endgenerate
 
    logic [INIT_MSG_SIZE-1:0][7:0] init_msg;
-   // ascii-РєРѕРґ СЃС‚СЂРѕРєРё "ready for flash starting from 0xflash_addr\n"
+
    assign init_msg = { 8'h72, 8'h65, 8'h61, 8'h64, 8'h79, 8'h20, 8'h66, 8'h6F,
                        8'h72, 8'h20, 8'h66, 8'h6C, 8'h61, 8'h73, 8'h68, 8'h20,
                        8'h73, 8'h74, 8'h61, 8'h72, 8'h74, 8'h69, 8'h6E, 8'h67,
@@ -247,7 +249,7 @@ module bluster
                        flash_addr_ascii, 8'h0a};
 
    logic [FLASH_MSG_SIZE-1:0][7:0] flash_msg;
-   //ascii-РєРѕРґ СЃС‚СЂРѕРєРё: "finished write 0xflash_size bytes starting from 0xflash_addr\n"
+
    assign flash_msg = {8'h66, 8'h69, 8'h6E, 8'h69, 8'h73, 8'h68, 8'h65, 8'h64,
                        8'h20, 8'h77, 8'h72, 8'h69, 8'h74, 8'h65, 8'h20, 8'h30,
                        8'h78,      flash_size_ascii,      8'h20, 8'h62, 8'h79,
@@ -255,6 +257,35 @@ module bluster
                        8'h74, 8'h69, 8'h6E, 8'h67, 8'h20, 8'h66, 8'h72, 8'h6F,
                        8'h6D, 8'h20, 8'h30, 8'h78,     flash_addr_ascii,
                        8'h0a};
+                       
+                       
+   /* uart_tx signals */
+    always @(posedge clk_i or posedge rst_i) begin
+        if (rst_i) begin
+            tx_valid <= 1'd1;
+            tx_data <= 'd0;
+        end
+        else begin
+            tx_valid <= (!tx_busy) && (state == INIT_MSG || state == SIZE_ACK || state == FLASH_ACK);
+            case (state)
+                INIT_MSG: tx_data <= init_msg;
+                SIZE_ACK: tx_data <= flash_size;
+                FLASH_ACK: tx_data <= flash_msg;
+                default: tx_data <= 'd0;
+            endcase
+        end 
+    end
+    // assign tx_valid = (!tx_busy) && (state == INIT_MSG || state == SIZE_ACK || state == FLASH_ACK);
+    /*always_comb begin
+        case (state)
+            INIT_MSG: tx_data = init_msg;
+            SIZE_ACK: tx_data = flash_size;
+            FLASH_ACK: tx_data = flash_msg;
+            default: tx_data = 'd0;
+        endcase
+    end*/
+
+    /* ~uart_tx signals */
 
    uart_rx rx(
               .clk_i      (clk_i      ),

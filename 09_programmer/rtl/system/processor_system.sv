@@ -56,7 +56,7 @@ module processor_system(
 
    assign ohe = 256'd1 << addr[31:24];
 
-   processor_core core(
+   processor_core core_inst(
                        .clk_i(sysclk),
                        .rst_i(rst_bl),
                        .stall_i(stall),
