@@ -11,7 +11,7 @@ import memory_pkg::INSTR_MEM_SIZE_WORDS;
                                            
 
   initial begin
-    $readmemh("program.mem", ROM);
+    $readmemh("init_instr.mem", ROM);
   end
 
   assign read_data_o = ROM[read_addr_i[$clog2(INSTR_MEM_SIZE_BYTES)-1:2]];

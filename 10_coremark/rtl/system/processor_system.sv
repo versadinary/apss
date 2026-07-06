@@ -28,6 +28,8 @@ module processor_system(
    import peripheral_pkg::*;
 
    logic                                    sysclk, rst;
+   //assign sysclk = clk_i;
+   //assign rst = ~resetn_i;
    sys_clk_rst_gen divider(
                            .ex_clk_i(clk_i),
                            .ex_areset_n_i(resetn_i),
@@ -35,6 +37,7 @@ module processor_system(
                            .sys_clk_o(sysclk),
                            .sys_reset_o(rst)
                         );
+                        
 
 
    logic                            stall, stall_tg, mwe, mreq;
@@ -44,14 +47,21 @@ module processor_system(
    logic [3:0]                      lsu_be;
    logic [31:0]                     lsu_wd, addr, lsu_rd;
    logic                            irq_req, irq_ret;
-   logic [31:0]                     dmem_rd, hex_rd, ps2_rd;
+   logic [31:0]                     dmem_rd, hex_rd, ps2_rd, tim_rd, ua_tx;
    logic [255:0]                    ohe;
+   logic rst_bl;
+   logic [31:0] bl_instr_wdata_o;
+   logic [31:0] bl_instr_addr_o;
+   logic bl_instr_we_o;
+   logic [31:0] bl_wdata_o;
+   logic [31:0] bl_daddr_o;
+   logic bl_data_we_o;
 
-   assign ohe = 256'd1 << addr[31:24];
+   // assign ohe = 256'd1 << mem_addr[31:24];
 
-   processor_core core(
+   processor_core core_inst(
                        .clk_i(sysclk),
-                       .rst_i(rst),
+                       .rst_i(rst_bl),
                        .stall_i(stall),
                        .instr_i(rom_ins),
                        .mem_rd_i(mrd),
@@ -85,54 +95,125 @@ module processor_system(
                 .mem_ready_i(/* ready */ 1'b1)
                 );
 
-   instr_mem imem(
+   /*instr_mem imem(
                   .read_addr_i(rom_addr),
                   .read_data_o(rom_ins)
-                  );
+                  );*/
+      logic [7:0] uart_tx_data;
+      logic tx_o_bl;
+      logic tx_o_dev;
+      assign tx_o = rst_bl ? tx_o_bl : tx_o_dev;
+
+    rw_instr_mem imem(
+         .clk_i(sysclk),
+         .read_addr_i(rom_addr),
+         .read_data_o(rom_ins),
+         .write_addr_i(bl_instr_addr_o),
+         .write_data_i(bl_instr_wdata_o),
+         .write_enable_i(bl_instr_we_o)
+        );
+
+        bluster prg(
+            .clk_i(sysclk),
+            .rst_i(rst),
+            .rx_i(rx_i),
+            .tx_o(tx_o_bl),
+            .instr_addr_o(bl_instr_addr_o),
+            .instr_wdata_o(bl_instr_wdata_o),
+            .instr_we_o(bl_instr_we_o),
+            .data_addr_o(bl_daddr_o),
+            .data_wdata_o(bl_wdata_o),
+            .data_we_o(bl_data_we_o),
+            .core_reset_o(rst_bl)
+            );
+
+            logic req;
+            assign req = rst_bl ? bl_data_we_o : lsu_req;
+
+            logic write_enable;
+            assign write_enable = rst_bl ? bl_data_we_o : lsu_we;
+
+            logic [3:0] byte_enable;
+            assign byte_enable = rst_bl ? 4'hf : lsu_be;
+
+            logic [31:0] write_data;
+            assign write_data = rst_bl ? bl_wdata_o : lsu_wd;
+
+            logic [31:0] mem_addr;
+            assign mem_addr = rst_bl ? bl_daddr_o : addr;
+            
+
+            assign ohe = 256'd1 << mem_addr[31:24];
+
 
    data_mem dmem(
                  .clk_i(sysclk),
-                 .mem_req_i(lsu_req & ohe[DMEM_ADDR_HIGH]),
-                 .write_enable_i(lsu_we),
-                 .byte_enable_i(lsu_be),
-                 .addr_i({8'd0, addr[23:0]}),
-                 .write_data_i(lsu_wd),
+                 .mem_req_i(req & ohe[DMEM_ADDR_HIGH]),
+                 .write_enable_i(write_enable),
+                 .byte_enable_i(byte_enable),
+                 .addr_i({8'd0, mem_addr[23:0]}),
+                 .write_data_i(write_data),
                  .read_data_o(dmem_rd)
                  // .ready_o(ready)
                  );
 
 
-   hex_sb_ctrl hex(
+   /*hex_sb_ctrl hex(
                    .clk_i(sysclk),
                    .rst_i(rst),
-                   .addr_i({8'd0, addr[23:0]}),
-                   .req_i(lsu_req & ohe[HEX_ADDR_HIGH]),
-                   .write_data_i(lsu_wd),
-                   .write_enable_i(lsu_we),
+                   .addr_i({8'd0, mem_addr[23:0]}),
+                   .req_i(req & ohe[HEX_ADDR_HIGH]),
+                   .write_data_i(write_data),
+                   .write_enable_i(write_enable),
                    .read_data_o(hex_rd),
                    .hex_led(hex_led_o),
                    .hex_sel(hex_sel_o)
-                   );
+                   );*/
 
-   ps2_sb_ctrl ps2(
+   /*ps2_sb_ctrl ps2(
                    .clk_i(sysclk),
                    .rst_i(rst),
-                   .addr_i({8'd0, addr[23:0]}),
-                   .req_i(lsu_req & ohe[PS2_ADDR_HIGH]),
-                   .write_data_i(lsu_wd),
-                   .write_enable_i(lsu_we),
+                   .addr_i({8'd0, mem_addr[23:0]}),
+                   .req_i(req & ohe[PS2_ADDR_HIGH]),
+                   .write_data_i(write_data),
+                   .write_enable_i(write_enable),
                    .read_data_o(ps2_rd),
                    .interrupt_request_o(irq_req),
                    .interrupt_return_i(irq_ret),
                    .kclk_i(kclk_i),
                    .kdata_i(kdata_i)
-                   );
+                   );*/
+
+    timer_sb_ctrl timer(
+                    .clk_i(sysclk),
+                    .rst_i(rst_bl),
+                    .req_i(req & ohe[TIMER_ADDR_HIGH]),
+                    .write_enable_i(write_enable),
+                    .addr_i({8'd0, mem_addr[23:0]}),
+                    .write_data_i(write_data),
+                    .read_data_o(tim_rd),
+                    .ready_o(),
+                    .interrupt_request_o(irq_req)
+                    );
+
+    uart_tx_sb_ctrl uart_tx(
+                    .clk_i(sysclk),
+                    .rst_i(rst),
+                    .addr_i({8'd0, mem_addr[23:0]}),
+                    .req_i(req & ohe[TX_ADDR_HIGH]),
+                    .write_data_i(write_data),
+                    .write_enable_i(write_enable),
+                    .read_data_o(ua_tx),
+                    .tx_o(tx_o_dev)
+        );
 
    always @ (*) begin
-      case (addr[31:24])
+      case (mem_addr[31:24])
         DMEM_ADDR_HIGH: lsu_rd = dmem_rd;
-        HEX_ADDR_HIGH: lsu_rd = hex_rd;
-        PS2_ADDR_HIGH: lsu_rd = ps2_rd;
+        //HEX_ADDR_HIGH: lsu_rd = hex_rd;
+        //PS2_ADDR_HIGH: lsu_rd = ps2_rd;
+        TIMER_ADDR_HIGH: lsu_rd = tim_rd;
+        TX_ADDR_HIGH: lsu_rd = ua_tx;
       endcase
    end
 
