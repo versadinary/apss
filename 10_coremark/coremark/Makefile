@@ -8,7 +8,7 @@
 # See https://github.com/MPSU/APS/blob/master/LICENSE file for licensing details.
 # ------------------------------------------------------------------------------
 #
-CC_PATH = ~/verilog/riscv_cc/bin/
+CC_PATH = ~/riscv_cc/bin/
 CC_PREFIX = riscv-none-elf
 
 CC      =   $(CC_PATH)/$(CC_PREFIX)-gcc
