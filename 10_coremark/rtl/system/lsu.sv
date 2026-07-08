@@ -94,6 +94,6 @@ module lsu(
       else stall_tg <= stall_comb;
    end
 
-   assign stall_comb = core_req_i & ~(stall_tg & mem_ready_i);
+   assign stall_comb = ~core_we_i & core_req_i & ~(stall_tg & mem_ready_i);
 
 endmodule // lsu
