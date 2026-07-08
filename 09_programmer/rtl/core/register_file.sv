@@ -22,15 +22,15 @@ module register_file(
         rf_mem[write_addr_i] <= rf_mem[write_addr_i];
    end
 
-   always @ (read_addr1_i or read_addr2_i) begin
+   always @ (*) begin
       if (read_addr1_i)
-         read_data1_o <= rf_mem[read_addr1_i];
+         read_data1_o = rf_mem[read_addr1_i];
       else
-        read_data1_o <= 32'd0;
+        read_data1_o = 32'd0;
       if (read_addr2_i)
-         read_data2_o <= rf_mem[read_addr2_i];
+         read_data2_o = rf_mem[read_addr2_i];
       else
-        read_data2_o <= 32'd0;
+        read_data2_o = 32'd0;
    end
 
 
