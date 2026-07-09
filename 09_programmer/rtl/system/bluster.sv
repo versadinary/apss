@@ -73,6 +73,7 @@ module bluster
                 next_state = send_fin ? RCV_NEXT_COMMAND : state;
             end
             FINISH: begin
+                //next_state = rx_busy ? RCV_NEXT_COMMAND : state;
                 next_state = state;
             end
             default: begin
