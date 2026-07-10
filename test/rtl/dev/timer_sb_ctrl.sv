@@ -81,11 +81,11 @@ module timer_sb_ctrl(
                 2'h0: next_mode = OFF;
                 2'h1: begin
                     next_mode = NTIMES;
-                    system_counter_at_start = system_counter;
+                    // system_counter_at_start = system_counter;
                 end
                 2'h2: begin
                     next_mode = FOREVER;
-                    system_counter_at_start = system_counter;
+                    // system_counter_at_start = system_counter;
                 end
                 default: next_mode = OFF;
             endcase
@@ -111,7 +111,7 @@ module timer_sb_ctrl(
         else if (repeat_counter) begin
             repeat_counter -= (system_counter_at_start + delay == system_counter);
         end
-        else if (rst) begin
+        else if (rst | rst_i) begin
             repeat_counter = 'd0;
         end
         else begin
@@ -134,6 +134,19 @@ module timer_sb_ctrl(
             system_counter_at_start = system_counter;
         end
     end*/
+    
+    always_ff @(posedge clk_i or posedge rst_i) begin
+        if (rst | rst_i) begin
+            system_counter_at_start <= 'd0;
+        end
+        else if ((mode != OFF) && (system_counter_at_start + delay == system_counter)) begin
+            system_counter_at_start <= system_counter;
+        end
+        else if (req_i && write_enable_i && (addr_i[7:0] == 8'h10)) begin
+            system_counter_at_start <= system_counter;
+        end
+    end
+    
 
     /* ~system_counter_at_start */
 
@@ -144,19 +157,19 @@ module timer_sb_ctrl(
         if (mode != OFF) begin
             if (system_counter_at_start + delay == system_counter) begin
                interrupt_request_o = 1'b1;
-               system_counter_at_start = system_counter;
+               // system_counter_at_start = system_counter;
             end
             else begin
                interrupt_request_o = 1'b0;
             end
         end
-        else if (rst) begin
-            system_counter_at_start = 'd0;
+        else if (rst | rst_i) begin
+            // system_counter_at_start = 'd0;
             interrupt_request_o = 'd0;
         end
-        else begin
+        /*else begin
             interrupt_request_o = 1'b0;
-        end
+        end*/
     end
 
     /* ~interrupt_request_o */
