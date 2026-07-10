@@ -115,8 +115,8 @@ Disassembly of section .text:
  174:	00200713          	li	a4,2
  178:	00e7a823          	sw	a4,16(a5) # 8000010 <_gbl_ptr+0x7fff810>
  17c:	080007b7          	lui	a5,0x8000
- 180:	00018737          	lui	a4,0x18
- 184:	6a070713          	add	a4,a4,1696 # 186a0 <_gbl_ptr+0x17ea0>
+ 180:	000f4737          	lui	a4,0xf4
+ 184:	24070713          	add	a4,a4,576 # f4240 <_gbl_ptr+0xf3a40>
  188:	00e7a423          	sw	a4,8(a5) # 8000008 <_gbl_ptr+0x7fff808>
  18c:	00000013          	nop
  190:	00c12403          	lw	s0,12(sp)
