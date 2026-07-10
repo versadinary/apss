@@ -49,7 +49,9 @@ module hex_timer_bluster_tb();
     repeat(2) @(posedge clk_i);
     rst_i <= 0;
     //////////////////////////
-
+    
+    // srepeat (250) @(posedge clk_i);
+    
     fd = $fopen(fname, "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
