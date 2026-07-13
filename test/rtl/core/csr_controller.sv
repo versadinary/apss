@@ -62,7 +62,7 @@ module csr_controller(
       endcase // case (addr_i)
    end
 
-   always @ (posedge clk_i or posedge rst_i) begin
+   /*always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) {mie_q, mtvec_q, mscratch_q, mepc_q, mcause_q} = 'd0;
       else begin
          if (mie_en) mie_q <= reg_data;
@@ -76,6 +76,51 @@ module csr_controller(
          if (mcause_en | trap_i) mcause_q <= trap_i ? mcause_i : reg_data;
          else mcause_q <= mcause_q;
       end
+   end*/
+   
+   always @ (posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+        mie_q <= 'd0;
+    end
+    else if (mie_en) begin
+        mie_q <= reg_data; 
+    end
+   end
+   
+   always @ (posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+        mtvec_q <= 'd0;
+    end
+    else if (mtvec_en) begin
+        mtvec_q <= reg_data; 
+    end
+   end
+   
+   always @ (posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+        mscratch_q <= 'd0;
+    end
+    else if (mscratch_en) begin
+        mscratch_q <= reg_data; 
+    end
+   end
+   
+   always @ (posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+        mepc_q <= 'd0;
+    end
+    else if (mepc_en | trap_i) begin
+        mepc_q <= trap_i ? pc_i : reg_data; 
+    end
+   end
+   
+   always @ (posedge clk_i or posedge rst_i) begin
+    if (rst_i) begin
+        mcause_q <= 'd0;
+    end
+    else if (mcause_en | trap_i) begin
+        mcause_q <= trap_i ? mcause_i : reg_data;
+    end
    end
 
    always @ (*) begin

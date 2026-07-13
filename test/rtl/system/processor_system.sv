@@ -28,6 +28,7 @@ module processor_system(
    import peripheral_pkg::*;
 
    logic                                    sysclk, rst;
+
    //assign sysclk = clk_i;
    //assign rst = ~resetn_i;
    sys_clk_rst_gen divider(
@@ -41,7 +42,11 @@ module processor_system(
 
 
    logic                            stall, stall_tg, mwe, mreq;
-   logic [31:0]                     mwd, maddr, mrd, rom_ins, rom_addr;
+//   (* mark_debug = "true" *)
+   logic [31:0] rom_addr;
+//   (* mark_debug = "true" *)
+   logic [31:0] rom_ins;
+   logic [31:0]                     mwd, maddr, mrd;
    logic [2:0]                      msize;
    logic                            lsu_req, lsu_we, ready;
    logic [3:0]                      lsu_be;
@@ -206,6 +211,10 @@ module processor_system(
                     .read_data_o(ua_tx),
                     .tx_o(tx_o_dev)
         );
+        
+           assign led_o[15] = irq_req; 
+   assign led_o[0] = irq_ret;
+   assign led_o[14:1] = rom_addr;
 
    always @ (*) begin
       case (mem_addr[31:24])

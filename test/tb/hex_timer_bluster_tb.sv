@@ -88,7 +88,7 @@ module hex_timer_bluster_tb();
 
   end
 
-  initial #500ms $finish();
+  initial #1000ms $finish();
   processor_system DUT(
     .clk_i      (clk100mhz_i), 
     .resetn_i   (aresetn_i), 

@@ -1,11 +1,12 @@
 #include "platform.h"
 #define TIMER_INF 2
-#define CLOCKS_PER_SEC 1000000
+#define CLOCKS_PER_SEC 100000
 
-volatile uint8_t int_count = 0;
+volatile uint32_t int_count = 0;
 
 void int_handler() {
     int_count++;
+    hex_ptr->hex0 = 0xf;
 }
 
 void timer_init() {
@@ -48,16 +49,21 @@ void print(unsigned digit, unsigned pos) {
 int main() { 
     timer_init();
     hex_ptr->bitmask = 0xff;
-    while (1) {
-        if (int_count == 0xFF) {
+    /*while (1) {
+        if (int_count == 0xFFFF) {
             hex_ptr->rst = 1;
             hex_ptr->rst = 0;
             hex_ptr->bitmask = 0xff;
             int_count = 0;
-        }
-        print(int_count, int_count >> 4);
-    }
-    
+        }*/
+    //print(int_count, int_count >> 4);
+    print(1, 3);
+    print(0xe, 2);
+    print(0xa, 1);
+    print(0xd, 0);
+    print(timer_ptr->delay_low_bits, 15);
+    print(timer_ptr->mode, 14);
+    print(timer_ptr->system_counter_low_bits, 13);
 
     return 0;
 }
