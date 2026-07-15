@@ -158,8 +158,8 @@ module processor_system(
                  .byte_enable_i(byte_enable),
                  .addr_i({8'd0, mem_addr[23:0]}),
                  .write_data_i(write_data),
-                 .read_data_o(dmem_rd)
-                 // .ready_o(ready)
+                 .read_data_o(dmem_rd),
+                 .ready_o(ready)
                  );
 
 

@@ -55,7 +55,7 @@ module hex_timer_bluster_tb();
     
     // repeat (250) @(posedge clk_i);
     
-    fd = $fopen(fname, "r");
+    fd = $fopen(core_instr, "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
     void'($fscanf(fd, "@%x\w", start_addr));
@@ -70,7 +70,7 @@ module hex_timer_bluster_tb();
     $fclose(fd);
     program_region(mem, start_addr);
     fname = "init_data.mem";
-    fd = $fopen(fname, "r");
+    fd = $fopen(core_data, "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
     void'($fscanf(fd, "@%x\w", start_addr));
