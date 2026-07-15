@@ -88,7 +88,7 @@ module bluster
     always_ff @(posedge clk_i or posedge rst_i) begin
         if (rst_i) begin
             size_counter <= 'd4;
-            flash_counter <= flash_size;
+            flash_counter <= 'b0;// flash_size;
             msg_counter <= INIT_MSG_SIZE-1;
         end
         else begin

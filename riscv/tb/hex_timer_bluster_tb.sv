@@ -37,6 +37,9 @@ module hex_timer_bluster_tb();
      byte str [$];
      logic [3:0][7:0] size;
      string fname = "init_instr.mem";
+     string data_ini = "init_data.mem";
+     string core_data = "coremark_data.mem";
+     string core_instr = "coremark_instr.mem"; 
 
 
   initial begin
@@ -83,12 +86,31 @@ module hex_timer_bluster_tb();
     program_region(mem_data, start_addr);
     finish_programming();
     repeat(150) @(posedge clk_i);
+    
+    coremark_cntr = 0;
+    coremark_msg = {32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32};
+    forever begin
+      @(posedge clk_i);
+      if(rx_valid) begin
+        // $display("%s\n", rx_data);
+        if((rx_data == 10) | (rx_data == 13)) begin
+          $display("%s", coremark_msg);
+          coremark_cntr = 0;
+          coremark_msg = {32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32};
+        end
+        else begin
+          coremark_msg[coremark_cntr] = rx_data;
+          coremark_cntr++;
+        end
+      end
+    end
+
 
     
 
   end
 
-  initial #1000ms $finish();
+  // initial #1000ms $finish();
   processor_system DUT(
     .clk_i      (clk100mhz_i), 
     .resetn_i   (aresetn_i), 

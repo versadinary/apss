@@ -24,6 +24,7 @@ module timer_sb_ctrl(
     logic [63:0] system_counter_at_start;
     logic rst;
     assign rst = req_i && write_enable_i && (addr_i[7:0] == 8'h24) && (write_data_i[0] == 1'b1);
+    assign ready_o = 1'b1;
 
     /* system_counter */
 
@@ -92,7 +93,7 @@ module timer_sb_ctrl(
             next_mode = OFF;
         end
         else begin
-            next_mode = next_mode;
+            next_mode = mode;
         end
     end
 

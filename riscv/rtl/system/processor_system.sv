@@ -212,9 +212,10 @@ module processor_system(
                     .tx_o(tx_o_dev)
         );
         
-           assign led_o[15] = irq_req; 
-   assign led_o[0] = irq_ret;
-   assign led_o[14:1] = rom_addr;
+           //assign led_o[15] = irq_req; 
+   //assign led_o[0] = irq_ret;
+   //assign led_o[14:1] = rom_addr;
+   assign led_o[0] = rst_bl; // indicate core reset on led
 
    always @ (*) begin
       case (mem_addr[31:24])
@@ -223,6 +224,7 @@ module processor_system(
         //PS2_ADDR_HIGH: lsu_rd = ps2_rd;
         TIMER_ADDR_HIGH: lsu_rd = tim_rd;
         TX_ADDR_HIGH: lsu_rd = ua_tx;
+        default: lsu_rd = 'd0;
       endcase
    end
 

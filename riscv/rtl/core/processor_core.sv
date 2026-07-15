@@ -113,7 +113,8 @@ module processor_core(
       case (dec_a_sel)
         OP_A_RS1: alu_a = rf_rd1;
         OP_A_CURR_PC: alu_a = pc;
-        OP_A_ZERO: alu_a = 32'b0; // no default
+        OP_A_ZERO: alu_a = 32'b0;
+        default: alu_a = 'b0;
       endcase // case (dec_a_sel)
       case (dec_b_sel)
         OP_B_RS2: alu_b = rf_rd2;
@@ -121,11 +122,13 @@ module processor_core(
         OP_B_IMM_U: alu_b = imm_u;
         OP_B_IMM_S: alu_b = imm_s;
         OP_B_INCR: alu_b = 32'd4;
+        default: alu_b = 'b0;
       endcase // case (dec_b_sel)
       case (dec_wb_sel)
         WB_EX_RESULT: wb_data = alu_res;
         WB_LSU_DATA: wb_data = mem_rd_i;
         WB_CSR_DATA: wb_data = csr_wd;
+        default: wb_data = 'b0;
       endcase // case (dec_wb_sel)
    end
 

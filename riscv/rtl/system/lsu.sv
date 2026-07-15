@@ -56,6 +56,7 @@ module lsu(
 
    // core read data logic
    always @ (*) begin
+      core_rd_o = 'b0;     
       case (core_size_i)
         LDST_W: core_rd_o = mem_rd_i;
         LDST_B: begin

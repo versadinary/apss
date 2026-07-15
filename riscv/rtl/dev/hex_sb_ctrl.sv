@@ -215,7 +215,7 @@ module hex_sb_ctrl (
         32'h18:   read_data_o = {28'd0, hex6};
         32'h1C:   read_data_o = {28'd0, hex7};
         32'h20:   read_data_o = {24'd0, bitmask};
-        default:  read_data_o = read_data_o;
+        default:  read_data_o = 32'b0;
       endcase
   end
 
