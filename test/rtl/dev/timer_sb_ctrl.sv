@@ -102,20 +102,20 @@ module timer_sb_ctrl(
 
     /* repeat counter */
 
-    always_comb begin
+    always_ff @(posedge clk_i or posedge rst_i) begin
+        if (rst | rst_i) begin
+            repeat_counter <= 'd0;
+        end
         if (req_i && write_enable_i) begin
             if (addr_i[7:0] == 8'h14) begin
-                repeat_counter = write_data_i;
+                repeat_counter <= write_data_i;
             end
         end
         else if (repeat_counter) begin
-            repeat_counter -= (system_counter_at_start + delay == system_counter);
-        end
-        else if (rst | rst_i) begin
-            repeat_counter = 'd0;
+            repeat_counter <=  repeat_counter - (system_counter_at_start + delay == system_counter);
         end
         else begin
-            repeat_counter = repeat_counter;
+            repeat_counter <= repeat_counter;
         end
     end
 
@@ -176,7 +176,7 @@ module timer_sb_ctrl(
 
     /* read_data_o */
 
-    always_comb begin
+    always_ff @(posedge clk_i or posedge rst_i) begin
         if (req_i & ~write_enable_i) begin
             case (addr_i[7:0])
                 8'h00: read_data_o = system_counter[31:0];

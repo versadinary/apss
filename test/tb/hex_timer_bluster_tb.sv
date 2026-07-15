@@ -50,7 +50,7 @@ module hex_timer_bluster_tb();
     rst_i <= 0;
     //////////////////////////
     
-    // srepeat (250) @(posedge clk_i);
+    // repeat (250) @(posedge clk_i);
     
     fd = $fopen(fname, "r");
     assert(fd)
