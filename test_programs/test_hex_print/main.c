@@ -6,7 +6,7 @@ volatile uint32_t int_count = 0;
 
 void int_handler() {
     int_count++;
-    hex_ptr->hex0 = 0xf;
+    hex_ptr->hex0 = timer_ptr->system_counter_low_bits;
 }
 
 void timer_init() {
@@ -61,9 +61,10 @@ int main() {
     print(0xe, 2);
     print(0xa, 1);
     print(0xd, 0);
-    print(timer_ptr->delay_low_bits, 15);
-    print(timer_ptr->mode, 14);
-    print(timer_ptr->system_counter_low_bits, 13);
+    print(timer_ptr->delay_low_bits, 5);
+    print(timer_ptr->mode, 6);
+    print(timer_ptr->system_counter_low_bits, 7);
+    while (1);
 
     return 0;
 }

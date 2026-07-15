@@ -23,7 +23,7 @@ module timer_sb_ctrl(
     logic [31:0] repeat_counter;
     logic [63:0] system_counter_at_start;
     logic rst;
-    assign rst = req_i && write_enable_i && (addr_i[7:0] == 8'h24);
+    assign rst = req_i && write_enable_i && (addr_i[7:0] == 8'h24) && (write_data_i[0] == 1'b1);
 
     /* system_counter */
 
@@ -81,11 +81,9 @@ module timer_sb_ctrl(
                 2'h0: next_mode = OFF;
                 2'h1: begin
                     next_mode = NTIMES;
-                    // system_counter_at_start = system_counter;
                 end
                 2'h2: begin
                     next_mode = FOREVER;
-                    // system_counter_at_start = system_counter;
                 end
                 default: next_mode = OFF;
             endcase
@@ -159,31 +157,27 @@ module timer_sb_ctrl(
     /* interrupt_request_o */
 
     // assign interrupt_request_o = ((mode != OFF) && system_counter_at_start + delay == system_counter);
-    always_comb begin
+    /*always_comb begin
         if (mode != OFF) begin
             if (system_counter_at_start + delay == system_counter) begin
                interrupt_request_o = 1'b1;
-               // system_counter_at_start = system_counter;
             end
             else begin
                interrupt_request_o = 1'b0;
             end
         end
         else if (rst | rst_i) begin
-            // system_counter_at_start = 'd0;
             interrupt_request_o = 'd0;
         end
-        /*else begin
-            interrupt_request_o = 1'b0;
-        end*/
-    end
+    end*/
+    
+    assign interrupt_request_o = (system_counter_at_start + delay == system_counter) && (mode != OFF);
 
     /* ~interrupt_request_o */
 
     /* read_data_o */
 
     always_comb begin
-        if (req_i & ~write_enable_i) begin
             case (addr_i[7:0])
                 8'h00: read_data_o = system_counter[31:0];
                 8'h04: read_data_o = system_counter[63:32];
@@ -193,14 +187,9 @@ module timer_sb_ctrl(
                 8'h14: read_data_o = repeat_counter;
                 default: read_data_o = 32'h0;
             endcase
-        end
     end
 
     /* ~read_data_o */
 
-    /* program reset */
-
-
-    /* ~program_reset */
 
 endmodule

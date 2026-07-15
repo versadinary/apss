@@ -205,22 +205,18 @@ module hex_sb_ctrl (
   end
 
   always_comb begin
-    if (req_i & ~write_enable_i) begin
       case (addr_i)
-        32'h00:  assign read_data_o = {28'd0, hex0};
-        32'h04:  assign read_data_o = {28'd0, hex1};
-        32'h08:  assign read_data_o = {28'd0, hex2};
-        32'h0C:  assign read_data_o = {28'd0, hex3};
-        32'h10:  assign read_data_o = {28'd0, hex4};
-        32'h14:  assign read_data_o = {28'd0, hex5};
-        32'h18:  assign read_data_o = {28'd0, hex6};
-        32'h1C:  assign read_data_o = {28'd0, hex7};
-        32'h20:  assign read_data_o = {24'd0, bitmask};
-        default: assign read_data_o = read_data_o;
+        32'h00:   read_data_o = {28'd0, hex0};
+        32'h04:   read_data_o = {28'd0, hex1};
+        32'h08:   read_data_o = {28'd0, hex2};
+        32'h0C:   read_data_o = {28'd0, hex3};
+        32'h10:   read_data_o = {28'd0, hex4};
+        32'h14:   read_data_o = {28'd0, hex5};
+        32'h18:   read_data_o = {28'd0, hex6};
+        32'h1C:   read_data_o = {28'd0, hex7};
+        32'h20:   read_data_o = {24'd0, bitmask};
+        default:  read_data_o = read_data_o;
       endcase
-    end
-    else read_data_o = read_data_o;
-
   end
 
 

@@ -29,7 +29,7 @@ Disassembly of section .text:
 00000040 <_main_call>:
   40:	00000513          	li	a0,0
   44:	00000593          	li	a1,0
-  48:	220000ef          	jal	268 <main>
+  48:	224000ef          	jal	26c <main>
 
 0000004c <_endless_loop>:
   4c:	0000006f          	j	4c <_endless_loop>
@@ -95,148 +95,144 @@ Disassembly of section .text:
  12c:	02002783          	lw	a5,32(zero) # 20 <int_count>
  130:	00178713          	add	a4,a5,1
  134:	02e02023          	sw	a4,32(zero) # 20 <int_count>
- 138:	040007b7          	lui	a5,0x4000
- 13c:	00f00713          	li	a4,15
- 140:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
- 144:	00000013          	nop
- 148:	00c12403          	lw	s0,12(sp)
- 14c:	01010113          	add	sp,sp,16
- 150:	00008067          	ret
+ 138:	08000737          	lui	a4,0x8000
+ 13c:	040007b7          	lui	a5,0x4000
+ 140:	00072703          	lw	a4,0(a4) # 8000000 <_gbl_ptr+0x7fff800>
+ 144:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
+ 148:	00000013          	nop
+ 14c:	00c12403          	lw	s0,12(sp)
+ 150:	01010113          	add	sp,sp,16
+ 154:	00008067          	ret
 
-00000154 <timer_init>:
- 154:	ff010113          	add	sp,sp,-16
- 158:	00812623          	sw	s0,12(sp)
- 15c:	01010413          	add	s0,sp,16
- 160:	080007b7          	lui	a5,0x8000
- 164:	00100713          	li	a4,1
- 168:	02e7a223          	sw	a4,36(a5) # 8000024 <_gbl_ptr+0x7fff824>
- 16c:	080007b7          	lui	a5,0x8000
- 170:	0207a223          	sw	zero,36(a5) # 8000024 <_gbl_ptr+0x7fff824>
- 174:	080007b7          	lui	a5,0x8000
- 178:	00200713          	li	a4,2
- 17c:	00e7a823          	sw	a4,16(a5) # 8000010 <_gbl_ptr+0x7fff810>
- 180:	080007b7          	lui	a5,0x8000
- 184:	00018737          	lui	a4,0x18
- 188:	6a070713          	add	a4,a4,1696 # 186a0 <_gbl_ptr+0x17ea0>
- 18c:	00e7a423          	sw	a4,8(a5) # 8000008 <_gbl_ptr+0x7fff808>
- 190:	00000013          	nop
- 194:	00c12403          	lw	s0,12(sp)
- 198:	01010113          	add	sp,sp,16
- 19c:	00008067          	ret
+00000158 <timer_init>:
+ 158:	ff010113          	add	sp,sp,-16
+ 15c:	00812623          	sw	s0,12(sp)
+ 160:	01010413          	add	s0,sp,16
+ 164:	080007b7          	lui	a5,0x8000
+ 168:	00100713          	li	a4,1
+ 16c:	02e7a223          	sw	a4,36(a5) # 8000024 <_gbl_ptr+0x7fff824>
+ 170:	080007b7          	lui	a5,0x8000
+ 174:	0207a223          	sw	zero,36(a5) # 8000024 <_gbl_ptr+0x7fff824>
+ 178:	080007b7          	lui	a5,0x8000
+ 17c:	00200713          	li	a4,2
+ 180:	00e7a823          	sw	a4,16(a5) # 8000010 <_gbl_ptr+0x7fff810>
+ 184:	080007b7          	lui	a5,0x8000
+ 188:	00018737          	lui	a4,0x18
+ 18c:	6a070713          	add	a4,a4,1696 # 186a0 <_gbl_ptr+0x17ea0>
+ 190:	00e7a423          	sw	a4,8(a5) # 8000008 <_gbl_ptr+0x7fff808>
+ 194:	00000013          	nop
+ 198:	00c12403          	lw	s0,12(sp)
+ 19c:	01010113          	add	sp,sp,16
+ 1a0:	00008067          	ret
 
-000001a0 <print>:
- 1a0:	fe010113          	add	sp,sp,-32
- 1a4:	00812e23          	sw	s0,28(sp)
- 1a8:	02010413          	add	s0,sp,32
- 1ac:	fea42623          	sw	a0,-20(s0)
- 1b0:	feb42423          	sw	a1,-24(s0)
- 1b4:	fe842703          	lw	a4,-24(s0)
- 1b8:	00700793          	li	a5,7
- 1bc:	08e7ee63          	bltu	a5,a4,258 <print+0xb8>
- 1c0:	fe842783          	lw	a5,-24(s0)
- 1c4:	00279713          	sll	a4,a5,0x2
- 1c8:	00000793          	li	a5,0
- 1cc:	00f707b3          	add	a5,a4,a5
- 1d0:	0007a783          	lw	a5,0(a5)
- 1d4:	00078067          	jr	a5
- 1d8:	040007b7          	lui	a5,0x4000
- 1dc:	fec42703          	lw	a4,-20(s0)
- 1e0:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
- 1e4:	0740006f          	j	258 <print+0xb8>
- 1e8:	040007b7          	lui	a5,0x4000
- 1ec:	fec42703          	lw	a4,-20(s0)
- 1f0:	00e7a223          	sw	a4,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
- 1f4:	0640006f          	j	258 <print+0xb8>
- 1f8:	040007b7          	lui	a5,0x4000
- 1fc:	fec42703          	lw	a4,-20(s0)
- 200:	00e7a423          	sw	a4,8(a5) # 4000008 <_gbl_ptr+0x3fff808>
- 204:	0540006f          	j	258 <print+0xb8>
- 208:	040007b7          	lui	a5,0x4000
- 20c:	fec42703          	lw	a4,-20(s0)
- 210:	00e7a623          	sw	a4,12(a5) # 400000c <_gbl_ptr+0x3fff80c>
- 214:	0440006f          	j	258 <print+0xb8>
- 218:	040007b7          	lui	a5,0x4000
- 21c:	fec42703          	lw	a4,-20(s0)
- 220:	00e7a823          	sw	a4,16(a5) # 4000010 <_gbl_ptr+0x3fff810>
- 224:	0340006f          	j	258 <print+0xb8>
- 228:	040007b7          	lui	a5,0x4000
- 22c:	fec42703          	lw	a4,-20(s0)
- 230:	00e7aa23          	sw	a4,20(a5) # 4000014 <_gbl_ptr+0x3fff814>
- 234:	0240006f          	j	258 <print+0xb8>
- 238:	040007b7          	lui	a5,0x4000
- 23c:	fec42703          	lw	a4,-20(s0)
- 240:	00e7ac23          	sw	a4,24(a5) # 4000018 <_gbl_ptr+0x3fff818>
- 244:	0140006f          	j	258 <print+0xb8>
- 248:	040007b7          	lui	a5,0x4000
- 24c:	fec42703          	lw	a4,-20(s0)
- 250:	00e7ae23          	sw	a4,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
- 254:	00000013          	nop
+000001a4 <print>:
+ 1a4:	fe010113          	add	sp,sp,-32
+ 1a8:	00812e23          	sw	s0,28(sp)
+ 1ac:	02010413          	add	s0,sp,32
+ 1b0:	fea42623          	sw	a0,-20(s0)
+ 1b4:	feb42423          	sw	a1,-24(s0)
+ 1b8:	fe842703          	lw	a4,-24(s0)
+ 1bc:	00700793          	li	a5,7
+ 1c0:	08e7ee63          	bltu	a5,a4,25c <print+0xb8>
+ 1c4:	fe842783          	lw	a5,-24(s0)
+ 1c8:	00279713          	sll	a4,a5,0x2
+ 1cc:	00000793          	li	a5,0
+ 1d0:	00f707b3          	add	a5,a4,a5
+ 1d4:	0007a783          	lw	a5,0(a5)
+ 1d8:	00078067          	jr	a5
+ 1dc:	040007b7          	lui	a5,0x4000
+ 1e0:	fec42703          	lw	a4,-20(s0)
+ 1e4:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
+ 1e8:	0740006f          	j	25c <print+0xb8>
+ 1ec:	040007b7          	lui	a5,0x4000
+ 1f0:	fec42703          	lw	a4,-20(s0)
+ 1f4:	00e7a223          	sw	a4,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
+ 1f8:	0640006f          	j	25c <print+0xb8>
+ 1fc:	040007b7          	lui	a5,0x4000
+ 200:	fec42703          	lw	a4,-20(s0)
+ 204:	00e7a423          	sw	a4,8(a5) # 4000008 <_gbl_ptr+0x3fff808>
+ 208:	0540006f          	j	25c <print+0xb8>
+ 20c:	040007b7          	lui	a5,0x4000
+ 210:	fec42703          	lw	a4,-20(s0)
+ 214:	00e7a623          	sw	a4,12(a5) # 400000c <_gbl_ptr+0x3fff80c>
+ 218:	0440006f          	j	25c <print+0xb8>
+ 21c:	040007b7          	lui	a5,0x4000
+ 220:	fec42703          	lw	a4,-20(s0)
+ 224:	00e7a823          	sw	a4,16(a5) # 4000010 <_gbl_ptr+0x3fff810>
+ 228:	0340006f          	j	25c <print+0xb8>
+ 22c:	040007b7          	lui	a5,0x4000
+ 230:	fec42703          	lw	a4,-20(s0)
+ 234:	00e7aa23          	sw	a4,20(a5) # 4000014 <_gbl_ptr+0x3fff814>
+ 238:	0240006f          	j	25c <print+0xb8>
+ 23c:	040007b7          	lui	a5,0x4000
+ 240:	fec42703          	lw	a4,-20(s0)
+ 244:	00e7ac23          	sw	a4,24(a5) # 4000018 <_gbl_ptr+0x3fff818>
+ 248:	0140006f          	j	25c <print+0xb8>
+ 24c:	040007b7          	lui	a5,0x4000
+ 250:	fec42703          	lw	a4,-20(s0)
+ 254:	00e7ae23          	sw	a4,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
  258:	00000013          	nop
- 25c:	01c12403          	lw	s0,28(sp)
- 260:	02010113          	add	sp,sp,32
- 264:	00008067          	ret
+ 25c:	00000013          	nop
+ 260:	01c12403          	lw	s0,28(sp)
+ 264:	02010113          	add	sp,sp,32
+ 268:	00008067          	ret
 
-00000268 <main>:
- 268:	ff010113          	add	sp,sp,-16
- 26c:	00112623          	sw	ra,12(sp)
- 270:	00812423          	sw	s0,8(sp)
- 274:	01010413          	add	s0,sp,16
- 278:	eddff0ef          	jal	154 <timer_init>
- 27c:	040007b7          	lui	a5,0x4000
- 280:	0ff00713          	li	a4,255
- 284:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
- 288:	00300593          	li	a1,3
- 28c:	00100513          	li	a0,1
- 290:	f11ff0ef          	jal	1a0 <print>
- 294:	00200593          	li	a1,2
- 298:	00e00513          	li	a0,14
- 29c:	f05ff0ef          	jal	1a0 <print>
- 2a0:	00100593          	li	a1,1
- 2a4:	00a00513          	li	a0,10
- 2a8:	ef9ff0ef          	jal	1a0 <print>
- 2ac:	00000593          	li	a1,0
- 2b0:	00d00513          	li	a0,13
- 2b4:	eedff0ef          	jal	1a0 <print>
- 2b8:	080007b7          	lui	a5,0x8000
- 2bc:	0087a783          	lw	a5,8(a5) # 8000008 <_gbl_ptr+0x7fff808>
- 2c0:	00f00593          	li	a1,15
- 2c4:	00078513          	mv	a0,a5
- 2c8:	ed9ff0ef          	jal	1a0 <print>
- 2cc:	080007b7          	lui	a5,0x8000
- 2d0:	0107a783          	lw	a5,16(a5) # 8000010 <_gbl_ptr+0x7fff810>
- 2d4:	00e00593          	li	a1,14
- 2d8:	00078513          	mv	a0,a5
- 2dc:	ec5ff0ef          	jal	1a0 <print>
- 2e0:	080007b7          	lui	a5,0x8000
- 2e4:	0007a783          	lw	a5,0(a5) # 8000000 <_gbl_ptr+0x7fff800>
- 2e8:	00d00593          	li	a1,13
- 2ec:	00078513          	mv	a0,a5
- 2f0:	eb1ff0ef          	jal	1a0 <print>
- 2f4:	00000793          	li	a5,0
- 2f8:	00078513          	mv	a0,a5
- 2fc:	00c12083          	lw	ra,12(sp)
- 300:	00812403          	lw	s0,8(sp)
- 304:	01010113          	add	sp,sp,16
- 308:	00008067          	ret
+0000026c <main>:
+ 26c:	ff010113          	add	sp,sp,-16
+ 270:	00112623          	sw	ra,12(sp)
+ 274:	00812423          	sw	s0,8(sp)
+ 278:	01010413          	add	s0,sp,16
+ 27c:	eddff0ef          	jal	158 <timer_init>
+ 280:	040007b7          	lui	a5,0x4000
+ 284:	0ff00713          	li	a4,255
+ 288:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 28c:	00300593          	li	a1,3
+ 290:	00100513          	li	a0,1
+ 294:	f11ff0ef          	jal	1a4 <print>
+ 298:	00200593          	li	a1,2
+ 29c:	00e00513          	li	a0,14
+ 2a0:	f05ff0ef          	jal	1a4 <print>
+ 2a4:	00100593          	li	a1,1
+ 2a8:	00a00513          	li	a0,10
+ 2ac:	ef9ff0ef          	jal	1a4 <print>
+ 2b0:	00000593          	li	a1,0
+ 2b4:	00d00513          	li	a0,13
+ 2b8:	eedff0ef          	jal	1a4 <print>
+ 2bc:	080007b7          	lui	a5,0x8000
+ 2c0:	0087a783          	lw	a5,8(a5) # 8000008 <_gbl_ptr+0x7fff808>
+ 2c4:	00500593          	li	a1,5
+ 2c8:	00078513          	mv	a0,a5
+ 2cc:	ed9ff0ef          	jal	1a4 <print>
+ 2d0:	080007b7          	lui	a5,0x8000
+ 2d4:	0107a783          	lw	a5,16(a5) # 8000010 <_gbl_ptr+0x7fff810>
+ 2d8:	00600593          	li	a1,6
+ 2dc:	00078513          	mv	a0,a5
+ 2e0:	ec5ff0ef          	jal	1a4 <print>
+ 2e4:	080007b7          	lui	a5,0x8000
+ 2e8:	0007a783          	lw	a5,0(a5) # 8000000 <_gbl_ptr+0x7fff800>
+ 2ec:	00700593          	li	a1,7
+ 2f0:	00078513          	mv	a0,a5
+ 2f4:	eb1ff0ef          	jal	1a4 <print>
+ 2f8:	0000006f          	j	2f8 <_stack_size+0x78>
 
 Disassembly of section .data:
 
 00000000 <_gbl_ptr-0x800>:
-   0:	01d8                	.insn	2, 0x01d8
+   0:	01dc                	.insn	2, 0x01dc
    2:	0000                	.insn	2, 0x
-   4:	01e8                	.insn	2, 0x01e8
+   4:	01ec                	.insn	2, 0x01ec
    6:	0000                	.insn	2, 0x
-   8:	01f8                	.insn	2, 0x01f8
+   8:	01fc                	.insn	2, 0x01fc
    a:	0000                	.insn	2, 0x
-   c:	0208                	.insn	2, 0x0208
+   c:	020c                	.insn	2, 0x020c
    e:	0000                	.insn	2, 0x
-  10:	0218                	.insn	2, 0x0218
+  10:	021c                	.insn	2, 0x021c
   12:	0000                	.insn	2, 0x
-  14:	0228                	.insn	2, 0x0228
+  14:	022c                	.insn	2, 0x022c
   16:	0000                	.insn	2, 0x
-  18:	0238                	.insn	2, 0x0238
+  18:	023c                	.insn	2, 0x023c
   1a:	0000                	.insn	2, 0x
-  1c:	0248                	.insn	2, 0x0248
+  1c:	024c                	.insn	2, 0x024c
 	...
 
 Disassembly of section .comment:

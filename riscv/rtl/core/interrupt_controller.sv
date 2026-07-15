@@ -35,7 +35,7 @@ module interrupt_controller(
    assign irq_o = irq_out;
    assign irq_cause_o = 32'h8000_0010;
 
-   always @ (posedge clk_i) begin
+   always @ (posedge clk_i or posedge rst_i) begin
       if (rst_i) begin
          exc_h_q <= 1'd0;
          irq_h_q <= 1'd0;
