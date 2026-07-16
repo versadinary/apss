@@ -9361,7 +9361,7 @@ Disassembly of section .data:
 	...
 
 000005ec <seed4_volatile>:
- 5ec:	0001                	.insn	2, 0x0001
+ 5ec:	002d                	.insn	2, 0x002d
 	...
 
 000005f0 <default_num_contexts>:

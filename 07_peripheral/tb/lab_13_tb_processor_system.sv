@@ -18,17 +18,30 @@ logic [15:0] sw_i;
 logic [15:0] led_o;
 logic ps2_clk;
 logic ps2_dat;
+logic rst_i;
 
 logic [ 6:0] hex_led_o;
 logic [ 7:0] hex_sel_o;
 logic        rx_i;
 logic        tx_o;
+initial begin
+    // clk100mhz_i = 0;
+    //clk_i = 0;
+    rst_i <= 0;
+    @(posedge clk_i);
+    rst_i <= 1;
+    repeat(2) @(posedge clk_i);
+    rst_i <= 0;
+ end
 
 
 initial begin clk_i = 0; end
 always #5ns clk_i = ~clk_i;
+logic rx_busy, rx_valid, tx_busy, tx_valid;
+  logic [7:0] rx_data, tx_data;
 
-initial #4ms $finish();
+initial #40ms $finish();
+
 
 initial begin
   resetn = 1;
@@ -36,6 +49,8 @@ initial begin
   resetn = 0;
   repeat(20) @(posedge clk_i);
   resetn = 1;
+  
+    // finish_programming();
 end
 
 processor_system DUT(
@@ -50,6 +65,10 @@ processor_system DUT(
   .rx_i     (rx_i     ),
   .tx_o     (tx_o     )
 );
+
+logic core_reset = DUT.rst_bl;
+
+
 
 initial begin: sw_block
   sw_i = 16'd0;
@@ -87,7 +106,12 @@ initial begin: ps2_initial_block
 end
 
 initial begin: uart_rx_initial_block
+  // wait(core_reset);
   rx_i = 1'b1;
+  uart_rx_send_char(8'hff, 115200, rx_i);
+  uart_rx_send_char(8'hff, 115200, rx_i);
+  uart_rx_send_char(8'hff, 115200, rx_i);
+  uart_rx_send_char(8'hff, 115200, rx_i);
   repeat(1000) @(posedge clk_i);
   uart_rx_send_char(8'h1c, 115200, rx_i);
   repeat(1000) @(posedge clk_i);
@@ -99,5 +123,21 @@ initial begin: uart_rx_initial_block
   repeat(1000) @(posedge clk_i);
   uart_rx_send_char(8'h7F, 115200, rx_i);
 end
+
+
+task finish_programming();
+  send_data({8'hff, 8'hff, 8'hff, 8'hff});
+endtask
+
+task send_data(input byte mem[$]);
+  for(int i = mem.size()-1; i >=0; i--) begin
+    tx_data = mem[i];
+    tx_valid = 1'b1;
+    @(posedge clk_i);
+    tx_valid = 1'b0;
+    @(posedge clk_i);
+    while(tx_busy) @(posedge clk_i);
+  end
+endtask
 
 endmodule

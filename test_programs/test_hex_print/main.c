@@ -1,6 +1,6 @@
 #include "platform.h"
 #define TIMER_INF 2
-#define CLOCKS_PER_SEC 100000
+#define CLOCKS_PER_SEC 1000000
 
 volatile uint32_t int_count = 0;
 

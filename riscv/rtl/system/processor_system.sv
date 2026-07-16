@@ -99,6 +99,11 @@ module processor_system(
                 .mem_rd_i(lsu_rd),
                 .mem_ready_i(/* ready */ 1'b1)
                 );
+                
+                              //ogic ua_rx;
+                              //assign ua_rx = rst_bl ? rx_bluster : rx_i;
+                               
+       
 
    /*instr_mem imem(
                   .read_addr_i(rom_addr),
@@ -108,6 +113,7 @@ module processor_system(
       logic tx_o_bl;
       logic tx_o_dev;
       assign tx_o = rst_bl ? tx_o_bl : tx_o_dev;
+      
 
     rw_instr_mem imem(
          .clk_i(sysclk),
@@ -117,11 +123,14 @@ module processor_system(
          .write_data_i(bl_instr_wdata_o),
          .write_enable_i(bl_instr_we_o)
         );
-
+        
+        logic rx_bluster;
+        assign rx_bluster = rst_bl ? rx_i : 1'bz;
+        
         bluster prg(
             .clk_i(sysclk),
             .rst_i(rst),
-            .rx_i(rx_i),
+            .rx_i(rx_bluster),
             .tx_o(tx_o_bl),
             .instr_addr_o(bl_instr_addr_o),
             .instr_wdata_o(bl_instr_wdata_o),
@@ -146,6 +155,9 @@ module processor_system(
 
             logic [31:0] mem_addr;
             assign mem_addr = rst_bl ? bl_daddr_o : addr;
+            
+            
+            
             
 
             assign ohe = 256'd1 << mem_addr[31:24];
@@ -212,7 +224,25 @@ module processor_system(
                     .tx_o(tx_o_dev)
         );
         
-           //assign led_o[15] = irq_req; 
+        logic ua_rx_dev;
+        logic [31:0] ua_rx;
+        assign ua_rx_dev = rst_bl ? 1'bz : rx_i;
+        
+        
+        uart_rx_sb_ctrl uart_rx(
+                    .clk_i(sysclk),
+                    .rst_i(rst),
+                    .addr_i({8'd0, mem_addr[23:0]}),
+                    .req_i(req & ohe[RX_ADDR_HIGH]),
+                    .write_data_i(write_data),
+                    .write_enable_i(write_enable),
+                    .read_data_o(ua_rx),
+                    .rx_i(ua_rx_dev),
+                    .interrupt_request_o(),
+                    .interrupt_return_i()
+        );
+        
+    //assign led_o[15] = irq_req; 
    //assign led_o[0] = irq_ret;
    //assign led_o[14:1] = rom_addr;
    
@@ -225,6 +255,7 @@ module processor_system(
         PS2_ADDR_HIGH: lsu_rd = ps2_rd;
         TIMER_ADDR_HIGH: lsu_rd = tim_rd;
         TX_ADDR_HIGH: lsu_rd = ua_tx;
+        RX_ADDR_HIGH: lsu_rd = ua_rx;
         default: lsu_rd = 'd0;
       endcase
    end

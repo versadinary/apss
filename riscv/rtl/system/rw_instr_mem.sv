@@ -14,7 +14,7 @@ import memory_pkg::INSTR_MEM_SIZE_WORDS;
   logic [31:0] ROM [INSTR_MEM_SIZE_WORDS];
   
   /*initial begin
-    $readmemh("coremark_instr.mem", ROM);
+    $readmemh("lab_13_rx_tx_instr.mem", ROM);
   end*/
 
   assign read_data_o = ROM[read_addr_i[$clog2(INSTR_MEM_SIZE_BYTES)-1:2]];
