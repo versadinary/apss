@@ -178,15 +178,15 @@ module timer_sb_ctrl(
 
     /* read_data_o */
 
-    always_comb begin
+    always_ff @(posedge clk_i) begin
             case (addr_i[7:0])
-                8'h00: read_data_o = system_counter[31:0];
-                8'h04: read_data_o = system_counter[63:32];
-                8'h08: read_data_o = delay[31:0];
-                8'h0c: read_data_o = delay[63:32];
-                8'h10: read_data_o = mode;
-                8'h14: read_data_o = repeat_counter;
-                default: read_data_o = 32'h0;
+                8'h00: read_data_o <= system_counter[31:0];
+                8'h04: read_data_o <= system_counter[63:32];
+                8'h08: read_data_o <= delay[31:0];
+                8'h0c: read_data_o <= delay[63:32];
+                8'h10: read_data_o <= mode;
+                8'h14: read_data_o <= repeat_counter;
+                default: read_data_o <= 32'h0;
             endcase
     end
 

@@ -258,22 +258,7 @@ module bluster
                        8'h0a};
                        
                        
-   /* uart_tx signals */
-    /*always @(posedge clk_i or posedge rst_i) begin
-        if (rst_i) begin
-            tx_valid <= 1'd1;
-            tx_data <= 'd0;
-        end
-        else begin
-            tx_valid <= (!tx_busy) && (state == INIT_MSG || state == SIZE_ACK || state == FLASH_ACK);
-            case (state)
-                INIT_MSG: tx_data <= init_msg[msg_counter];
-                SIZE_ACK: tx_data <= flash_size[msg_counter];
-                FLASH_ACK: tx_data <= flash_msg[msg_counter];
-                default: tx_data <= 'd0;
-            endcase
-        end 
-    end*/
+   
     assign tx_valid = (!tx_busy) && (state == INIT_MSG || state == SIZE_ACK || state == FLASH_ACK);
     always_comb begin
         case (state)
@@ -283,8 +268,9 @@ module bluster
             default: tx_data = 'd0;
         endcase
     end
+    //assign tx_data = 'd0;
 
-    /* ~uart_tx signals */
+    
 
    uart_rx rx(
               .clk_i      (clk_i      ),
