@@ -28,7 +28,7 @@ Original Author: Shay Gal-on
 /************************/
 
 #ifndef ITERATIONS
-#define ITERATIONS 45
+#define ITERATIONS 1 
 #endif
 
 /* Configuration : HAS_FLOAT

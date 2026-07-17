@@ -15,9 +15,9 @@ import memory_pkg::DATA_MEM_SIZE_WORDS;
 
 logic [31:0] ram [0:DATA_MEM_SIZE_WORDS-1];
 
-/*initial begin
-    $readmemh("coremark_data.mem", ram);
-end*/
+initial begin
+    $readmemh("init_instr.mem", ram);
+end
 
 always_ff @(posedge clk_i) begin
     if (mem_req_i) begin

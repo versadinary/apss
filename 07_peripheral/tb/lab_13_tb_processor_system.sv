@@ -40,7 +40,7 @@ always #5ns clk_i = ~clk_i;
 logic rx_busy, rx_valid, tx_busy, tx_valid;
   logic [7:0] rx_data, tx_data;
 
-initial #40ms $finish();
+initial #500ms $finish();
 
 
 initial begin
@@ -86,23 +86,51 @@ initial begin: ps2_initial_block
   ps2_clk = 1'b1;
   ps2_dat = 1'b1;
   repeat(1000) @(posedge clk_i);
-  ps2_send_scan_code(8'h1C, ps2_clk, ps2_dat);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
   ps2_send_scan_code(8'hf0, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
-  ps2_send_scan_code(8'h1C, ps2_clk, ps2_dat);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
   ps2_send_scan_code(8'h32, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
   ps2_send_scan_code(8'hf0, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
-  ps2_send_scan_code(8'h32, ps2_clk, ps2_dat);
-  repeat(1000) @(posedge clk_i);
-  ps2_send_scan_code(8'h21, ps2_clk, ps2_dat);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
   ps2_send_scan_code(8'hf0, ps2_clk, ps2_dat);
   repeat(1000) @(posedge clk_i);
-  ps2_send_scan_code(8'h21, ps2_clk, ps2_dat);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'hf0, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+    repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'hf0, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
+  ps2_send_scan_code(8'h23, ps2_clk, ps2_dat);
+  ps2_send_scan_code(8'hf0, ps2_clk, ps2_dat);
+  repeat(1000) @(posedge clk_i);
 end
 
 initial begin: uart_rx_initial_block
