@@ -1,6 +1,7 @@
 #include "snake.h"
 #include <cstdint>
 #include <cstddef>
+#include <stdlib.h>
 #define TIMER_DELAY 200000
 
 extern volatile uint8_t (*video_memory_2d)[WIDTH];

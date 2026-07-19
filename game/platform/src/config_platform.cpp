@@ -19,14 +19,14 @@ bool get_key(uint8_t &key)
 
 size_t get_random_value()
 {
-    size_t rng = timer_ptr->system_counter_low_bits >> 4;
+    size_t rng = rand();
 
     return rng;
 }
 
 void seed_rng(size_t seed)
 {
-
+    srand(timer_ptr->system_counter_low_bits);
 }
 
 extern "C" void int_handler()
