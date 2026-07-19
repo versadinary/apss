@@ -8,7 +8,6 @@
 See https://github.com/MPSU/APS/blob/master/LICENSE file for licensing details.
 * ------------------------------------------------------------------------------
 */
-#pragma once
 #include <stdint.h>
 
 #ifdef __cplusplus
@@ -48,7 +47,7 @@ struct PS2_HANDLE
   volatile const uint32_t __unused__[7];
   volatile       uint32_t rst;
 };
-extern volatile struct PS2_HANDLE *const ps2_ptr = CAST(struct PS2_HANDLE *const, 0x03000000);
+struct PS2_HANDLE *const ps2_ptr = CAST(struct PS2_HANDLE *const, 0x03000000);
 
 struct HEX_HANDLE
 {
@@ -97,7 +96,7 @@ struct VGA_HANDLE
   volatile uint8_t *const color_map;
   volatile uint8_t *const tiff_map;
 };
-extern volatile struct VGA_HANDLE vga = {CAST(uint8_t *const, 0x07000000), CAST(uint8_t *const, 0x07001000), CAST(uint8_t *const, 0x07002000)};
+struct VGA_HANDLE vga = {CAST(uint8_t *const, 0x07000000), CAST(uint8_t *const, 0x07001000), CAST(uint8_t *const, 0x07002000)};
 
 struct TIMER_HANDLE
 {
@@ -110,7 +109,7 @@ struct TIMER_HANDLE
   volatile const uint32_t __unused2__[3];
   volatile       uint32_t rst;
 };
-extern volatile struct TIMER_HANDLE *const timer_ptr = CAST(struct TIMER_HANDLE *const, 0x08000000);
+struct TIMER_HANDLE *const timer_ptr = CAST(struct TIMER_HANDLE *const, 0x08000000);
 
 struct SUPER_COLLIDER_HANDLE
 {

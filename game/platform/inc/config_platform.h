@@ -1,7 +1,10 @@
-#include "platform.h"
+#include "snake.h"
 #include <cstdint>
 #include <cstddef>
+#define TIMER_DELAY 200000
 
+extern volatile uint8_t (*video_memory_2d)[WIDTH];
+extern volatile uint8_t *video_memory_1d;
 
 void config_periph();
 
@@ -11,10 +14,4 @@ size_t get_random_value();
 
 void seed_rng(size_t seed);
 
-extern void game_cycle();
-
 extern "C" void int_handler();
-
-///
-
-//==============================================================================

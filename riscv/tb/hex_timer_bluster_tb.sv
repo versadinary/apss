@@ -16,6 +16,10 @@ module hex_timer_bluster_tb();
   logic        tx_o;
   logic        clk_i;
   logic        rst_i;
+  logic ps2_clk;
+  logic ps2_dat;
+  
+  import peripheral_pkg::*;
 
   assign aresetn_i = !rst_i;
 
@@ -40,6 +44,12 @@ module hex_timer_bluster_tb();
      string data_ini = "init_data.mem";
      string core_data = "coremark_data.mem";
      string core_instr = "coremark_instr.mem"; 
+     
+     // keyboard press 
+     initial begin
+        #(10ms) ps2_send_scan_code(8'h1D, ps2_clk, ps2_dat);
+        #(80ms) ps2_send_scan_code(8'h1D, ps2_clk, ps2_dat);
+     end
 
 
   initial begin
@@ -51,11 +61,13 @@ module hex_timer_bluster_tb();
     rst_i <= 1;
     repeat(2) @(posedge clk_i);
     rst_i <= 0;
+    ps2_clk = 1'b1;
+    ps2_dat = 1'b1;
     //////////////////////////
     
     // repeat (250) @(posedge clk_i);
     
-    fd = $fopen("snake_data.mem", "r");
+    /*fd = $fopen("snake_instr.mem", "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
     void'($fscanf(fd, "@%x\w", start_addr));
@@ -70,7 +82,7 @@ module hex_timer_bluster_tb();
     $fclose(fd);
     program_region(mem, start_addr);
     fname = "init_data.mem";
-    fd = $fopen("snake_instr.mem", "r");
+    fd = $fopen("snake_data.mem", "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
     void'($fscanf(fd, "@%x\w", start_addr));
@@ -83,10 +95,10 @@ module hex_timer_bluster_tb();
       mem_data.push_back(data[31:24]);
     end
     $fclose(fd);
-    program_region(mem_data, start_addr);
+    program_region(mem_data, start_addr);*/
     finish_programming();
     repeat(150) @(posedge clk_i);
-    finish_programming();
+    // finish_programming();
     repeat(150) @(posedge clk_i);
     
     coremark_cntr = 0;
@@ -116,7 +128,9 @@ module hex_timer_bluster_tb();
   processor_system DUT(
     .clk_i      (clk100mhz_i), 
     .resetn_i   (aresetn_i), 
-    .rx_i       (rx_i), 
+    .rx_i       (rx_i),
+     .kclk_i   (ps2_clk),
+    .kdata_i  (ps2_dat),
     .tx_o       (tx_o)
 );
 

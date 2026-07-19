@@ -60,6 +60,8 @@ processor_system DUT(
   .led_o    (led_o    ),
   .kclk_i   (ps2_clk  ),
   .kdata_i  (ps2_dat  ),
+   .kclk_i   (ps2_clk  ),
+  .kdata_i  (ps2_dat  ),
   .hex_led_o(hex_led_o),
   .hex_sel_o(hex_sel_o),
   .rx_i     (rx_i     ),
