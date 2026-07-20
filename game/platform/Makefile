@@ -6,16 +6,15 @@ OBJDUMP =   $(CC_PATH)/$(CC_PREFIX)-objdump
 OBJCOPY =   $(CC_PATH)/$(CC_PREFIX)-objcopy
 SIZE    =   $(CC_PATH)/$(CC_PREFIX)-size
 
+OBJS = src/startup.o src/config_platform.o ../snake/src/snake.o
+
 LINK_SCRIPT = linker_script.ld
 OUTPUT      = game
 OUTPUT_PROD = $(addprefix $(OUTPUT), .mem _instr.mem _data.mem .elf _disasm.S)
 
-INC_DIRS    = ./inc/ ../snake/inc/
-CC_DEFINES  = -D INPUT_TYPE=PS2
-CC_FLAGS    = -march=rv32i_zicsr -mabi=ilp32 $(addprefix -I, $(INC_DIRS))
+INC_DIRS    = $(addprefix "-I", ./inc/ ../snake/inc)
+CC_FLAGS    = -march=rv32i_zicsr -mabi=ilp32 $(INC_DIRS)
 LD_FLAGS    = -Wl,--gc-sections -nostartfiles -T $(LINK_SCRIPT)
-
-OBJS = src/startup.o src/config_platform.o ../snake/src/snake.o
 
 .PHONY: all clean size harvard princeton
 

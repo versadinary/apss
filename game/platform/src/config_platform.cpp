@@ -19,14 +19,17 @@ bool get_key(uint8_t &key)
 
 size_t get_random_value()
 {
-    size_t rng = rand();
+    size_t x = 1 + rand() % (WIDTH);
+    size_t y = 1 + rand() % (HEIGHT);
+    size_t rng = y * HEIGHT + x;
 
     return rng;
 }
 
 void seed_rng(size_t seed)
 {
-    srand(timer_ptr->system_counter_low_bits);
+    seed = timer_ptr->system_counter_low_bits;
+    srand(seed);
 }
 
 extern "C" void int_handler()

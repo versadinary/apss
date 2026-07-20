@@ -1,8 +1,12 @@
+#pragma once 
 #include "snake.h"
 #include <cstdint>
 #include <cstddef>
-#include <stdlib.h>
-#define TIMER_DELAY 200000
+#include <cstdlib>
+#define TIMER_DELAY 2000000
+
+extern "C" void srand(unsigned int seed);
+extern "C" int rand();
 
 extern volatile uint8_t (*video_memory_2d)[WIDTH];
 extern volatile uint8_t *video_memory_1d;
