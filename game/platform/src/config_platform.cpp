@@ -1,5 +1,4 @@
 #include "config_platform.h"
-#include "platform.h"
 
 void config_periph()
 {

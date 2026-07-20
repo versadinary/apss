@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <cstddef>
 #include <cstdlib>
+#include "platform.h"
 #define TIMER_DELAY 2000000
 
 extern "C" void srand(unsigned int seed);
