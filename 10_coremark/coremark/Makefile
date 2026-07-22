@@ -26,7 +26,7 @@ OUTPUT      = coremark
 OUTPUT_PROD = $(addprefix $(OUTPUT), .mem _instr.mem _data.mem .elf _disasm.S)
 
 INC_DIRS    = $(addprefix "-I", ./barebones ./)
-CC_FLAGS    = -march=rv32i_zicsr -mabi=ilp32 $(INC_DIRS)
+CC_FLAGS    = -march=rv32im_zicsr -mabi=ilp32 $(INC_DIRS)
 LD_FLAGS    = -Wl,--gc-sections -nostartfiles -T $(LINK_SCRIPT)
 
 .PHONY: all clean clean_all size harvard princeton

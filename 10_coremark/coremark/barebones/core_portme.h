@@ -77,7 +77,7 @@ Original Author: Shay Gal-on
 #endif
 #ifndef COMPILER_FLAGS
 #define COMPILER_FLAGS \
-    "-march=rv32i_zicsr -mabi=ilp32"
+    "-march=rv32im_zicsr -mabi=ilp32"
 #endif
 #ifndef MEM_LOCATION
 #define MEM_LOCATION "STACK"

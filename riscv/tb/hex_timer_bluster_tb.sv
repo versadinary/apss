@@ -67,7 +67,7 @@ module hex_timer_bluster_tb();
     
     // repeat (250) @(posedge clk_i);
     
-    /*fd = $fopen("snake_instr.mem", "r");
+    /*fd = $fopen("init_instr.mem", "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
     void'($fscanf(fd, "@%x\w", start_addr));
@@ -82,7 +82,7 @@ module hex_timer_bluster_tb();
     $fclose(fd);
     program_region(mem, start_addr);
     fname = "init_data.mem";
-    fd = $fopen("snake_data.mem", "r");
+    fd = $fopen("init_data.mem", "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
     void'($fscanf(fd, "@%x\w", start_addr));

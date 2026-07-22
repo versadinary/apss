@@ -59,6 +59,19 @@ module decoder (
                   default: illegal_instr_o = illegal_instr_o | 1'd1;
                 endcase // case (func3)
              end
+             7'b0000001: begin
+                case (func3)
+                  3'h0: alu_op_o = ALU_MUL;
+                  3'h1: alu_op_o = ALU_MULH;
+                  3'h2: alu_op_o = ALU_MULHSU;
+                  3'h3: alu_op_o = ALU_MULHU;
+                  3'h4: alu_op_o = ALU_DIV;
+                  3'h5: alu_op_o = ALU_DIVU;
+                  3'h6: alu_op_o = ALU_REM;
+                  3'h7: alu_op_o = ALU_REMU;
+                  default: illegal_instr_o = illegal_instr_o | 1'd1;
+                endcase // case (func3)
+             end
              default: illegal_instr_o = illegal_instr_o | 1'd1;
            endcase // case (func7)
         end
