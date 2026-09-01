@@ -56,7 +56,7 @@ module hex_timer_bluster_tb();
     $timeformat(-9, 2, " ns", 3);
     clk100mhz_i = 0;
     clk_i = 0;
-    rst_i <= 0;
+    rst_i = 0;
     @(posedge clk_i);
     rst_i <= 1;
     repeat(2) @(posedge clk_i);
@@ -118,10 +118,6 @@ module hex_timer_bluster_tb();
         end
       end
     end
-
-
-    
-
   end
 
   // initial #1000ms $finish();

@@ -196,7 +196,7 @@ module processor_system (
       .write_data_i(write_data),
       .read_data_o(tim_rd),
       .ready_o(),
-      .interrupt_request_o(irq_req)
+      .interrupt_request_o(/*irq_req*/)
   );
 
   uart_tx_sb_ctrl uart_tx (
@@ -220,8 +220,8 @@ module processor_system (
       .write_enable_i(write_enable),
       .read_data_o(ua_rx),
       .rx_i(ua_rx_dev),
-      .interrupt_request_o(),
-      .interrupt_return_i()
+      .interrupt_request_o(irq_req),
+      .interrupt_return_i(irq_ret)
   );
 
   vga_sb_ctrl VGA (

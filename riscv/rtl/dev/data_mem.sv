@@ -16,7 +16,7 @@ import memory_pkg::DATA_MEM_SIZE_WORDS;
 logic [31:0] ram [0:DATA_MEM_SIZE_WORDS-1];
 
 initial begin
-    $readmemh("coremark_data.mem", ram);
+    $readmemh("uart_test_data.mem", ram);
 end
 
 always_ff @(posedge clk_i) begin
