@@ -38,10 +38,9 @@ initial begin
 initial begin clk_i = 0; end
 always #5ns clk_i = ~clk_i;
 logic rx_busy, rx_valid, tx_busy, tx_valid;
-  logic [7:0] rx_data, tx_data;
+logic [7:0] rx_data, tx_data;
 
 initial #500ms $finish();
-
 
 initial begin
   resetn = 1;
@@ -49,8 +48,6 @@ initial begin
   resetn = 0;
   repeat(20) @(posedge clk_i);
   resetn = 1;
-  
-    // finish_programming();
 end
 
 processor_system DUT(
@@ -66,9 +63,20 @@ processor_system DUT(
   .tx_o     (tx_o     )
 );
 
-logic core_reset = DUT.rst_bl;
+uart_rx rcv_from_ps(
+  .clk_i      (clk_i      ),
+  .rst_i      (rst_i      ),
+  .rx_i       (tx_o       ),
+  .busy_o     (rx_busy    ),
+  .baudrate_i (17'd115200 ),
+  .parity_en_i(1'b1       ),
+  .stopbit_i  (1'b1       ),
+  .rx_data_o  (rx_data    ),
+  .rx_valid_o (rx_valid   )
+);
 
-
+logic core_reset;
+assign core_reset = DUT.rst_bl;
 
 initial begin: sw_block
   sw_i = 16'd0;
@@ -152,11 +160,11 @@ initial begin: uart_rx_initial_block
 end
 
 
-task finish_programming();
-  send_data({8'hff, 8'hff, 8'hff, 8'hff});
-endtask
+//task finish_programming();
+//  send_data({8'hff, 8'hff, 8'hff, 8'hff});
+//endtask
 
-task send_data(input byte mem[$]);
+/*task send_data(input byte mem[$]);
   for(int i = mem.size()-1; i >=0; i--) begin
     tx_data = mem[i];
     tx_valid = 1'b1;
@@ -165,6 +173,6 @@ task send_data(input byte mem[$]);
     @(posedge clk_i);
     while(tx_busy) @(posedge clk_i);
   end
-endtask
+endtask*/
 
 endmodule

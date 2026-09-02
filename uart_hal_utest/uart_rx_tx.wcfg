@@ -17,15 +17,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="3824154fs"></ZoomStartTime>
-      <ZoomEndTime time="1199235170fs"></ZoomEndTime>
-      <Cursor1Time time="1000000000fs"></Cursor1Time>
+      <ZoomStartTime time="67215000000fs"></ZoomStartTime>
+      <ZoomEndTime time="2089215000001fs"></ZoomEndTime>
+      <Cursor1Time time="528855000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="185"></NameColumnWidth>
-      <ValueColumnWidth column_width="65"></ValueColumnWidth>
+      <ValueColumnWidth column_width="61"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="19" />
    <wvobject type="logic" fp_name="/lab_13_tb_processor_system/clk_i">
       <obj_property name="ElementShortName">clk_i</obj_property>
       <obj_property name="ObjectShortName">clk_i</obj_property>
@@ -54,14 +54,6 @@
       <obj_property name="ElementShortName">rst_i</obj_property>
       <obj_property name="ObjectShortName">rst_i</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/lab_13_tb_processor_system/hex_led_o">
-      <obj_property name="ElementShortName">hex_led_o[6:0]</obj_property>
-      <obj_property name="ObjectShortName">hex_led_o[6:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/lab_13_tb_processor_system/hex_sel_o">
-      <obj_property name="ElementShortName">hex_sel_o[7:0]</obj_property>
-      <obj_property name="ObjectShortName">hex_sel_o[7:0]</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/lab_13_tb_processor_system/rx_i">
       <obj_property name="ElementShortName">rx_i</obj_property>
       <obj_property name="ObjectShortName">rx_i</obj_property>
@@ -70,32 +62,46 @@
       <obj_property name="ElementShortName">tx_o</obj_property>
       <obj_property name="ObjectShortName">tx_o</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/rx_busy">
-      <obj_property name="ElementShortName">rx_busy</obj_property>
-      <obj_property name="ObjectShortName">rx_busy</obj_property>
+   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/core_reset">
+      <obj_property name="ElementShortName">core_reset</obj_property>
+      <obj_property name="ObjectShortName">core_reset</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/rx_valid">
-      <obj_property name="ElementShortName">rx_valid</obj_property>
-      <obj_property name="ObjectShortName">rx_valid</obj_property>
+   <wvobject type="array" fp_name="/lab_13_tb_processor_system/DUT/rom_addr">
+      <obj_property name="ElementShortName">rom_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_addr[31:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/tx_busy">
-      <obj_property name="ElementShortName">tx_busy</obj_property>
-      <obj_property name="ObjectShortName">tx_busy</obj_property>
+   <wvobject type="array" fp_name="/lab_13_tb_processor_system/DUT/rom_ins">
+      <obj_property name="ElementShortName">rom_ins[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_ins[31:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/tx_valid">
-      <obj_property name="ElementShortName">tx_valid</obj_property>
-      <obj_property name="ObjectShortName">tx_valid</obj_property>
+   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/DUT/core_inst/irq">
+      <obj_property name="ElementShortName">irq</obj_property>
+      <obj_property name="ObjectShortName">irq</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/DUT/uart_rx/valid">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+      <obj_property name="label">valid_unread_data</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/lab_13_tb_processor_system/DUT/mem_addr">
+      <obj_property name="ElementShortName">mem_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mem_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/DUT/write_enable">
+      <obj_property name="ElementShortName">write_enable</obj_property>
+      <obj_property name="ObjectShortName">write_enable</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/DUT/req">
+      <obj_property name="ElementShortName">req</obj_property>
+      <obj_property name="ObjectShortName">req</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/lab_13_tb_processor_system/rx_data">
       <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
       <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/lab_13_tb_processor_system/tx_data">
-      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/core_reset">
-      <obj_property name="ElementShortName">core_reset</obj_property>
-      <obj_property name="ObjectShortName">core_reset</obj_property>
+   <wvobject type="logic" fp_name="/lab_13_tb_processor_system/rx_valid">
+      <obj_property name="ElementShortName">rx_valid</obj_property>
+      <obj_property name="ObjectShortName">rx_valid</obj_property>
    </wvobject>
 </wave_config>
