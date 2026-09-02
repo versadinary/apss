@@ -5,7 +5,7 @@
 #define STOP 1
 
 char rcv_data;
-char data_unread = 0;
+char data_flag = 0;
 
 void init_uart_rx(int baudrate, int parity_bit, int stop_bit)
 {
@@ -21,37 +21,36 @@ void init_uart_tx(int baudrate, int parity_bit, int stop_bit)
     tx_ptr->stop_bit = stop_bit;
 }
 
-char uart_rcv_char()
+char uart_rcv_char(char *rcv)
 {
     while (rx_ptr->busy);
-    char read_data = rx_ptr->data;
-    data_unread = 1;
-    return read_data;
+    *rcv = rx_ptr->data;
+    while (rx_ptr->busy);
 }
 
-void uart_send_char(char c)
+void uart_send_char(const char *c)
 {
     while (tx_ptr->busy);
-    tx_ptr->data = c;
+    tx_ptr->data = *c;
     while (tx_ptr->busy);
 }
 
 void int_handler()
 {
-    rcv_data = uart_rcv_char();
-    uart_send_char(rcv_data);
+    uart_rcv_char(&rcv_data);
+    data_flag = 1;
 }
 
 int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
-    /* while (1) { */
-    /*     if (data_unread) { */
-    /*         uart_send_char(rcv_data); */
-    /*         data_unread = 0; */
-    /*     } */
-    /* } */
+    while (1) {
+        if (data_flag) {
+            uart_send_char(&rcv_data);
+            data_flag = 0;
+        }
+    }
 
     return 0;
 }
