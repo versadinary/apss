@@ -9,7 +9,7 @@ SIZE    =   $(CC_PATH)/$(CC_PREFIX)-size
 OBJS = src/startup.o src/main.o
 
 LINK_SCRIPT = src/linker_script.ld
-OUTPUT      = uart_test
+OUTPUT      = rx_tx_test
 OUTPUT_PROD = $(addprefix $(OUTPUT), .mem _instr.mem _data.mem .elf _disasm.S)
 
 INC_DIRS    = $(addprefix "-I", ./inc/ ../snake/inc)

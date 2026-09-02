@@ -14,7 +14,7 @@ import memory_pkg::INSTR_MEM_SIZE_WORDS;
   logic [31:0] ROM [INSTR_MEM_SIZE_WORDS];
   
   initial begin
-    $readmemh("uart_test_instr.mem", ROM);
+    $readmemh("rx_tx_test_instr.mem", ROM);
   end
 
   assign read_data_o = ROM[read_addr_i[$clog2(INSTR_MEM_SIZE_BYTES)-1:2]];

@@ -51,6 +51,10 @@ initial #3ms $finish();
 logic [7:0] send_data;
 logic data_valid;
 assign tx_valid = data_valid;
+logic [7:0] receive_data;
+logic rcv_valid;
+assign receive_data = rx_data;
+assign rcv_valid = rx_valid;
 
 initial begin
     resetn = 1;
@@ -60,6 +64,10 @@ initial begin
     resetn = 1;
     for (int i = 0; i < 4; i++) send_byte_uart(8'hff);
     
+    for (int i = 0; i < 3; i++) begin
+        while(!rx_valid) @(posedge sysclk);
+        send_byte_uart(~receive_data);
+    end
     
 end
 
