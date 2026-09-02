@@ -63,7 +63,7 @@ processor_system DUT(
   .tx_o     (tx_o     )
 );
 
-uart_rx rcv_from_ps(
+uart_rx rcv_from_system(
   .clk_i      (clk_i      ),
   .rst_i      (rst_i      ),
   .rx_i       (tx_o       ),
@@ -149,6 +149,14 @@ initial begin: uart_rx_initial_block
   uart_rx_send_char(8'hff, 115200, rx_i);
   repeat(1000) @(posedge clk_i);
   uart_rx_send_char(8'h1c, 115200, rx_i);
+  repeat(1000) @(posedge clk_i);
+  uart_rx_send_char(8'h1c, 115200, rx_i);
+  repeat(1000) @(posedge clk_i);
+  uart_rx_send_char(8'h1c, 115200, rx_i);
+  repeat(1000) @(posedge clk_i);
+  uart_rx_send_char(8'h1c, 115200, rx_i);
+  repeat(1000) @(posedge clk_i);
+  uart_rx_send_char(8'h1c, 115200, rx_i);  
   repeat(1000) @(posedge clk_i);
   uart_rx_send_char(8'h0D, 115200, rx_i);
   repeat(1000) @(posedge clk_i);

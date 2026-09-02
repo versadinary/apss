@@ -39,18 +39,19 @@ void uart_send_char(char c)
 void int_handler()
 {
     rcv_data = uart_rcv_char();
+    uart_send_char(rcv_data);
 }
 
 int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
-    while (1) {
-	if (data_unread) {
-	    uart_send_char(rcv_data);
-	    data_unread = 0;
-	}
-    }
+    /* while (1) { */
+    /*     if (data_unread) { */
+    /*         uart_send_char(rcv_data); */
+    /*         data_unread = 0; */
+    /*     } */
+    /* } */
 
     return 0;
 }

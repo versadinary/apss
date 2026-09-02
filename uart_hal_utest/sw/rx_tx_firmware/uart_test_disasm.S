@@ -29,7 +29,7 @@ Disassembly of section .text:
 00000040 <_main_call>:
   40:	00000513          	li	a0,0
   44:	00000593          	li	a1,0
-  48:	23c000ef          	jal	284 <main>
+  48:	248000ef          	jal	290 <main>
 
 0000004c <_endless_loop>:
   4c:	0000006f          	j	4c <_endless_loop>
@@ -181,34 +181,36 @@ Disassembly of section .text:
  264:	00050793          	mv	a5,a0
  268:	00078713          	mv	a4,a5
  26c:	00e00023          	sb	a4,0(zero) # 0 <_start>
- 270:	00000013          	nop
- 274:	00c12083          	lw	ra,12(sp)
- 278:	00812403          	lw	s0,8(sp)
- 27c:	01010113          	add	sp,sp,16
- 280:	00008067          	ret
+ 270:	00004783          	lbu	a5,0(zero) # 0 <_start>
+ 274:	00078513          	mv	a0,a5
+ 278:	f85ff0ef          	jal	1fc <uart_send_char>
+ 27c:	00000013          	nop
+ 280:	00c12083          	lw	ra,12(sp)
+ 284:	00812403          	lw	s0,8(sp)
+ 288:	01010113          	add	sp,sp,16
+ 28c:	00008067          	ret
 
-00000284 <main>:
- 284:	ff010113          	add	sp,sp,-16
- 288:	00112623          	sw	ra,12(sp)
- 28c:	00812423          	sw	s0,8(sp)
- 290:	01010413          	add	s0,sp,16
- 294:	00100613          	li	a2,1
- 298:	00100593          	li	a1,1
- 29c:	0001c7b7          	lui	a5,0x1c
- 2a0:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
- 2a4:	e7dff0ef          	jal	120 <init_uart_rx>
- 2a8:	00100613          	li	a2,1
- 2ac:	00100593          	li	a1,1
- 2b0:	0001c7b7          	lui	a5,0x1c
- 2b4:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
- 2b8:	eb5ff0ef          	jal	16c <init_uart_tx>
- 2bc:	00104783          	lbu	a5,1(zero) # 1 <data_unread>
- 2c0:	fe078ee3          	beqz	a5,2bc <main+0x38>
- 2c4:	00004783          	lbu	a5,0(zero) # 0 <_start>
- 2c8:	00078513          	mv	a0,a5
- 2cc:	f31ff0ef          	jal	1fc <uart_send_char>
- 2d0:	000000a3          	sb	zero,1(zero) # 1 <data_unread>
- 2d4:	fe9ff06f          	j	2bc <main+0x38>
+00000290 <main>:
+ 290:	ff010113          	add	sp,sp,-16
+ 294:	00112623          	sw	ra,12(sp)
+ 298:	00812423          	sw	s0,8(sp)
+ 29c:	01010413          	add	s0,sp,16
+ 2a0:	00100613          	li	a2,1
+ 2a4:	00100593          	li	a1,1
+ 2a8:	0001c7b7          	lui	a5,0x1c
+ 2ac:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
+ 2b0:	e71ff0ef          	jal	120 <init_uart_rx>
+ 2b4:	00100613          	li	a2,1
+ 2b8:	00100593          	li	a1,1
+ 2bc:	0001c7b7          	lui	a5,0x1c
+ 2c0:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
+ 2c4:	ea9ff0ef          	jal	16c <init_uart_tx>
+ 2c8:	00000793          	li	a5,0
+ 2cc:	00078513          	mv	a0,a5
+ 2d0:	00c12083          	lw	ra,12(sp)
+ 2d4:	00812403          	lw	s0,8(sp)
+ 2d8:	01010113          	add	sp,sp,16
+ 2dc:	00008067          	ret
 
 Disassembly of section .comment:
 
@@ -253,7 +255,7 @@ Disassembly of section .riscv.attributes:
   18:	7032                	.insn	2, 0x7032
   1a:	5f31                	.insn	2, 0x5f31
   1c:	697a                	.insn	2, 0x697a
-  1e:	32727363          	bgeu	tp,t2,344 <main+0xc0>
+  1e:	32727363          	bgeu	tp,t2,344 <main+0xb4>
   22:	3070                	.insn	2, 0x3070
   24:	0800                	.insn	2, 0x0800
   26:	0a01                	.insn	2, 0x0a01
