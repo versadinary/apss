@@ -8,7 +8,7 @@
 See https://github.com/MPSU/APS/blob/master/LICENSE file for licensing details.
 * ------------------------------------------------------------------------------
 */
-module lab_13_tb_processor_system();
+module uart_rx_tx_tb();
 
 import peripheral_pkg::*;
 
@@ -40,7 +40,7 @@ always #5ns clk_i = ~clk_i;
 logic rx_busy, rx_valid, tx_busy, tx_valid;
 logic [7:0] rx_data, tx_data;
 
-initial #500ms $finish();
+initial #3ms $finish();
 
 initial begin
   resetn = 1;
@@ -147,16 +147,16 @@ initial begin: uart_rx_initial_block
   uart_rx_send_char(8'hff, 115200, rx_i);
   uart_rx_send_char(8'hff, 115200, rx_i);
   uart_rx_send_char(8'hff, 115200, rx_i);
-  repeat(1000) @(posedge clk_i);
-  uart_rx_send_char(8'h1c, 115200, rx_i);
-  repeat(1000) @(posedge clk_i);
+  repeat(2000) @(posedge clk_i);
+  uart_rx_send_char(8'h0A, 115200, rx_i);
+  repeat(2000) @(posedge clk_i);
+  uart_rx_send_char(8'h0B, 115200, rx_i);
+  repeat(2000) @(posedge clk_i);
+  uart_rx_send_char(8'h0C, 115200, rx_i);
+  repeat(2000) @(posedge clk_i);
   uart_rx_send_char(8'h0D, 115200, rx_i);
-  repeat(1000) @(posedge clk_i);
-  uart_rx_send_char(8'h0D, 115200, rx_i);
-  repeat(1000) @(posedge clk_i);
-  uart_rx_send_char(8'h7F, 115200, rx_i);
-  repeat(1000) @(posedge clk_i);
-  uart_rx_send_char(8'h7F, 115200, rx_i);
+  repeat(2000) @(posedge clk_i);
+  uart_rx_send_char(8'h0E, 115200, rx_i);
 end
 
 
