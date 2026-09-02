@@ -48,36 +48,18 @@ logic [7:0] rx_data, tx_data;
 
 initial #3ms $finish();
 
-initial begin : reset
-  resetn = 1;
-  repeat(20) @(posedge clk_i);
-  resetn = 0;
-  repeat(20) @(posedge clk_i);
-  resetn = 1;
-end
-
 logic [7:0] send_data;
 logic data_valid;
 assign tx_valid = data_valid;
 
 initial begin
-    send_data = 8'hff;
-    data_valid = 1'b1;
-    @ (posedge sysclk);
-    data_valid = 1'b0;
-    while (tx_busy) @ (posedge sysclk);
-    data_valid = 1'b1;
-    @ (posedge sysclk);
-    data_valid = 1'b0;
-    while (tx_busy) @ (posedge sysclk);
-//    data_valid = 1'b1;
-//    @ (posedge sysclk);
-//    data_valid = 1'b0;
-//    while (tx_busy) @ (posedge sysclk);
-//    data_valid = 1'b1;
-//    @ (posedge sysclk);
-//    data_valid = 1'b0;
-//    while (tx_busy) @ (posedge sysclk);
+    resetn = 1;
+    repeat(20) @(posedge clk_i);
+    resetn = 0;
+    repeat(20) @(posedge clk_i);
+    resetn = 1;
+    for (int i = 0; i < 4; i++) send_byte_uart(8'hff);
+    
     
 end
 
@@ -122,8 +104,10 @@ task send_byte_uart(input logic [7:0] data);
     send_data = data;
     data_valid = 1'b1;
     @ (posedge sysclk);
-    data_valid = 1'b0;
     while (tx_busy) @ (posedge sysclk);
+    data_valid = 1'b0;
+    @ (posedge sysclk);
+    
 endtask
 
 endmodule
