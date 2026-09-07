@@ -43,17 +43,27 @@ void int_handler()
     data_flag = 1;
 }
 
-int main(void)
+STATUS one_byte_test(const char *data)
 {
-    init_uart_rx(BAUDRATE, PARITY, STOP);
-    init_uart_tx(BAUDRATE, PARITY, STOP);
-    char data_to_send[] = {0x10, 0x20, 0x30};
     STATUS test_status;
-
-    uart_send_char(&data_to_send[0]);
+    uart_send_char(data);
     while (~data_flag);
     data_flag = 0;
-    test_status = data_to_send[0] == rcv_data ? SUCCESS : FAIL;
+    test_status = *data == rcv_data ? SUCCESS : FAIL;
+}
+
+int main(void)
+{
+    int N = 3;
+    init_uart_rx(BAUDRATE, PARITY, STOP);
+    init_uart_tx(BAUDRATE, PARITY, STOP);
+    char data_to_send[N] = {0x10, 0x20, 0x30};
+    STATUS test_statuses[N];
+    
+    for (int i = 0; i < N; i++) {
+        test_statuses[i] = one_byte_test(&data_to_send[i]);
+    }
+
 
     return 0;
 }
