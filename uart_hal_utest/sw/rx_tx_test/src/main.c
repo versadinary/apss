@@ -4,6 +4,8 @@
 #define PARITY 1
 #define STOP 1
 
+enum { FAIL = 0, SUCCESS = 1} STATUS;
+
 char rcv_data;
 char data_flag = 0;
 
@@ -46,13 +48,12 @@ int main(void)
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
     char data_to_send[] = {0x10, 0x20, 0x30};
-    for (int i = 0; i < 3; i++) {
-        if (data_flag) {
-            uart_send_char(&rcv_data);
-            data_flag = 0;
-        }
-        uart_send_char(&data_to_send[i]);
-    }
+    STATUS test_status;
+
+    uart_send_char(&data_to_send[0]);
+    while (~data_flag);
+    data_flag = 0;
+    test_status = data_to_send[0] == rcv_data ? SUCCESS : FAIL;
 
     return 0;
 }
