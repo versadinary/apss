@@ -35,11 +35,20 @@ module uart_testing();
   logic core_reset;
   assign core_reset = DUT.rst_bl;
   logic [7:0] data_from_system;
+  
+  int fd, start_addr;
+  logic [31:0] data;
+  byte mem [$];
+  byte str [$];
+  logic [3:0][7:0] size;
+  string INSTR = "rx_tx_test_instr.mem";
+  string DATA = "rx_tx_test_data.mem";
 
   initial begin
     $timeformat(-9, 2, " ns", 3);
     clk100mhz_i = 0;
     coremark_cntr = 0;
+    for (int i = 0; i < 103; i++) coremark_msg[i] = 32;
     clk_i = 0;
     rst_i = 0;
     @(posedge clk_i);
@@ -48,13 +57,17 @@ module uart_testing();
     rst_i <= 0;
     ps2_clk = 1'b1;
     ps2_dat = 1'b1;
-  
+    
+    prog(INSTR);
+    prog(DATA);
     finish_programming();
+    
     repeat(200) @ (posedge clk_i);
     get_data();
     $display("%t RECEIVED DATA: %h", $time, data_from_system);
-    send_data({~data_from_system});
+    send_data({data_from_system});
     $display("TX FINISHED %h @ %t",~data_from_system, $time);
+    @ (posedge clk_i);
     forever begin
       @(posedge clk_i);
       if(rx_valid) begin
@@ -154,6 +167,24 @@ task program_region(input byte mem[$], input logic [3:0][7:0] start_addr);
   send_data(mem);
   rcv_data(57);
 
+endtask
+
+task prog(input string filename);
+    mem.delete();
+    fd = $fopen(filename, "r");
+    assert(fd)
+    else $fatal(1, "Can't open file %s", filename);
+    void'($fscanf(fd, "@%x\w", start_addr));
+    start_addr <<=2;
+    while(!$feof(fd)) begin
+      $fscanf(fd, "%x\w", data);
+      mem.push_back(data[ 7: 0]);
+      mem.push_back(data[15: 8]);
+      mem.push_back(data[23:16]);
+      mem.push_back(data[31:24]);
+    end
+    $fclose(fd);
+    program_region(mem, start_addr);
 endtask
 
 task finish_programming();

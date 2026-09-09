@@ -17,15 +17,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="304850000000fs"></ZoomStartTime>
-      <ZoomEndTime time="1261850000001fs"></ZoomEndTime>
-      <Cursor1Time time="464350000000fs"></Cursor1Time>
+      <ZoomStartTime time="142000000000fs"></ZoomStartTime>
+      <ZoomEndTime time="659500000001fs"></ZoomEndTime>
+      <Cursor1Time time="573250000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="162"></NameColumnWidth>
+      <NameColumnWidth column_width="158"></NameColumnWidth>
       <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="21" />
    <wvobject type="logic" fp_name="/uart_testing/clk100mhz_i">
       <obj_property name="ElementShortName">clk100mhz_i</obj_property>
       <obj_property name="ObjectShortName">clk100mhz_i</obj_property>
@@ -94,7 +94,7 @@
       <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
       <obj_property name="CustomSignalColor">#FFFF00</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
-      <obj_property name="Radix">BINARYRADIX</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/uart_testing/core_reset">
       <obj_property name="ElementShortName">core_reset</obj_property>
@@ -103,9 +103,26 @@
    <wvobject type="array" fp_name="/uart_testing/coremark_msg">
       <obj_property name="ElementShortName">coremark_msg[0:102][7:0]</obj_property>
       <obj_property name="ObjectShortName">coremark_msg[0:102][7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/uart_testing/coremark_cntr">
       <obj_property name="ElementShortName">coremark_cntr[31:0]</obj_property>
       <obj_property name="ObjectShortName">coremark_cntr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/irq_req">
+      <obj_property name="ElementShortName">irq_req</obj_property>
+      <obj_property name="ObjectShortName">irq_req</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/irq_ret">
+      <obj_property name="ElementShortName">irq_ret</obj_property>
+      <obj_property name="ObjectShortName">irq_ret</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/rom_addr">
+      <obj_property name="ElementShortName">rom_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/rom_ins">
+      <obj_property name="ElementShortName">rom_ins[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rom_ins[31:0]</obj_property>
    </wvobject>
 </wave_config>

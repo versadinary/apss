@@ -7,7 +7,7 @@
 typedef enum { FAIL = 0, SUCCESS = 1 } STATUS;
 
 char rcv_data;
-char data_flag = 0;
+volatile char data_flag = 0;
 
 void init_uart_rx(int baudrate, int parity_bit, int stop_bit)
 {
@@ -27,6 +27,7 @@ char uart_rcv_char(char *rcv)
 {
     while (rx_ptr->busy);
     *rcv = rx_ptr->data;
+    while (rx_ptr->busy);
 }
 
 void uart_send_char(const char *c)
@@ -42,29 +43,23 @@ void int_handler()
     data_flag = 1;
 }
 
-STATUS one_byte_test(const char *data)
-{
-    STATUS test_status;
-    uart_send_char(data);
-    while (~data_flag);
-    data_flag = 0;
-    test_status = *data == rcv_data ? SUCCESS : FAIL;
-}
-
 int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
+    data_flag = 0;
 
     char data_to_send = 0x50;
     char test;
 
     uart_send_char(&data_to_send);
-    while (~data_flag) {
-        test = (data_to_send ^ rcv_data) == 0xFF;
-        const char *msg = test ? "SUCCESS\n" : "FAIL\n";
-        for (int i = 0; i < sizeof(msg) + 1; i++) uart_send_char(&msg[i]);
-        data_flag = 0;
+    while (1) {
+        if (data_flag) {
+            // uart_send_char(&rcv_data);
+            test = data_to_send == rcv_data;
+            const char *msg = test ? "SUCCESS\n" : "FAIL\n";
+            for (int i = 0; msg[i] != '\0'; i++) uart_send_char(&msg[i]);
+        }
     }
 
     return 0;
