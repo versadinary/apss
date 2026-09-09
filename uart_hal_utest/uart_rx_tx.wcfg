@@ -17,15 +17,18 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="142000000000fs"></ZoomStartTime>
-      <ZoomEndTime time="659500000001fs"></ZoomEndTime>
-      <Cursor1Time time="573250000000fs"></Cursor1Time>
+      <ZoomStartTime time="570418000000fs"></ZoomStartTime>
+      <ZoomEndTime time="571256000001fs"></ZoomEndTime>
+      <Cursor1Time time="569975000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="158"></NameColumnWidth>
-      <ValueColumnWidth column_width="60"></ValueColumnWidth>
+      <NameColumnWidth column_width="154"></NameColumnWidth>
+      <ValueColumnWidth column_width="102"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="21" />
+   <WVObjectSize size="45" />
+   <wave_markers>
+      <marker label="" time="380075000000" />
+   </wave_markers>
    <wvobject type="logic" fp_name="/uart_testing/clk100mhz_i">
       <obj_property name="ElementShortName">clk100mhz_i</obj_property>
       <obj_property name="ObjectShortName">clk100mhz_i</obj_property>
@@ -124,5 +127,101 @@
    <wvobject type="array" fp_name="/uart_testing/DUT/rom_ins">
       <obj_property name="ElementShortName">rom_ins[31:0]</obj_property>
       <obj_property name="ObjectShortName">rom_ins[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider1028" type="divider">
+      <obj_property name="label">UART RX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/clk_i">
+      <obj_property name="ElementShortName">clk_i</obj_property>
+      <obj_property name="ObjectShortName">clk_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/rst_i">
+      <obj_property name="ElementShortName">rst_i</obj_property>
+      <obj_property name="ObjectShortName">rst_i</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/addr_i">
+      <obj_property name="ElementShortName">addr_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addr_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/req_i">
+      <obj_property name="ElementShortName">req_i</obj_property>
+      <obj_property name="ObjectShortName">req_i</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/write_data_i">
+      <obj_property name="ElementShortName">write_data_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">write_data_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/write_enable_i">
+      <obj_property name="ElementShortName">write_enable_i</obj_property>
+      <obj_property name="ObjectShortName">write_enable_i</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/read_data_o">
+      <obj_property name="ElementShortName">read_data_o[31:0]</obj_property>
+      <obj_property name="ObjectShortName">read_data_o[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/ready_o">
+      <obj_property name="ElementShortName">ready_o</obj_property>
+      <obj_property name="ObjectShortName">ready_o</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/interrupt_request_o">
+      <obj_property name="ElementShortName">interrupt_request_o</obj_property>
+      <obj_property name="ObjectShortName">interrupt_request_o</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/interrupt_return_i">
+      <obj_property name="ElementShortName">interrupt_return_i</obj_property>
+      <obj_property name="ObjectShortName">interrupt_return_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/rx_i">
+      <obj_property name="ElementShortName">rx_i</obj_property>
+      <obj_property name="ObjectShortName">rx_i</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/baudrate">
+      <obj_property name="ElementShortName">baudrate[16:0]</obj_property>
+      <obj_property name="ObjectShortName">baudrate[16:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/parity_en">
+      <obj_property name="ElementShortName">parity_en</obj_property>
+      <obj_property name="ObjectShortName">parity_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/stopbit">
+      <obj_property name="ElementShortName">stopbit[1:0]</obj_property>
+      <obj_property name="ObjectShortName">stopbit[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/data">
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/DUT/uart_rx/rx_data">
+      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/busy">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/busy_o">
+      <obj_property name="ElementShortName">busy_o</obj_property>
+      <obj_property name="ObjectShortName">busy_o</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/valid">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/rx_valid">
+      <obj_property name="ElementShortName">rx_valid</obj_property>
+      <obj_property name="ObjectShortName">rx_valid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/write_req">
+      <obj_property name="ElementShortName">write_req</obj_property>
+      <obj_property name="ObjectShortName">write_req</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/read_req">
+      <obj_property name="ElementShortName">read_req</obj_property>
+      <obj_property name="ObjectShortName">read_req</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/DUT/uart_rx/rst">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
    </wvobject>
 </wave_config>

@@ -4,10 +4,8 @@
 #define PARITY 1
 #define STOP 1
 
-typedef enum { FAIL = 0, SUCCESS = 1 } STATUS;
-
 char rcv_data;
-volatile char data_flag = 0;
+char data_vld = 0;
 
 void init_uart_rx(int baudrate, int parity_bit, int stop_bit)
 {
@@ -27,7 +25,6 @@ char uart_rcv_char(char *rcv)
 {
     while (rx_ptr->busy);
     *rcv = rx_ptr->data;
-    while (rx_ptr->busy);
 }
 
 void uart_send_char(const char *c)
@@ -40,25 +37,20 @@ void uart_send_char(const char *c)
 void int_handler()
 {
     uart_rcv_char(&rcv_data);
-    data_flag = 1;
+    data_vld = 1;
 }
 
 int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
-    data_flag = 0;
-
-    char data_to_send = 0x50;
-    char test;
-
-    uart_send_char(&data_to_send);
+    char send_data = 0x50;
+    uart_send_char(&send_data);
     while (1) {
-        if (data_flag) {
-            // uart_send_char(&rcv_data);
-            test = data_to_send == rcv_data;
-            const char *msg = test ? "SUCCESS\n" : "FAIL\n";
-            for (int i = 0; msg[i] != '\0'; i++) uart_send_char(&msg[i]);
+        if (data_vld) {
+            char test = rcv_data == send_data;
+            uart_send_char(&test);
+            data_vld = 0;
         }
     }
 
