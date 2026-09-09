@@ -5,7 +5,7 @@
 #define STOP 1
 
 char rcv_data;
-char data_flag = 0;
+char data_vld = 0;
 
 void init_uart_rx(int baudrate, int parity_bit, int stop_bit)
 {
@@ -25,7 +25,6 @@ char uart_rcv_char(char *rcv)
 {
     while (rx_ptr->busy);
     *rcv = rx_ptr->data;
-    while (rx_ptr->busy);
 }
 
 void uart_send_char(const char *c)
@@ -38,7 +37,7 @@ void uart_send_char(const char *c)
 void int_handler()
 {
     uart_rcv_char(&rcv_data);
-    data_flag = 1;
+    data_vld = 1;
 }
 
 int main(void)
@@ -46,9 +45,10 @@ int main(void)
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
     while (1) {
-        if (data_flag) {
+        if (data_vld) {
             uart_send_char(&rcv_data);
-            data_flag = 0;
+            if (data_vld) continue; // in case if interruption happen there
+            data_vld = 0;
         }
     }
 
