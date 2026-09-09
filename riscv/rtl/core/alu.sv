@@ -8,6 +8,7 @@ module alu(
 
    import alu_opcodes_pkg::*;
    logic                        carry_o;
+   logic [31:0] sum;
 
    fulladder32 add_sub32(
                          .a_i(a_i),

@@ -12,11 +12,11 @@ import memory_pkg::DATA_MEM_SIZE_WORDS;
   output logic        ready_o
 );
 
-
+localparam string FILENAME = "";
 logic [31:0] ram [0:DATA_MEM_SIZE_WORDS-1];
 
 initial begin
-    $readmemh("coremark_data.mem", ram);
+    $readmemh(FILENAME, ram);
 end
 
 always_ff @(posedge clk_i) begin

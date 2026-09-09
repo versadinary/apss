@@ -3,7 +3,7 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="uart_rx_tx_tb_behav.wdb" id="1">
+      <db_ref path="uart_testing_behav.wdb" id="1">
          <top_modules>
             <top_module name="alu_opcodes_pkg" />
             <top_module name="csr_pkg" />
@@ -11,107 +11,19 @@
             <top_module name="glbl" />
             <top_module name="memory_pkg" />
             <top_module name="peripheral_pkg" />
-            <top_module name="uart_rx_tx_tb" />
+            <top_module name="uart_testing" />
             <top_module name="vgachargen_pkg" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1582000000001fs"></ZoomEndTime>
-      <Cursor1Time time="0fs"></Cursor1Time>
+      <ZoomEndTime time="1780031294454fs"></ZoomEndTime>
+      <Cursor1Time time="1000000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="174"></NameColumnWidth>
+      <NameColumnWidth column_width="170"></NameColumnWidth>
       <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="20" />
-   <wave_markers>
-      <marker label="" time="518415000000" />
-      <marker label="" time="426665000000" />
-   </wave_markers>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/clk_i">
-      <obj_property name="ElementShortName">clk_i</obj_property>
-      <obj_property name="ObjectShortName">clk_i</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/resetn">
-      <obj_property name="ElementShortName">resetn</obj_property>
-      <obj_property name="ObjectShortName">resetn</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/sw_i">
-      <obj_property name="ElementShortName">sw_i[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sw_i[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/led_o">
-      <obj_property name="ElementShortName">led_o[15:0]</obj_property>
-      <obj_property name="ObjectShortName">led_o[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/ps2_clk">
-      <obj_property name="ElementShortName">ps2_clk</obj_property>
-      <obj_property name="ObjectShortName">ps2_clk</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/ps2_dat">
-      <obj_property name="ElementShortName">ps2_dat</obj_property>
-      <obj_property name="ObjectShortName">ps2_dat</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/rst_i">
-      <obj_property name="ElementShortName">rst_i</obj_property>
-      <obj_property name="ObjectShortName">rst_i</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/hex_led_o">
-      <obj_property name="ElementShortName">hex_led_o[6:0]</obj_property>
-      <obj_property name="ObjectShortName">hex_led_o[6:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/hex_sel_o">
-      <obj_property name="ElementShortName">hex_sel_o[7:0]</obj_property>
-      <obj_property name="ObjectShortName">hex_sel_o[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/core_reset">
-      <obj_property name="ElementShortName">core_reset</obj_property>
-      <obj_property name="ObjectShortName">core_reset</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/rx_i">
-      <obj_property name="ElementShortName">rx_i</obj_property>
-      <obj_property name="ObjectShortName">rx_i</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/tx_o">
-      <obj_property name="ElementShortName">tx_o</obj_property>
-      <obj_property name="ObjectShortName">tx_o</obj_property>
-      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/DUT/uart_tx/busy">
-      <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="ElementShortName">busy</obj_property>
-      <obj_property name="ObjectShortName">busy</obj_property>
-      <obj_property name="label">busy rx</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/rx_data">
-      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/rx_busy">
-      <obj_property name="ElementShortName">rx_busy</obj_property>
-      <obj_property name="ObjectShortName">rx_busy</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/rx_valid">
-      <obj_property name="ElementShortName">rx_valid</obj_property>
-      <obj_property name="ObjectShortName">rx_valid</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/tx_busy">
-      <obj_property name="ElementShortName">tx_busy</obj_property>
-      <obj_property name="ObjectShortName">tx_busy</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/uart_rx_tx_tb/tx_valid">
-      <obj_property name="ElementShortName">tx_valid</obj_property>
-      <obj_property name="ObjectShortName">tx_valid</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/rx_data">
-      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/uart_rx_tx_tb/tx_data">
-      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
-   </wvobject>
+   <WVObjectSize size="0" />
 </wave_config>

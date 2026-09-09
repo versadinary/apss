@@ -10,11 +10,11 @@ import memory_pkg::INSTR_MEM_SIZE_WORDS;
   input  logic [31:0] write_data_i,
   input  logic        write_enable_i
 );
-
+  localparam string FILENAME = "lab_13_rx_tx_instr.mem";
   logic [31:0] ROM [INSTR_MEM_SIZE_WORDS];
   
   initial begin
-    $readmemh("coremark_instr.mem", ROM);
+    $readmemh(FILENAME, ROM);
   end
 
   assign read_data_o = ROM[read_addr_i[$clog2(INSTR_MEM_SIZE_BYTES)-1:2]];

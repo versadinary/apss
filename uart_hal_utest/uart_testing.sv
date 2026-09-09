@@ -10,85 +10,81 @@ See https://github.com/MPSU/APS/blob/master/LICENSE file for licensing details.
 */
 module uart_testing();
 
-import peripheral_pkg::*;
+  logic        clk100mhz_i;
+  logic        aresetn_i;
+  logic        rx_i;
+  logic        tx_o;
+  logic        clk_i;
+  logic        rst_i;
+  logic ps2_clk;
+  logic ps2_dat;
+  
+  import peripheral_pkg::*;
 
-logic clk_i;
-logic resetn;
-logic [15:0] sw_i;
-logic [15:0] led_o;
-logic ps2_clk;
-logic ps2_dat;
-logic rst_i;
-logic sysclk;
+  assign aresetn_i = !rst_i;
 
-logic [ 6:0] hex_led_o;
-logic [ 7:0] hex_sel_o;
-logic        rx_i;
-logic        tx_o;
-logic core_reset;
-assign core_reset = DUT.rst_bl;
-logic [7:0] mem_addr_high;
-assign mem_addr_high = DUT.mem_addr[31:24];
+  logic rx_busy, rx_valid, tx_busy, tx_valid;
+  logic [7:0] rx_data, tx_data;
 
-initial begin
-    rst_i <= 0;
+  always #50ns clk_i = !clk_i;
+  always #5ns clk100mhz_i = !clk100mhz_i;
+
+  byte coremark_msg[103];
+  integer coremark_cntr;
+  logic core_reset;
+  assign core_reset = DUT.rst_bl;
+  
+    int fd, start_addr;
+     logic [31:0] data;
+     byte mem[$];
+     byte mem_data[$];
+     byte mem_chara[$];
+     byte mem_finish[$];
+     byte str [$];
+     logic [3:0][7:0] size;
+     string fname = "init_instr.mem";
+     string data_ini = "init_data.mem";
+     string core_data = "coremark_data.mem";
+     string core_instr = "coremark_instr.mem"; 
+     
+     // keyboard press 
+     initial begin
+        #(10ms) ps2_send_scan_code(8'h1D, ps2_clk, ps2_dat);
+        #(80ms) ps2_send_scan_code(8'h1D, ps2_clk, ps2_dat);
+     end
+
+
+  initial begin
+    $timeformat(-9, 2, " ns", 3);
+    clk100mhz_i = 0;
+    clk_i = 0;
+    rst_i = 0;
     @(posedge clk_i);
     rst_i <= 1;
     repeat(2) @(posedge clk_i);
     rst_i <= 0;
-end
+    ps2_clk = 1'b1;
+    ps2_dat = 1'b1;
+  
+    finish_programming();
+    repeat(200) @ (posedge clk_i);
+    send_data({8'h50});
+    repeat (600) @ (posedge clk_i);
+    $finish();
+   
+  end
 
-initial begin 
-    clk_i = 0;
-    sysclk = 0;
-end
-always #50ns sysclk = ~sysclk;
-always #5ns clk_i = ~clk_i;
-
-logic rx_busy, rx_valid, tx_busy, tx_valid;
-logic [7:0] rx_data, tx_data;
-
-    initial #3ms $finish();
-
-logic [7:0] send_data;
-logic data_valid;
-assign tx_valid = data_valid;
-logic [7:0] receive_data;
-logic rcv_valid;
-assign receive_data = rx_data;
-assign rcv_valid = rx_valid;
-
-initial begin
-    resetn = 1;
-    repeat(20) @(posedge clk_i);
-    resetn = 0;
-    repeat(20) @(posedge clk_i);
-    resetn = 1;
-    for (int i = 0; i < 4; i++) send_byte_uart(8'hff);
-    
-    for (int i = 0; i < 1; i++) begin
-        while(!rx_valid) @(posedge sysclk);
-        @(posedge sysclk);
-        send_byte_uart(~receive_data);
-    end
-    
-end
-
-processor_system DUT(
-  .clk_i    (clk_i    ),
-  .resetn_i (resetn   ),
-  .sw_i     (sw_i     ),
-  .led_o    (led_o    ),
-  .kclk_i  (ps2_clk  ),
-  .kdata_i  (ps2_dat  ),
-  .hex_led_o(hex_led_o),
-  .hex_sel_o(hex_sel_o),
-  .rx_i     (rx_i     ),
-  .tx_o     (tx_o     )
+  processor_system DUT(
+    .clk_i      (clk100mhz_i), 
+    .resetn_i   (aresetn_i), 
+    .rx_i       (rx_i),
+     .kclk_i   (ps2_clk),
+    .kdata_i  (ps2_dat),
+    .tx_o       (tx_o)
 );
 
-uart_rx rcv_from_ps(
-  .clk_i      (sysclk      ),
+  uart_rx rx(
+  .clk_i      (clk_i      ),
   .rst_i      (rst_i      ),
   .rx_i       (tx_o       ),
   .busy_o     (rx_busy    ),
@@ -99,27 +95,71 @@ uart_rx rcv_from_ps(
   .rx_valid_o (rx_valid   )
 );
 
-uart_tx snd_to_ps (
- .clk_i(sysclk),
- .rst_i(rst_i),
- .tx_o(rx_i),
- .busy_o(tx_busy),
- .baudrate_i(17'd115200),
- .parity_en_i(1'b1),
- .stopbit_i(1'b1),
- .tx_data_i(send_data),
- .tx_valid_i(data_valid)
+uart_tx tx(
+  .clk_i      (clk_i      ),
+  .rst_i      (rst_i      ),
+  .tx_o       (rx_i       ),
+  .busy_o     (tx_busy    ),
+  .baudrate_i (17'd115200 ),
+  .parity_en_i(1'b1       ),
+  .stopbit_i  (1'b1       ),
+  .tx_data_i  (tx_data    ),
+  .tx_valid_i (tx_valid   )
 );
 
-task send_byte_uart(input logic [7:0] data);
-    send_data = data;
-    data_valid = 1'b1;
-    @ (posedge sysclk);
-    while (tx_busy) @ (posedge sysclk);
-    data_valid = 1'b0;
-    @ (posedge sysclk);
-    
+task send_data(input byte mem[$]);
+  for(int i = mem.size()-1; i >=0; i--) begin
+    tx_data = mem[i];
+    tx_valid = 1'b1;
+    @(posedge clk_i);
+    tx_valid = 1'b0;
+    @(posedge clk_i);
+    while(tx_busy) @(posedge clk_i);
+  end
+endtask
+
+task rcv_data(input int size);
+  byte str[57];
+  logic [3:0][7:0] size_val;
+  for(int i = 0; i < size; i++) begin
+    @(posedge clk_i);
+    while(!rx_valid)@(posedge clk_i);
+    str[i] = rx_data;
+    size_val[3-i] = rx_data;
+  end
+  if(size!=4)$display("%s", str);
+  else $display("%d", size_val);
+  wait(tx_o);
+endtask
+
+task program_region(input byte mem[$], input logic [3:0][7:0] start_addr);
+  byte str [4];
+  logic [3:0][7:0] size;
+  size = mem.size();
+  str = {start_addr[0],start_addr[1],start_addr[2],start_addr[3]};
+  send_data(str);
+  rcv_data(40);
+  str = {size[0],size[1],size[2],size[3]};
+  send_data(str);
+  rcv_data(4);
+  send_data(mem);
+  rcv_data(57);
+
+endtask
+
+task finish_programming();
+  send_data({8'hff, 8'hff, 8'hff, 8'hff});
+endtask
+
+task dummy_programming();
+  byte str [4] = {8'd0, 8'd0, 8'd0, 8'd0};
+  send_data(str);
+  rcv_data(40);
+  send_data(str);
+  rcv_data(4);
+  // send_data(str);
+  rcv_data(57);
+  // send_data(str);
 endtask
 
 endmodule
-
