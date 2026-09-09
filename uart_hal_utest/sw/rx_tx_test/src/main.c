@@ -4,6 +4,8 @@
 #define PARITY 1
 #define STOP 1
 
+enum { FAIL = 0, SUCCESS = 1} STATUS;
+
 char rcv_data;
 char data_flag = 0;
 
@@ -41,17 +43,21 @@ void int_handler()
     data_flag = 1;
 }
 
-int main(void)
+STATUS one_byte_test(const char *data)
 {
-    init_uart_rx(BAUDRATE, PARITY, STOP);
-    init_uart_tx(BAUDRATE, PARITY, STOP);
-    char data_to_send[] = {0x10, 0x20, 0x30};
-    char received_data;
-
-    uart_send_char(&data_to_send[0]);
+    STATUS test_status;
+    uart_send_char(data);
     while (~data_flag);
     data_flag = 0;
-    uart_send_char(&rcv_data);
+    test_status = *data == rcv_data ? SUCCESS : FAIL;
+}
+
+int main(void)
+{
+    int N = 3;
+    init_uart_rx(BAUDRATE, PARITY, STOP);
+    init_uart_tx(BAUDRATE, PARITY, STOP);
+
 
     return 0;
 }
