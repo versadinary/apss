@@ -12,7 +12,7 @@ import memory_pkg::DATA_MEM_SIZE_WORDS;
   output logic        ready_o
 );
 
-localparam string FILENAME = "";
+localparam string FILENAME = "rx_tx_test_data.mem";
 logic [31:0] ram [0:DATA_MEM_SIZE_WORDS-1];
 
 initial begin

@@ -22,6 +22,7 @@ module uart_testing();
   import peripheral_pkg::*;
 
   assign aresetn_i = !rst_i;
+  
 
   logic rx_busy, rx_valid, tx_busy, tx_valid;
   logic [7:0] rx_data, tx_data;
@@ -33,30 +34,12 @@ module uart_testing();
   integer coremark_cntr;
   logic core_reset;
   assign core_reset = DUT.rst_bl;
-  
-    int fd, start_addr;
-     logic [31:0] data;
-     byte mem[$];
-     byte mem_data[$];
-     byte mem_chara[$];
-     byte mem_finish[$];
-     byte str [$];
-     logic [3:0][7:0] size;
-     string fname = "init_instr.mem";
-     string data_ini = "init_data.mem";
-     string core_data = "coremark_data.mem";
-     string core_instr = "coremark_instr.mem"; 
-     
-     // keyboard press 
-     initial begin
-        #(10ms) ps2_send_scan_code(8'h1D, ps2_clk, ps2_dat);
-        #(80ms) ps2_send_scan_code(8'h1D, ps2_clk, ps2_dat);
-     end
-
+  logic [7:0] data_from_system;
 
   initial begin
     $timeformat(-9, 2, " ns", 3);
     clk100mhz_i = 0;
+    coremark_cntr = 0;
     clk_i = 0;
     rst_i = 0;
     @(posedge clk_i);
@@ -68,7 +51,26 @@ module uart_testing();
   
     finish_programming();
     repeat(200) @ (posedge clk_i);
-    send_data({8'h50});
+    get_data();
+    $display("%t RECEIVED DATA: %h", $time, data_from_system);
+    send_data({~data_from_system});
+    $display("TX FINISHED %h @ %t",~data_from_system, $time);
+    forever begin
+      @(posedge clk_i);
+      if(rx_valid) begin
+        if((rx_data == 10) | (rx_data == 13)) begin
+          $display("%s", coremark_msg);
+          coremark_cntr = 0;
+          for (int i = 0; i < 103; i++) coremark_msg[i] = 32;
+          $finish();
+        end
+        else begin
+          coremark_msg[coremark_cntr] = rx_data;
+          coremark_cntr++;
+        end
+      end
+    end
+    
     repeat (600) @ (posedge clk_i);
     $finish();
    
@@ -116,6 +118,13 @@ task send_data(input byte mem[$]);
     @(posedge clk_i);
     while(tx_busy) @(posedge clk_i);
   end
+endtask
+
+task get_data();
+    @ (posedge clk_i);
+    while(!rx_valid) @ (posedge clk_i);
+    data_from_system = rx_data;
+    wait(tx_o);
 endtask
 
 task rcv_data(input int size);

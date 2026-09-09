@@ -17,13 +17,95 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1780031294454fs"></ZoomEndTime>
-      <Cursor1Time time="1000000000fs"></Cursor1Time>
+      <ZoomStartTime time="304850000000fs"></ZoomStartTime>
+      <ZoomEndTime time="1261850000001fs"></ZoomEndTime>
+      <Cursor1Time time="464350000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="170"></NameColumnWidth>
+      <NameColumnWidth column_width="162"></NameColumnWidth>
       <ValueColumnWidth column_width="60"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="0" />
+   <WVObjectSize size="17" />
+   <wvobject type="logic" fp_name="/uart_testing/clk100mhz_i">
+      <obj_property name="ElementShortName">clk100mhz_i</obj_property>
+      <obj_property name="ObjectShortName">clk100mhz_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/aresetn_i">
+      <obj_property name="ElementShortName">aresetn_i</obj_property>
+      <obj_property name="ObjectShortName">aresetn_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/rx_i">
+      <obj_property name="ElementShortName">rx_i</obj_property>
+      <obj_property name="ObjectShortName">rx_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/tx_o">
+      <obj_property name="ElementShortName">tx_o</obj_property>
+      <obj_property name="ObjectShortName">tx_o</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/clk_i">
+      <obj_property name="ElementShortName">clk_i</obj_property>
+      <obj_property name="ObjectShortName">clk_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/rst_i">
+      <obj_property name="ElementShortName">rst_i</obj_property>
+      <obj_property name="ObjectShortName">rst_i</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/ps2_clk">
+      <obj_property name="ElementShortName">ps2_clk</obj_property>
+      <obj_property name="ObjectShortName">ps2_clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/ps2_dat">
+      <obj_property name="ElementShortName">ps2_dat</obj_property>
+      <obj_property name="ObjectShortName">ps2_dat</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/rx_busy">
+      <obj_property name="ElementShortName">rx_busy</obj_property>
+      <obj_property name="ObjectShortName">rx_busy</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/rx_valid">
+      <obj_property name="ElementShortName">rx_valid</obj_property>
+      <obj_property name="ObjectShortName">rx_valid</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/rx_data">
+      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/tx_busy">
+      <obj_property name="ElementShortName">tx_busy</obj_property>
+      <obj_property name="ObjectShortName">tx_busy</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/tx_valid">
+      <obj_property name="ElementShortName">tx_valid</obj_property>
+      <obj_property name="ObjectShortName">tx_valid</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/tx_data">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFFF00</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/uart_testing/core_reset">
+      <obj_property name="ElementShortName">core_reset</obj_property>
+      <obj_property name="ObjectShortName">core_reset</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/coremark_msg">
+      <obj_property name="ElementShortName">coremark_msg[0:102][7:0]</obj_property>
+      <obj_property name="ObjectShortName">coremark_msg[0:102][7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/uart_testing/coremark_cntr">
+      <obj_property name="ElementShortName">coremark_cntr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">coremark_cntr[31:0]</obj_property>
+   </wvobject>
 </wave_config>

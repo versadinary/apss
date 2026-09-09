@@ -10,7 +10,7 @@ import memory_pkg::INSTR_MEM_SIZE_WORDS;
   input  logic [31:0] write_data_i,
   input  logic        write_enable_i
 );
-  localparam string FILENAME = "uart_firmware_instr.mem";
+  localparam string FILENAME = "rx_tx_test_instr.mem";
   logic [31:0] ROM [INSTR_MEM_SIZE_WORDS];
   
   initial begin
