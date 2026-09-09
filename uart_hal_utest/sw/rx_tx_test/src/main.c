@@ -48,8 +48,9 @@ int main(void)
     uart_send_char(&send_data);
     while (1) {
         if (data_vld) {
-            char test = rcv_data == send_data;
-            uart_send_char(&test);
+            char test = ~(rcv_data ^ send_data);
+            const char *status = 0xFF - test ? "FAIL\n" : "SUCCESS\n";
+            for (int i = 0; status[i] != '\0'; i++) uart_send_char(&status[i]);
             data_vld = 0;
         }
     }

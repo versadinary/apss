@@ -8,8 +8,8 @@ Disassembly of section .text:
    0:	00001197          	auipc	gp,0x1
    4:	80018193          	add	gp,gp,-2048 # 800 <_gbl_ptr>
    8:	58000113          	li	sp,1408
-   c:	00000293          	li	t0,0
-  10:	00200313          	li	t1,2
+   c:	01400293          	li	t0,20
+  10:	01300313          	li	t1,19
 
 00000014 <_bss_init_loop>:
   14:	00534863          	blt	t1,t0,24 <_irq_config>
@@ -178,10 +178,10 @@ Disassembly of section .text:
  258:	00112623          	sw	ra,12(sp)
  25c:	00812423          	sw	s0,8(sp)
  260:	01010413          	add	s0,sp,16
- 264:	00000513          	li	a0,0
+ 264:	01100513          	li	a0,17
  268:	f51ff0ef          	jal	1b8 <uart_rcv_char>
  26c:	00100713          	li	a4,1
- 270:	00e000a3          	sb	a4,1(zero) # 1 <data_vld>
+ 270:	00e00923          	sb	a4,18(zero) # 12 <data_vld>
  274:	00000013          	nop
  278:	00c12083          	lw	ra,12(sp)
  27c:	00812403          	lw	s0,8(sp)
@@ -204,23 +204,54 @@ Disassembly of section .text:
  2b8:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
  2bc:	eb1ff0ef          	jal	16c <init_uart_tx>
  2c0:	05000793          	li	a5,80
- 2c4:	fef407a3          	sb	a5,-17(s0)
- 2c8:	fef40793          	add	a5,s0,-17
+ 2c4:	fef401a3          	sb	a5,-29(s0)
+ 2c8:	fe340793          	add	a5,s0,-29
  2cc:	00078513          	mv	a0,a5
  2d0:	f31ff0ef          	jal	200 <uart_send_char>
- 2d4:	00104783          	lbu	a5,1(zero) # 1 <data_vld>
+ 2d4:	01204783          	lbu	a5,18(zero) # 12 <data_vld>
  2d8:	fe078ee3          	beqz	a5,2d4 <main+0x4c>
- 2dc:	00004703          	lbu	a4,0(zero) # 0 <_start>
- 2e0:	fef44783          	lbu	a5,-17(s0)
- 2e4:	40f707b3          	sub	a5,a4,a5
- 2e8:	0017b793          	seqz	a5,a5
- 2ec:	0ff7f793          	zext.b	a5,a5
- 2f0:	fef40723          	sb	a5,-18(s0)
- 2f4:	fee40793          	add	a5,s0,-18
- 2f8:	00078513          	mv	a0,a5
- 2fc:	f05ff0ef          	jal	200 <uart_send_char>
- 300:	000000a3          	sb	zero,1(zero) # 1 <data_vld>
- 304:	fd1ff06f          	j	2d4 <main+0x4c>
+ 2dc:	01104703          	lbu	a4,17(zero) # 11 <rcv_data>
+ 2e0:	fe344783          	lbu	a5,-29(s0)
+ 2e4:	00f747b3          	xor	a5,a4,a5
+ 2e8:	0ff7f793          	zext.b	a5,a5
+ 2ec:	fff7c793          	not	a5,a5
+ 2f0:	fef405a3          	sb	a5,-21(s0)
+ 2f4:	feb44703          	lbu	a4,-21(s0)
+ 2f8:	0ff00793          	li	a5,255
+ 2fc:	00f70663          	beq	a4,a5,308 <main+0x80>
+ 300:	00000793          	li	a5,0
+ 304:	0080006f          	j	30c <main+0x84>
+ 308:	00800793          	li	a5,8
+ 30c:	fef42223          	sw	a5,-28(s0)
+ 310:	fe042623          	sw	zero,-20(s0)
+ 314:	0240006f          	j	338 <main+0xb0>
+ 318:	fec42783          	lw	a5,-20(s0)
+ 31c:	fe442703          	lw	a4,-28(s0)
+ 320:	00f707b3          	add	a5,a4,a5
+ 324:	00078513          	mv	a0,a5
+ 328:	ed9ff0ef          	jal	200 <uart_send_char>
+ 32c:	fec42783          	lw	a5,-20(s0)
+ 330:	00178793          	add	a5,a5,1
+ 334:	fef42623          	sw	a5,-20(s0)
+ 338:	fec42783          	lw	a5,-20(s0)
+ 33c:	fe442703          	lw	a4,-28(s0)
+ 340:	00f707b3          	add	a5,a4,a5
+ 344:	0007c783          	lbu	a5,0(a5)
+ 348:	fc0798e3          	bnez	a5,318 <main+0x90>
+ 34c:	00000923          	sb	zero,18(zero) # 12 <data_vld>
+ 350:	f85ff06f          	j	2d4 <main+0x4c>
+
+Disassembly of section .data:
+
+00000000 <_gbl_ptr-0x800>:
+   0:	4146                	.insn	2, 0x4146
+   2:	4c49                	.insn	2, 0x4c49
+   4:	000a                	.insn	2, 0x000a
+   6:	0000                	.insn	2, 0x
+   8:	43435553          	.insn	4, 0x43435553
+   c:	5345                	.insn	2, 0x5345
+   e:	Address 0xe is out of bounds.
+
 
 Disassembly of section .comment:
 
@@ -255,7 +286,7 @@ Disassembly of section .riscv.attributes:
    2:	0000                	.insn	2, 0x
    4:	7200                	.insn	2, 0x7200
    6:	7369                	.insn	2, 0x7369
-   8:	01007663          	bgeu	zero,a6,14 <_bss_init_loop>
+   8:	01007663          	bgeu	zero,a6,14 <_bss_start>
    c:	001e                	.insn	2, 0x001e
    e:	0000                	.insn	2, 0x
   10:	1004                	.insn	2, 0x1004
