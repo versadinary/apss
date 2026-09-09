@@ -27,6 +27,8 @@ logic        rx_i;
 logic        tx_o;
 logic core_reset;
 assign core_reset = DUT.rst_bl;
+logic [7:0] mem_addr_high;
+assign mem_addr_high = DUT.mem_addr[31:24];
 
 initial begin
     rst_i <= 0;
@@ -46,7 +48,7 @@ always #5ns clk_i = ~clk_i;
 logic rx_busy, rx_valid, tx_busy, tx_valid;
 logic [7:0] rx_data, tx_data;
 
-initial #3ms $finish();
+    initial #3ms $finish();
 
 logic [7:0] send_data;
 logic data_valid;
@@ -64,8 +66,9 @@ initial begin
     resetn = 1;
     for (int i = 0; i < 4; i++) send_byte_uart(8'hff);
     
-    for (int i = 0; i < 3; i++) begin
+    for (int i = 0; i < 1; i++) begin
         while(!rx_valid) @(posedge sysclk);
+        @(posedge sysclk);
         send_byte_uart(~receive_data);
     end
     

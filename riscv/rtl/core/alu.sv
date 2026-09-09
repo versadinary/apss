@@ -12,12 +12,12 @@ module alu(
    logic [63:0]                 mul, mulu, mulsu;
    logic [31:0]                 div, divu, remu;
 
-   assign mul = $signed(a_i) * $signed(b_i);
+   /*assign mul = $signed(a_i) * $signed(b_i);
    assign mulu = a_i * b_i;
    assign mulsu = $signed(a_i) * b_i;
    assign div = $signed(a_i) / $signed(b_i);
    assign divu = a_i / b_i;
-   assign remu = a_i % b_i;
+   assign remu = a_i % b_i;*/
 
    fulladder32 add_sub32(
                          .a_i(a_i),
@@ -50,7 +50,7 @@ module alu(
           result_o = $signed(a_i) < $signed(b_i);
         ALU_SLTU:
           result_o = a_i < b_i;
-        ALU_MUL:
+        /*ALU_MUL:
           result_o = mul[31:0];
         ALU_MULH:
           result_o = mul[63:32];
@@ -65,7 +65,7 @@ module alu(
         ALU_REMU:
           result_o = remu;
         ALU_REM:
-          result_o = a_i[31] ? -remu : remu;
+          result_o = a_i[31] ? -remu : remu;*/
         default:
           result_o = 32'd0;
       endcase

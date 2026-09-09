@@ -46,13 +46,12 @@ int main(void)
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
     char data_to_send[] = {0x10, 0x20, 0x30};
-    for (int i = 0; i < 3; i++) {
-        if (data_flag) {
-            uart_send_char(&rcv_data);
-            data_flag = 0;
-        }
-        uart_send_char(&data_to_send[i]);
-    }
+    char received_data;
+
+    uart_send_char(&data_to_send[0]);
+    while (~data_flag);
+    data_flag = 0;
+    uart_send_char(&rcv_data);
 
     return 0;
 }

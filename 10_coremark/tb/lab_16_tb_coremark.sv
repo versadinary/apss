@@ -38,7 +38,7 @@ module lab_16_tb_coremark();
     repeat(2) @(posedge clk_i);
     rst_i <= 0;
 
-    dummy_programming();
+    // dummy_programming();
     finish_programming();
     repeat(150) @(posedge clk_i);
 
@@ -67,6 +67,7 @@ module lab_16_tb_coremark();
     .rx_i       (rx_i), 
     .tx_o       (tx_o)
 );
+ 
 
   uart_rx rx(
   .clk_i      (clk_i      ),

@@ -209,33 +209,13 @@ Disassembly of section .text:
  2cc:	ea1ff0ef          	jal	16c <init_uart_tx>
  2d0:	000027b7          	lui	a5,0x2
  2d4:	01078793          	add	a5,a5,16 # 2010 <_gbl_ptr+0x1810>
- 2d8:	fef41423          	sh	a5,-24(s0)
+ 2d8:	fef41623          	sh	a5,-20(s0)
  2dc:	03000793          	li	a5,48
- 2e0:	fef40523          	sb	a5,-22(s0)
- 2e4:	fe042623          	sw	zero,-20(s0)
- 2e8:	0380006f          	j	320 <main+0x88>
- 2ec:	00104783          	lbu	a5,1(zero) # 1 <data_flag>
- 2f0:	00078863          	beqz	a5,300 <main+0x68>
- 2f4:	00000513          	li	a0,0
- 2f8:	f19ff0ef          	jal	210 <uart_send_char>
- 2fc:	000000a3          	sb	zero,1(zero) # 1 <data_flag>
- 300:	fe840713          	add	a4,s0,-24
- 304:	fec42783          	lw	a5,-20(s0)
- 308:	00f707b3          	add	a5,a4,a5
- 30c:	00078513          	mv	a0,a5
- 310:	f01ff0ef          	jal	210 <uart_send_char>
- 314:	fec42783          	lw	a5,-20(s0)
- 318:	00178793          	add	a5,a5,1
- 31c:	fef42623          	sw	a5,-20(s0)
- 320:	fec42703          	lw	a4,-20(s0)
- 324:	00200793          	li	a5,2
- 328:	fce7d2e3          	bge	a5,a4,2ec <main+0x54>
- 32c:	00000793          	li	a5,0
- 330:	00078513          	mv	a0,a5
- 334:	01c12083          	lw	ra,28(sp)
- 338:	01812403          	lw	s0,24(sp)
- 33c:	02010113          	add	sp,sp,32
- 340:	00008067          	ret
+ 2e0:	fef40723          	sb	a5,-18(s0)
+ 2e4:	fec40793          	add	a5,s0,-20
+ 2e8:	00078513          	mv	a0,a5
+ 2ec:	f25ff0ef          	jal	210 <uart_send_char>
+ 2f0:	0000006f          	j	2f0 <main+0x58>
 
 Disassembly of section .comment:
 

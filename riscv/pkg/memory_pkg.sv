@@ -10,9 +10,16 @@ See https://github.com/MPSU/APS/blob/master/LICENSE file for licensing details.
 */
 package memory_pkg;
 
-  localparam INSTR_MEM_SIZE_BYTES = 32'h10000;// 32'd1024; // 512; //32'h10000;
+  localparam INSTR_MEM_SIZE_BYTES = 32'h10000;// 32'h10000;// 32'd1024; // 512; //32'h10000;
   localparam INSTR_MEM_SIZE_WORDS = INSTR_MEM_SIZE_BYTES / 4;
-  localparam DATA_MEM_SIZE_BYTES  = 32'h4000;// 32'd2048 ; // 512; // 32'h4000;
+  localparam DATA_MEM_SIZE_BYTES  = 32'h4000;// 32'h4000;// 32'd2048 ; // 512; // 32'h4000;
   localparam DATA_MEM_SIZE_WORDS  = DATA_MEM_SIZE_BYTES / 4;
+
+  /* ------------------------ */
+//  32'h10000 -- coremark instr mem size
+// 32'd1024 -- default instr mem size
+// 32'h4000 -- coremark data mem size
+// 32'd2048 -- default instr mem size
+
 
 endpackage
