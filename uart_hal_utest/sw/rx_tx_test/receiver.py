@@ -18,8 +18,12 @@ ser.write(0x01);
 rcv_data = ser.read(1)
 print('RCV DATA:', rcv_data)
 
-ser.write(rcv_data)
+data_to_send = rcv_data
 
-for i in range(5):
+ser.write(data_to_send)
+
+response = ser.read(1)
+
+while (response.decode('utf-8') != '\n'):
     response = ser.read(1)
-    print("RCV RESP:", response, i)
+    print("RCV RESP:", response)

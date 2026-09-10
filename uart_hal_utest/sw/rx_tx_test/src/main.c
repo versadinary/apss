@@ -5,7 +5,7 @@
 #define STOP 1
 
 char rcv_data;
-char data_vld = 0;
+char data_vld;
 
 void init_uart_rx(int baudrate, int parity_bit, int stop_bit)
 {
@@ -44,9 +44,13 @@ int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
+    hex_ptr->bitmask = 0xff;
+    hex_ptr->hex7 = 0;
     char send_data = 0x55;
+    data_vld = 0;
     while (1) {
         if (data_vld) {
+            hex_ptr->hex7 = 1;
             data_vld = 0;
             break;
         }
