@@ -25,6 +25,7 @@ char uart_rcv_char(char *rcv)
 {
     while (rx_ptr->busy);
     *rcv = rx_ptr->data;
+    while (rx_ptr->busy);
 }
 
 void uart_send_char(const char *c)
@@ -44,10 +45,18 @@ int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
+    hex_ptr->bitmask = 0xFF;
+    hex_ptr->hex0 = 0;
+    hex_ptr->hex1 = 0;
+    hex_ptr->hex7 = 0;
+    data_vld = 0;
     while (1) {
         if (data_vld) {
-            uart_send_char(&rcv_data);
-            if (data_vld) continue; // in case if interruption happen there
+            // uart_send_char(&rcv_data);
+            hex_ptr->hex0 = rcv_data;
+            hex_ptr->hex1 = rcv_data >> 4;
+            hex_ptr->hex7 = hex_ptr->hex7 == 8 ? 0 : 8;
+            uart_send_char((char *)'a');
             data_vld = 0;
         }
     }

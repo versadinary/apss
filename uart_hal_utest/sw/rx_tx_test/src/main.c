@@ -44,7 +44,7 @@ int main(void)
 {
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
-    char send_data = 0x50;
+    char send_data = 0x55;
     while (1) {
         if (data_vld) {
             data_vld = 0;

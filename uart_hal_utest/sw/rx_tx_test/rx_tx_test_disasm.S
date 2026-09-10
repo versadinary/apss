@@ -203,7 +203,7 @@ Disassembly of section .text:
  2b4:	0001c7b7          	lui	a5,0x1c
  2b8:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
  2bc:	eb1ff0ef          	jal	16c <init_uart_tx>
- 2c0:	05000793          	li	a5,80
+ 2c0:	05500793          	li	a5,85
  2c4:	fef401a3          	sb	a5,-29(s0)
  2c8:	01204783          	lbu	a5,18(zero) # 12 <data_vld>
  2cc:	fe078ee3          	beqz	a5,2c8 <main+0x40>
