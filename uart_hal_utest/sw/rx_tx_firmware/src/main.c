@@ -21,7 +21,7 @@ void init_uart_tx(int baudrate, int parity_bit, int stop_bit)
     tx_ptr->stop_bit = stop_bit;
 }
 
-char uart_rcv_char(char *rcv)
+void uart_rcv_char(char *rcv)
 {
     while (rx_ptr->busy);
     *rcv = rx_ptr->data;
@@ -52,12 +52,12 @@ int main(void)
     char prev_sym = 0;
     while (1) {
         if (data_vld) {
-            // uart_send_char(&rcv_data);
+            uart_send_char(&rcv_data);
+            char result;
             hex_ptr->hex0 = rcv_data;
             hex_ptr->hex1 = rcv_data >> 4;
             prev_sym = hex_ptr->hex7 ^ 8; 
             hex_ptr->hex7 = prev_sym ? 8 : 0;
-            uart_send_char((char *)'a');
             data_vld = 0;
         }
     }

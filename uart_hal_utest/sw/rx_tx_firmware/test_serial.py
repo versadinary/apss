@@ -15,8 +15,8 @@ ser = serial.Serial(
 
 print("UART RX TX TEST");
 while (1):
-    in_char = ord(input('input:'))
+    in_char = bytes(input('input:'), encoding='utf-8')
     ser.write(bytes(in_char))
-    # ser.write('\x57')   
+    # ser.write(b'\x57')   
     rcv_char = ser.read(1)
     print(rcv_char)

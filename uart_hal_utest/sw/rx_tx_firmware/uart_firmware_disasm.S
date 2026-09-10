@@ -29,7 +29,7 @@ Disassembly of section .text:
 00000040 <_main_call>:
   40:	00000513          	li	a0,0
   44:	00000593          	li	a1,0
-  48:	240000ef          	jal	288 <main>
+  48:	23c000ef          	jal	284 <main>
 
 0000004c <_endless_loop>:
   4c:	0000006f          	j	4c <_endless_loop>
@@ -61,7 +61,7 @@ Disassembly of section .text:
   ac:	00512423          	sw	t0,8(sp)
   b0:	04612423          	sw	t1,72(sp)
   b4:	04a12623          	sw	a0,76(sp)
-  b8:	19c000ef          	jal	254 <int_handler>
+  b8:	198000ef          	jal	250 <int_handler>
   bc:	00010513          	mv	a0,sp
   c0:	04852303          	lw	t1,72(a0)
   c4:	04c52383          	lw	t2,76(a0)
@@ -145,101 +145,100 @@ Disassembly of section .text:
  1e4:	fec42783          	lw	a5,-20(s0)
  1e8:	00e78023          	sb	a4,0(a5)
  1ec:	00000013          	nop
- 1f0:	00078513          	mv	a0,a5
- 1f4:	01c12403          	lw	s0,28(sp)
- 1f8:	02010113          	add	sp,sp,32
- 1fc:	00008067          	ret
+ 1f0:	01c12403          	lw	s0,28(sp)
+ 1f4:	02010113          	add	sp,sp,32
+ 1f8:	00008067          	ret
 
-00000200 <uart_send_char>:
- 200:	fe010113          	add	sp,sp,-32
- 204:	00812e23          	sw	s0,28(sp)
- 208:	02010413          	add	s0,sp,32
- 20c:	fea42623          	sw	a0,-20(s0)
- 210:	00000013          	nop
- 214:	060007b7          	lui	a5,0x6000
- 218:	0087a783          	lw	a5,8(a5) # 6000008 <_gbl_ptr+0x5fff808>
- 21c:	fe079ce3          	bnez	a5,214 <uart_send_char+0x14>
- 220:	fec42783          	lw	a5,-20(s0)
- 224:	0007c703          	lbu	a4,0(a5)
- 228:	060007b7          	lui	a5,0x6000
- 22c:	00e7a023          	sw	a4,0(a5) # 6000000 <_gbl_ptr+0x5fff800>
- 230:	00000013          	nop
- 234:	060007b7          	lui	a5,0x6000
- 238:	0087a783          	lw	a5,8(a5) # 6000008 <_gbl_ptr+0x5fff808>
- 23c:	fe079ce3          	bnez	a5,234 <uart_send_char+0x34>
+000001fc <uart_send_char>:
+ 1fc:	fe010113          	add	sp,sp,-32
+ 200:	00812e23          	sw	s0,28(sp)
+ 204:	02010413          	add	s0,sp,32
+ 208:	fea42623          	sw	a0,-20(s0)
+ 20c:	00000013          	nop
+ 210:	060007b7          	lui	a5,0x6000
+ 214:	0087a783          	lw	a5,8(a5) # 6000008 <_gbl_ptr+0x5fff808>
+ 218:	fe079ce3          	bnez	a5,210 <uart_send_char+0x14>
+ 21c:	fec42783          	lw	a5,-20(s0)
+ 220:	0007c703          	lbu	a4,0(a5)
+ 224:	060007b7          	lui	a5,0x6000
+ 228:	00e7a023          	sw	a4,0(a5) # 6000000 <_gbl_ptr+0x5fff800>
+ 22c:	00000013          	nop
+ 230:	060007b7          	lui	a5,0x6000
+ 234:	0087a783          	lw	a5,8(a5) # 6000008 <_gbl_ptr+0x5fff808>
+ 238:	fe079ce3          	bnez	a5,230 <uart_send_char+0x34>
+ 23c:	00000013          	nop
  240:	00000013          	nop
- 244:	00000013          	nop
- 248:	01c12403          	lw	s0,28(sp)
- 24c:	02010113          	add	sp,sp,32
- 250:	00008067          	ret
+ 244:	01c12403          	lw	s0,28(sp)
+ 248:	02010113          	add	sp,sp,32
+ 24c:	00008067          	ret
 
-00000254 <int_handler>:
- 254:	ff010113          	add	sp,sp,-16
- 258:	00112623          	sw	ra,12(sp)
- 25c:	00812423          	sw	s0,8(sp)
- 260:	01010413          	add	s0,sp,16
- 264:	00000513          	li	a0,0
- 268:	f51ff0ef          	jal	1b8 <uart_rcv_char>
- 26c:	00100713          	li	a4,1
- 270:	00e000a3          	sb	a4,1(zero) # 1 <data_vld>
- 274:	00000013          	nop
- 278:	00c12083          	lw	ra,12(sp)
- 27c:	00812403          	lw	s0,8(sp)
- 280:	01010113          	add	sp,sp,16
- 284:	00008067          	ret
+00000250 <int_handler>:
+ 250:	ff010113          	add	sp,sp,-16
+ 254:	00112623          	sw	ra,12(sp)
+ 258:	00812423          	sw	s0,8(sp)
+ 25c:	01010413          	add	s0,sp,16
+ 260:	00000513          	li	a0,0
+ 264:	f55ff0ef          	jal	1b8 <uart_rcv_char>
+ 268:	00100713          	li	a4,1
+ 26c:	00e000a3          	sb	a4,1(zero) # 1 <data_vld>
+ 270:	00000013          	nop
+ 274:	00c12083          	lw	ra,12(sp)
+ 278:	00812403          	lw	s0,8(sp)
+ 27c:	01010113          	add	sp,sp,16
+ 280:	00008067          	ret
 
-00000288 <main>:
- 288:	fe010113          	add	sp,sp,-32
- 28c:	00112e23          	sw	ra,28(sp)
- 290:	00812c23          	sw	s0,24(sp)
- 294:	02010413          	add	s0,sp,32
- 298:	00100613          	li	a2,1
- 29c:	00100593          	li	a1,1
- 2a0:	0001c7b7          	lui	a5,0x1c
- 2a4:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
- 2a8:	e79ff0ef          	jal	120 <init_uart_rx>
- 2ac:	00100613          	li	a2,1
- 2b0:	00100593          	li	a1,1
- 2b4:	0001c7b7          	lui	a5,0x1c
- 2b8:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
- 2bc:	eb1ff0ef          	jal	16c <init_uart_tx>
- 2c0:	040007b7          	lui	a5,0x4000
- 2c4:	0ff00713          	li	a4,255
- 2c8:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
- 2cc:	040007b7          	lui	a5,0x4000
- 2d0:	0007a023          	sw	zero,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
- 2d4:	040007b7          	lui	a5,0x4000
- 2d8:	0007a223          	sw	zero,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
- 2dc:	040007b7          	lui	a5,0x4000
- 2e0:	0007ae23          	sw	zero,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
- 2e4:	000000a3          	sb	zero,1(zero) # 1 <data_vld>
- 2e8:	fe0407a3          	sb	zero,-17(s0)
- 2ec:	00104783          	lbu	a5,1(zero) # 1 <data_vld>
- 2f0:	fe078ee3          	beqz	a5,2ec <main+0x64>
- 2f4:	00004703          	lbu	a4,0(zero) # 0 <_start>
- 2f8:	040007b7          	lui	a5,0x4000
- 2fc:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
- 300:	00004783          	lbu	a5,0(zero) # 0 <_start>
- 304:	0047d793          	srl	a5,a5,0x4
- 308:	0ff7f713          	zext.b	a4,a5
- 30c:	040007b7          	lui	a5,0x4000
- 310:	00e7a223          	sw	a4,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
- 314:	040007b7          	lui	a5,0x4000
- 318:	01c7a783          	lw	a5,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
- 31c:	0ff7f793          	zext.b	a5,a5
- 320:	0087c793          	xor	a5,a5,8
- 324:	fef407a3          	sb	a5,-17(s0)
- 328:	fef44783          	lbu	a5,-17(s0)
- 32c:	00078663          	beqz	a5,338 <main+0xb0>
- 330:	00800793          	li	a5,8
- 334:	0080006f          	j	33c <main+0xb4>
- 338:	00000793          	li	a5,0
- 33c:	04000737          	lui	a4,0x4000
- 340:	00f72e23          	sw	a5,28(a4) # 400001c <_gbl_ptr+0x3fff81c>
- 344:	06100513          	li	a0,97
- 348:	eb9ff0ef          	jal	200 <uart_send_char>
- 34c:	000000a3          	sb	zero,1(zero) # 1 <data_vld>
- 350:	f9dff06f          	j	2ec <main+0x64>
+00000284 <main>:
+ 284:	fe010113          	add	sp,sp,-32
+ 288:	00112e23          	sw	ra,28(sp)
+ 28c:	00812c23          	sw	s0,24(sp)
+ 290:	02010413          	add	s0,sp,32
+ 294:	00100613          	li	a2,1
+ 298:	00100593          	li	a1,1
+ 29c:	0001c7b7          	lui	a5,0x1c
+ 2a0:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
+ 2a4:	e7dff0ef          	jal	120 <init_uart_rx>
+ 2a8:	00100613          	li	a2,1
+ 2ac:	00100593          	li	a1,1
+ 2b0:	0001c7b7          	lui	a5,0x1c
+ 2b4:	20078513          	add	a0,a5,512 # 1c200 <_gbl_ptr+0x1ba00>
+ 2b8:	eb5ff0ef          	jal	16c <init_uart_tx>
+ 2bc:	040007b7          	lui	a5,0x4000
+ 2c0:	0ff00713          	li	a4,255
+ 2c4:	02e7a023          	sw	a4,32(a5) # 4000020 <_gbl_ptr+0x3fff820>
+ 2c8:	040007b7          	lui	a5,0x4000
+ 2cc:	0007a023          	sw	zero,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
+ 2d0:	040007b7          	lui	a5,0x4000
+ 2d4:	0007a223          	sw	zero,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
+ 2d8:	040007b7          	lui	a5,0x4000
+ 2dc:	0007ae23          	sw	zero,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
+ 2e0:	000000a3          	sb	zero,1(zero) # 1 <data_vld>
+ 2e4:	fe0407a3          	sb	zero,-17(s0)
+ 2e8:	00104783          	lbu	a5,1(zero) # 1 <data_vld>
+ 2ec:	fe078ee3          	beqz	a5,2e8 <main+0x64>
+ 2f0:	00000513          	li	a0,0
+ 2f4:	f09ff0ef          	jal	1fc <uart_send_char>
+ 2f8:	00004703          	lbu	a4,0(zero) # 0 <_start>
+ 2fc:	040007b7          	lui	a5,0x4000
+ 300:	00e7a023          	sw	a4,0(a5) # 4000000 <_gbl_ptr+0x3fff800>
+ 304:	00004783          	lbu	a5,0(zero) # 0 <_start>
+ 308:	0047d793          	srl	a5,a5,0x4
+ 30c:	0ff7f713          	zext.b	a4,a5
+ 310:	040007b7          	lui	a5,0x4000
+ 314:	00e7a223          	sw	a4,4(a5) # 4000004 <_gbl_ptr+0x3fff804>
+ 318:	040007b7          	lui	a5,0x4000
+ 31c:	01c7a783          	lw	a5,28(a5) # 400001c <_gbl_ptr+0x3fff81c>
+ 320:	0ff7f793          	zext.b	a5,a5
+ 324:	0087c793          	xor	a5,a5,8
+ 328:	fef407a3          	sb	a5,-17(s0)
+ 32c:	fef44783          	lbu	a5,-17(s0)
+ 330:	00078663          	beqz	a5,33c <main+0xb8>
+ 334:	00800793          	li	a5,8
+ 338:	0080006f          	j	340 <main+0xbc>
+ 33c:	00000793          	li	a5,0
+ 340:	04000737          	lui	a4,0x4000
+ 344:	00f72e23          	sw	a5,28(a4) # 400001c <_gbl_ptr+0x3fff81c>
+ 348:	000000a3          	sb	zero,1(zero) # 1 <data_vld>
+ 34c:	f9dff06f          	j	2e8 <main+0x64>
 
 Disassembly of section .comment:
 
@@ -284,7 +283,7 @@ Disassembly of section .riscv.attributes:
   18:	7032                	.insn	2, 0x7032
   1a:	5f31                	.insn	2, 0x5f31
   1c:	697a                	.insn	2, 0x697a
-  1e:	32727363          	bgeu	tp,t2,344 <main+0xbc>
+  1e:	32727363          	bgeu	tp,t2,344 <main+0xc0>
   22:	3070                	.insn	2, 0x3070
   24:	0800                	.insn	2, 0x0800
   26:	0a01                	.insn	2, 0x0a01
