@@ -205,41 +205,45 @@ Disassembly of section .text:
  2bc:	eb1ff0ef          	jal	16c <init_uart_tx>
  2c0:	05000793          	li	a5,80
  2c4:	fef401a3          	sb	a5,-29(s0)
- 2c8:	fe340793          	add	a5,s0,-29
- 2cc:	00078513          	mv	a0,a5
- 2d0:	f31ff0ef          	jal	200 <uart_send_char>
- 2d4:	01204783          	lbu	a5,18(zero) # 12 <data_vld>
- 2d8:	fe078ee3          	beqz	a5,2d4 <main+0x4c>
- 2dc:	01104703          	lbu	a4,17(zero) # 11 <rcv_data>
- 2e0:	fe344783          	lbu	a5,-29(s0)
- 2e4:	00f747b3          	xor	a5,a4,a5
- 2e8:	0ff7f793          	zext.b	a5,a5
- 2ec:	fff7c793          	not	a5,a5
- 2f0:	fef405a3          	sb	a5,-21(s0)
- 2f4:	feb44703          	lbu	a4,-21(s0)
- 2f8:	0ff00793          	li	a5,255
- 2fc:	00f70663          	beq	a4,a5,308 <main+0x80>
- 300:	00000793          	li	a5,0
- 304:	0080006f          	j	30c <main+0x84>
- 308:	00800793          	li	a5,8
- 30c:	fef42223          	sw	a5,-28(s0)
- 310:	fe042623          	sw	zero,-20(s0)
- 314:	0240006f          	j	338 <main+0xb0>
- 318:	fec42783          	lw	a5,-20(s0)
- 31c:	fe442703          	lw	a4,-28(s0)
- 320:	00f707b3          	add	a5,a4,a5
- 324:	00078513          	mv	a0,a5
- 328:	ed9ff0ef          	jal	200 <uart_send_char>
- 32c:	fec42783          	lw	a5,-20(s0)
- 330:	00178793          	add	a5,a5,1
- 334:	fef42623          	sw	a5,-20(s0)
- 338:	fec42783          	lw	a5,-20(s0)
- 33c:	fe442703          	lw	a4,-28(s0)
- 340:	00f707b3          	add	a5,a4,a5
- 344:	0007c783          	lbu	a5,0(a5)
- 348:	fc0798e3          	bnez	a5,318 <main+0x90>
- 34c:	00000923          	sb	zero,18(zero) # 12 <data_vld>
- 350:	f85ff06f          	j	2d4 <main+0x4c>
+ 2c8:	01204783          	lbu	a5,18(zero) # 12 <data_vld>
+ 2cc:	fe078ee3          	beqz	a5,2c8 <main+0x40>
+ 2d0:	00000923          	sb	zero,18(zero) # 12 <data_vld>
+ 2d4:	00000013          	nop
+ 2d8:	fe340793          	add	a5,s0,-29
+ 2dc:	00078513          	mv	a0,a5
+ 2e0:	f21ff0ef          	jal	200 <uart_send_char>
+ 2e4:	01204783          	lbu	a5,18(zero) # 12 <data_vld>
+ 2e8:	fe078ee3          	beqz	a5,2e4 <main+0x5c>
+ 2ec:	01104703          	lbu	a4,17(zero) # 11 <rcv_data>
+ 2f0:	fe344783          	lbu	a5,-29(s0)
+ 2f4:	00f747b3          	xor	a5,a4,a5
+ 2f8:	0ff7f793          	zext.b	a5,a5
+ 2fc:	fff7c793          	not	a5,a5
+ 300:	fef405a3          	sb	a5,-21(s0)
+ 304:	feb44703          	lbu	a4,-21(s0)
+ 308:	0ff00793          	li	a5,255
+ 30c:	00f70663          	beq	a4,a5,318 <main+0x90>
+ 310:	00000793          	li	a5,0
+ 314:	0080006f          	j	31c <main+0x94>
+ 318:	00800793          	li	a5,8
+ 31c:	fef42223          	sw	a5,-28(s0)
+ 320:	fe042623          	sw	zero,-20(s0)
+ 324:	0240006f          	j	348 <main+0xc0>
+ 328:	fec42783          	lw	a5,-20(s0)
+ 32c:	fe442703          	lw	a4,-28(s0)
+ 330:	00f707b3          	add	a5,a4,a5
+ 334:	00078513          	mv	a0,a5
+ 338:	ec9ff0ef          	jal	200 <uart_send_char>
+ 33c:	fec42783          	lw	a5,-20(s0)
+ 340:	00178793          	add	a5,a5,1
+ 344:	fef42623          	sw	a5,-20(s0)
+ 348:	fec42783          	lw	a5,-20(s0)
+ 34c:	fe442703          	lw	a4,-28(s0)
+ 350:	00f707b3          	add	a5,a4,a5
+ 354:	0007c783          	lbu	a5,0(a5)
+ 358:	fc0798e3          	bnez	a5,328 <main+0xa0>
+ 35c:	00000923          	sb	zero,18(zero) # 12 <data_vld>
+ 360:	f85ff06f          	j	2e4 <main+0x5c>
 
 Disassembly of section .data:
 

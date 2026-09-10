@@ -45,6 +45,12 @@ int main(void)
     init_uart_rx(BAUDRATE, PARITY, STOP);
     init_uart_tx(BAUDRATE, PARITY, STOP);
     char send_data = 0x50;
+    while (1) {
+        if (data_vld) {
+            data_vld = 0;
+            break;
+        }
+    }
     uart_send_char(&send_data);
     while (1) {
         if (data_vld) {
