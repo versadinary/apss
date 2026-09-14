@@ -58,11 +58,12 @@ module uart_testing();
     ps2_clk = 1'b1;
     ps2_dat = 1'b1;
     
-    //prog(INSTR);
-    //prog(DATA);
+    // prog(INSTR);
+    // prog(DATA);
     finish_programming();
     
     repeat(200) @ (posedge clk_i);
+    send_data({8'h00});
     get_data();
     $display("%t RECEIVED DATA: %h", $time, data_from_system);
     send_data({data_from_system});
