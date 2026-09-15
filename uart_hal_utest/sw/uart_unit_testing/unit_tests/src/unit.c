@@ -1,4 +1,5 @@
 #include "unit.h"
+#include "platform.h"
 
 virtual_uart UART1;
 
