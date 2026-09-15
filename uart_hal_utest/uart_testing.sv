@@ -19,7 +19,7 @@ module uart_testing();
   logic ps2_clk;
   logic ps2_dat;
   
-  import peripheral_pkg::*;
+  // import peripheral_pkg::*;
 
   assign aresetn_i = !rst_i;
   
@@ -43,6 +43,11 @@ module uart_testing();
   logic [3:0][7:0] size;
   string INSTR = "rx_tx_test_instr.mem";
   string DATA = "rx_tx_test_data.mem";
+
+  initial begin
+    $dumpfile("riscv_unit_test.vcd");
+    $dumpvars(0, uart_testing);
+  end
 
   initial begin
     $timeformat(-9, 2, " ns", 3);
@@ -170,7 +175,7 @@ task program_region(input byte mem[$], input logic [3:0][7:0] start_addr);
 
 endtask
 
-task prog(input string filename);
+ task prog(input string filename);
     mem.delete();
     fd = $fopen(filename, "r");
     assert(fd)
