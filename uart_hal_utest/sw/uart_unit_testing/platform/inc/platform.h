@@ -6,4 +6,4 @@ void config_uart_tx();
 
 void int_handler();
 
-void send_response(char resp);
+void rcv_uart_int();

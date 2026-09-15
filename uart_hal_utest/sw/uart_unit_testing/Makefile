@@ -6,13 +6,13 @@ OBJDUMP =   $(CC_PATH)/$(CC_PREFIX)-objdump
 OBJCOPY =   $(CC_PATH)/$(CC_PREFIX)-objcopy
 SIZE    =   $(CC_PATH)/$(CC_PREFIX)-size
 
-OBJS = src/startup.o src/main.o
+OBJS = platform/src/startup.o platform/src/platform.o unit_tests/src/unit.o
 
-LINK_SCRIPT = src/linker_script.ld
+LINK_SCRIPT = platform/linker_script.ld
 OUTPUT      = uart_unit_test
 OUTPUT_PROD = $(addprefix $(OUTPUT), .mem _instr.mem _data.mem .elf _disasm.S)
 
-INC_DIRS    = $(addprefix "-I", ./inc/ ../snake/inc)
+INC_DIRS    = $(addprefix "-I", ./platform/inc ./unit_tests/inc)
 CC_FLAGS    = -march=rv32i_zicsr -mabi=ilp32 $(INC_DIRS)
 LD_FLAGS    = -Wl,--gc-sections -nostartfiles -T $(LINK_SCRIPT)
 

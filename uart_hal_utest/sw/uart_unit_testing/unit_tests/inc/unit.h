@@ -7,7 +7,7 @@ typedef struct {
 
 } virtual_uart;
 
-enum { FAIL = 0, SUCCESS = 1 } TEST_STATUS;
+typedef enum { FAIL = 0, SUCCESS = 1 } TEST_STATUS;
 
 extern void send_char(virtual_uart *uart_inst, char data_to_send);
 
@@ -20,3 +20,5 @@ char gen_data();
 TEST_STATUS cmp_snd_rcv(virtual_uart *uart);
 
 TEST_STATUS byte_test();
+
+void send_response(TEST_STATUS byte_status);
