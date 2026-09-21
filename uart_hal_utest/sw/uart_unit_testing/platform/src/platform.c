@@ -3,7 +3,7 @@
 #include "platform.h"
 
 char rcv_data_int;
-char data_vld_int;
+volatile char data_vld_int;
 
 void config_uart_rx()
 {
@@ -28,12 +28,7 @@ void send_char(virtual_uart *uart_inst, char data_to_send)
 
 void rcv_char(virtual_uart *uart_inst, char *received_data)
 {
-    /*
-    while (rx_ptr->busy);
-    *received_data = rx_ptr->data;
-    uart_inst->rcv_data = *received_data;
-    uart_inst->data_rcv_valid = 1;
-    */
+    data_vld_int = 0;
     while (~data_vld_int);
     uart_inst->rcv_data = rcv_data_int;
     uart_inst->data_rcv_valid = 1;

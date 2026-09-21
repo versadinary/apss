@@ -40,6 +40,8 @@ void send_response(TEST_STATUS byte_status)
 
 int main()
 {
+    config_uart_rx();
+    config_uart_tx();
     byte_test();
 
     return 0;

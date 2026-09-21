@@ -29,7 +29,7 @@ Disassembly of section .text:
 00000040 <_main_call>:
   40:	00000513          	li	a0,0
   44:	00000593          	li	a1,0
-  48:	3bc000ef          	jal	404 <main>
+  48:	3c8000ef          	jal	410 <main>
 
 0000004c <_endless_loop>:
   4c:	0000006f          	j	4c <_endless_loop>
@@ -61,7 +61,7 @@ Disassembly of section .text:
   ac:	00512423          	sw	t0,8(sp)
   b0:	04612423          	sw	t1,72(sp)
   b4:	04a12623          	sw	a0,76(sp)
-  b8:	19c000ef          	jal	254 <int_handler>
+  b8:	1a8000ef          	jal	260 <int_handler>
   bc:	00010513          	mv	a0,sp
   c0:	04852303          	lw	t1,72(a0)
   c4:	04c52383          	lw	t2,76(a0)
@@ -154,159 +154,164 @@ Disassembly of section .text:
  200:	02010413          	add	s0,sp,32
  204:	fea42623          	sw	a0,-20(s0)
  208:	feb42423          	sw	a1,-24(s0)
- 20c:	0000006f          	j	20c <rcv_char+0x14>
+ 20c:	00000ca3          	sb	zero,25(zero) # 19 <data_vld_int>
+ 210:	00000013          	nop
+ 214:	01904783          	lbu	a5,25(zero) # 19 <data_vld_int>
+ 218:	ffdff06f          	j	214 <rcv_char+0x1c>
 
-00000210 <rcv_uart_int>:
- 210:	ff010113          	add	sp,sp,-16
- 214:	00812623          	sw	s0,12(sp)
- 218:	01010413          	add	s0,sp,16
- 21c:	00000013          	nop
- 220:	050007b7          	lui	a5,0x5000
- 224:	0087a783          	lw	a5,8(a5) # 5000008 <_gbl_ptr+0x4fff808>
- 228:	fe079ce3          	bnez	a5,220 <rcv_uart_int+0x10>
+0000021c <rcv_uart_int>:
+ 21c:	ff010113          	add	sp,sp,-16
+ 220:	00812623          	sw	s0,12(sp)
+ 224:	01010413          	add	s0,sp,16
+ 228:	00000013          	nop
  22c:	050007b7          	lui	a5,0x5000
- 230:	0007a783          	lw	a5,0(a5) # 5000000 <_gbl_ptr+0x4fff800>
- 234:	0ff7f713          	zext.b	a4,a5
- 238:	00e00c23          	sb	a4,24(zero) # 18 <rcv_data_int>
- 23c:	00100713          	li	a4,1
- 240:	00e00ca3          	sb	a4,25(zero) # 19 <data_vld_int>
- 244:	00000013          	nop
- 248:	00c12403          	lw	s0,12(sp)
- 24c:	01010113          	add	sp,sp,16
- 250:	00008067          	ret
+ 230:	0087a783          	lw	a5,8(a5) # 5000008 <_gbl_ptr+0x4fff808>
+ 234:	fe079ce3          	bnez	a5,22c <rcv_uart_int+0x10>
+ 238:	050007b7          	lui	a5,0x5000
+ 23c:	0007a783          	lw	a5,0(a5) # 5000000 <_gbl_ptr+0x4fff800>
+ 240:	0ff7f713          	zext.b	a4,a5
+ 244:	00e00c23          	sb	a4,24(zero) # 18 <rcv_data_int>
+ 248:	00100713          	li	a4,1
+ 24c:	00e00ca3          	sb	a4,25(zero) # 19 <data_vld_int>
+ 250:	00000013          	nop
+ 254:	00c12403          	lw	s0,12(sp)
+ 258:	01010113          	add	sp,sp,16
+ 25c:	00008067          	ret
 
-00000254 <int_handler>:
- 254:	ff010113          	add	sp,sp,-16
- 258:	00112623          	sw	ra,12(sp)
- 25c:	00812423          	sw	s0,8(sp)
- 260:	01010413          	add	s0,sp,16
- 264:	fadff0ef          	jal	210 <rcv_uart_int>
- 268:	00000013          	nop
- 26c:	00c12083          	lw	ra,12(sp)
- 270:	00812403          	lw	s0,8(sp)
- 274:	01010113          	add	sp,sp,16
- 278:	00008067          	ret
+00000260 <int_handler>:
+ 260:	ff010113          	add	sp,sp,-16
+ 264:	00112623          	sw	ra,12(sp)
+ 268:	00812423          	sw	s0,8(sp)
+ 26c:	01010413          	add	s0,sp,16
+ 270:	fadff0ef          	jal	21c <rcv_uart_int>
+ 274:	00000013          	nop
+ 278:	00c12083          	lw	ra,12(sp)
+ 27c:	00812403          	lw	s0,8(sp)
+ 280:	01010113          	add	sp,sp,16
+ 284:	00008067          	ret
 
-0000027c <byte_test>:
- 27c:	fe010113          	add	sp,sp,-32
- 280:	00112e23          	sw	ra,28(sp)
- 284:	00812c23          	sw	s0,24(sp)
- 288:	02010413          	add	s0,sp,32
- 28c:	01c00513          	li	a0,28
- 290:	054000ef          	jal	2e4 <init_testing>
- 294:	084000ef          	jal	318 <gen_data>
- 298:	00050793          	mv	a5,a0
- 29c:	fef407a3          	sb	a5,-17(s0)
- 2a0:	fef44783          	lbu	a5,-17(s0)
- 2a4:	00078593          	mv	a1,a5
- 2a8:	01c00513          	li	a0,28
- 2ac:	efdff0ef          	jal	1a8 <send_char>
- 2b0:	fe740793          	add	a5,s0,-25
- 2b4:	00078593          	mv	a1,a5
- 2b8:	01c00513          	li	a0,28
- 2bc:	f3dff0ef          	jal	1f8 <rcv_char>
- 2c0:	01c00513          	li	a0,28
- 2c4:	074000ef          	jal	338 <cmp_snd_rcv>
- 2c8:	fea42423          	sw	a0,-24(s0)
- 2cc:	00000013          	nop
- 2d0:	00078513          	mv	a0,a5
- 2d4:	01c12083          	lw	ra,28(sp)
- 2d8:	01812403          	lw	s0,24(sp)
- 2dc:	02010113          	add	sp,sp,32
- 2e0:	00008067          	ret
+00000288 <byte_test>:
+ 288:	fe010113          	add	sp,sp,-32
+ 28c:	00112e23          	sw	ra,28(sp)
+ 290:	00812c23          	sw	s0,24(sp)
+ 294:	02010413          	add	s0,sp,32
+ 298:	01c00513          	li	a0,28
+ 29c:	054000ef          	jal	2f0 <init_testing>
+ 2a0:	084000ef          	jal	324 <gen_data>
+ 2a4:	00050793          	mv	a5,a0
+ 2a8:	fef407a3          	sb	a5,-17(s0)
+ 2ac:	fef44783          	lbu	a5,-17(s0)
+ 2b0:	00078593          	mv	a1,a5
+ 2b4:	01c00513          	li	a0,28
+ 2b8:	ef1ff0ef          	jal	1a8 <send_char>
+ 2bc:	fe740793          	add	a5,s0,-25
+ 2c0:	00078593          	mv	a1,a5
+ 2c4:	01c00513          	li	a0,28
+ 2c8:	f31ff0ef          	jal	1f8 <rcv_char>
+ 2cc:	01c00513          	li	a0,28
+ 2d0:	074000ef          	jal	344 <cmp_snd_rcv>
+ 2d4:	fea42423          	sw	a0,-24(s0)
+ 2d8:	00000013          	nop
+ 2dc:	00078513          	mv	a0,a5
+ 2e0:	01c12083          	lw	ra,28(sp)
+ 2e4:	01812403          	lw	s0,24(sp)
+ 2e8:	02010113          	add	sp,sp,32
+ 2ec:	00008067          	ret
 
-000002e4 <init_testing>:
- 2e4:	fd010113          	add	sp,sp,-48
- 2e8:	02112623          	sw	ra,44(sp)
- 2ec:	02812423          	sw	s0,40(sp)
- 2f0:	03010413          	add	s0,sp,48
- 2f4:	fca42e23          	sw	a0,-36(s0)
- 2f8:	fec42583          	lw	a1,-20(s0)
- 2fc:	fdc42503          	lw	a0,-36(s0)
- 300:	ef9ff0ef          	jal	1f8 <rcv_char>
- 304:	00000013          	nop
- 308:	02c12083          	lw	ra,44(sp)
- 30c:	02812403          	lw	s0,40(sp)
- 310:	03010113          	add	sp,sp,48
- 314:	00008067          	ret
+000002f0 <init_testing>:
+ 2f0:	fd010113          	add	sp,sp,-48
+ 2f4:	02112623          	sw	ra,44(sp)
+ 2f8:	02812423          	sw	s0,40(sp)
+ 2fc:	03010413          	add	s0,sp,48
+ 300:	fca42e23          	sw	a0,-36(s0)
+ 304:	fec42583          	lw	a1,-20(s0)
+ 308:	fdc42503          	lw	a0,-36(s0)
+ 30c:	eedff0ef          	jal	1f8 <rcv_char>
+ 310:	00000013          	nop
+ 314:	02c12083          	lw	ra,44(sp)
+ 318:	02812403          	lw	s0,40(sp)
+ 31c:	03010113          	add	sp,sp,48
+ 320:	00008067          	ret
 
-00000318 <gen_data>:
- 318:	ff010113          	add	sp,sp,-16
- 31c:	00812623          	sw	s0,12(sp)
- 320:	01010413          	add	s0,sp,16
- 324:	0ab00793          	li	a5,171
- 328:	00078513          	mv	a0,a5
- 32c:	00c12403          	lw	s0,12(sp)
- 330:	01010113          	add	sp,sp,16
- 334:	00008067          	ret
+00000324 <gen_data>:
+ 324:	ff010113          	add	sp,sp,-16
+ 328:	00812623          	sw	s0,12(sp)
+ 32c:	01010413          	add	s0,sp,16
+ 330:	0ab00793          	li	a5,171
+ 334:	00078513          	mv	a0,a5
+ 338:	00c12403          	lw	s0,12(sp)
+ 33c:	01010113          	add	sp,sp,16
+ 340:	00008067          	ret
 
-00000338 <cmp_snd_rcv>:
- 338:	fd010113          	add	sp,sp,-48
- 33c:	02812623          	sw	s0,44(sp)
- 340:	03010413          	add	s0,sp,48
- 344:	fca42e23          	sw	a0,-36(s0)
- 348:	fdc42783          	lw	a5,-36(s0)
- 34c:	0007c703          	lbu	a4,0(a5)
- 350:	fdc42783          	lw	a5,-36(s0)
- 354:	0017c783          	lbu	a5,1(a5)
- 358:	40f707b3          	sub	a5,a4,a5
- 35c:	0017b793          	seqz	a5,a5
- 360:	0ff7f793          	zext.b	a5,a5
- 364:	fef42623          	sw	a5,-20(s0)
- 368:	fec42783          	lw	a5,-20(s0)
- 36c:	00078513          	mv	a0,a5
- 370:	02c12403          	lw	s0,44(sp)
- 374:	03010113          	add	sp,sp,48
- 378:	00008067          	ret
+00000344 <cmp_snd_rcv>:
+ 344:	fd010113          	add	sp,sp,-48
+ 348:	02812623          	sw	s0,44(sp)
+ 34c:	03010413          	add	s0,sp,48
+ 350:	fca42e23          	sw	a0,-36(s0)
+ 354:	fdc42783          	lw	a5,-36(s0)
+ 358:	0007c703          	lbu	a4,0(a5)
+ 35c:	fdc42783          	lw	a5,-36(s0)
+ 360:	0017c783          	lbu	a5,1(a5)
+ 364:	40f707b3          	sub	a5,a4,a5
+ 368:	0017b793          	seqz	a5,a5
+ 36c:	0ff7f793          	zext.b	a5,a5
+ 370:	fef42623          	sw	a5,-20(s0)
+ 374:	fec42783          	lw	a5,-20(s0)
+ 378:	00078513          	mv	a0,a5
+ 37c:	02c12403          	lw	s0,44(sp)
+ 380:	03010113          	add	sp,sp,48
+ 384:	00008067          	ret
 
-0000037c <send_response>:
- 37c:	fd010113          	add	sp,sp,-48
- 380:	02112623          	sw	ra,44(sp)
- 384:	02812423          	sw	s0,40(sp)
- 388:	03010413          	add	s0,sp,48
- 38c:	fca42e23          	sw	a0,-36(s0)
- 390:	fdc42783          	lw	a5,-36(s0)
- 394:	00078663          	beqz	a5,3a0 <send_response+0x24>
- 398:	00000793          	li	a5,0
- 39c:	0080006f          	j	3a4 <send_response+0x28>
- 3a0:	00c00793          	li	a5,12
- 3a4:	fef42423          	sw	a5,-24(s0)
- 3a8:	fe042623          	sw	zero,-20(s0)
- 3ac:	02c0006f          	j	3d8 <send_response+0x5c>
- 3b0:	fec42783          	lw	a5,-20(s0)
- 3b4:	fe842703          	lw	a4,-24(s0)
- 3b8:	00f707b3          	add	a5,a4,a5
- 3bc:	0007c783          	lbu	a5,0(a5)
- 3c0:	00078593          	mv	a1,a5
- 3c4:	01c00513          	li	a0,28
- 3c8:	de1ff0ef          	jal	1a8 <send_char>
- 3cc:	fec42783          	lw	a5,-20(s0)
- 3d0:	00178793          	add	a5,a5,1
- 3d4:	fef42623          	sw	a5,-20(s0)
+00000388 <send_response>:
+ 388:	fd010113          	add	sp,sp,-48
+ 38c:	02112623          	sw	ra,44(sp)
+ 390:	02812423          	sw	s0,40(sp)
+ 394:	03010413          	add	s0,sp,48
+ 398:	fca42e23          	sw	a0,-36(s0)
+ 39c:	fdc42783          	lw	a5,-36(s0)
+ 3a0:	00078663          	beqz	a5,3ac <send_response+0x24>
+ 3a4:	00000793          	li	a5,0
+ 3a8:	0080006f          	j	3b0 <send_response+0x28>
+ 3ac:	00c00793          	li	a5,12
+ 3b0:	fef42423          	sw	a5,-24(s0)
+ 3b4:	fe042623          	sw	zero,-20(s0)
+ 3b8:	02c0006f          	j	3e4 <send_response+0x5c>
+ 3bc:	fec42783          	lw	a5,-20(s0)
+ 3c0:	fe842703          	lw	a4,-24(s0)
+ 3c4:	00f707b3          	add	a5,a4,a5
+ 3c8:	0007c783          	lbu	a5,0(a5)
+ 3cc:	00078593          	mv	a1,a5
+ 3d0:	01c00513          	li	a0,28
+ 3d4:	dd5ff0ef          	jal	1a8 <send_char>
  3d8:	fec42783          	lw	a5,-20(s0)
- 3dc:	fe842703          	lw	a4,-24(s0)
- 3e0:	00f707b3          	add	a5,a4,a5
- 3e4:	0007c783          	lbu	a5,0(a5)
- 3e8:	fc0794e3          	bnez	a5,3b0 <send_response+0x34>
- 3ec:	00000013          	nop
- 3f0:	00000013          	nop
- 3f4:	02c12083          	lw	ra,44(sp)
- 3f8:	02812403          	lw	s0,40(sp)
- 3fc:	03010113          	add	sp,sp,48
- 400:	00008067          	ret
+ 3dc:	00178793          	add	a5,a5,1
+ 3e0:	fef42623          	sw	a5,-20(s0)
+ 3e4:	fec42783          	lw	a5,-20(s0)
+ 3e8:	fe842703          	lw	a4,-24(s0)
+ 3ec:	00f707b3          	add	a5,a4,a5
+ 3f0:	0007c783          	lbu	a5,0(a5)
+ 3f4:	fc0794e3          	bnez	a5,3bc <send_response+0x34>
+ 3f8:	00000013          	nop
+ 3fc:	00000013          	nop
+ 400:	02c12083          	lw	ra,44(sp)
+ 404:	02812403          	lw	s0,40(sp)
+ 408:	03010113          	add	sp,sp,48
+ 40c:	00008067          	ret
 
-00000404 <main>:
- 404:	ff010113          	add	sp,sp,-16
- 408:	00112623          	sw	ra,12(sp)
- 40c:	00812423          	sw	s0,8(sp)
- 410:	01010413          	add	s0,sp,16
- 414:	e69ff0ef          	jal	27c <byte_test>
- 418:	00000793          	li	a5,0
- 41c:	00078513          	mv	a0,a5
- 420:	00c12083          	lw	ra,12(sp)
- 424:	00812403          	lw	s0,8(sp)
- 428:	01010113          	add	sp,sp,16
- 42c:	00008067          	ret
+00000410 <main>:
+ 410:	ff010113          	add	sp,sp,-16
+ 414:	00112623          	sw	ra,12(sp)
+ 418:	00812423          	sw	s0,8(sp)
+ 41c:	01010413          	add	s0,sp,16
+ 420:	d01ff0ef          	jal	120 <config_uart_rx>
+ 424:	d41ff0ef          	jal	164 <config_uart_tx>
+ 428:	e61ff0ef          	jal	288 <byte_test>
+ 42c:	00000793          	li	a5,0
+ 430:	00078513          	mv	a0,a5
+ 434:	00c12083          	lw	ra,12(sp)
+ 438:	00812403          	lw	s0,8(sp)
+ 43c:	01010113          	add	sp,sp,16
+ 440:	00008067          	ret
 
 Disassembly of section .data:
 
@@ -364,7 +369,7 @@ Disassembly of section .riscv.attributes:
   18:	7032                	.insn	2, 0x7032
   1a:	5f31                	.insn	2, 0x5f31
   1c:	697a                	.insn	2, 0x697a
-  1e:	32727363          	bgeu	tp,t2,344 <cmp_snd_rcv+0xc>
+  1e:	32727363          	bgeu	tp,t2,344 <cmp_snd_rcv>
   22:	3070                	.insn	2, 0x3070
   24:	0800                	.insn	2, 0x0800
   26:	0a01                	.insn	2, 0x0a01
