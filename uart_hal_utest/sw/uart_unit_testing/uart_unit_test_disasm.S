@@ -309,12 +309,7 @@ Disassembly of section .text:
  434:	ce9ff0ef          	jal	11c <config_uart_rx>
  438:	d29ff0ef          	jal	160 <config_uart_tx>
  43c:	e95ff0ef          	jal	2d0 <byte_test>
- 440:	00000793          	li	a5,0
- 444:	00078513          	mv	a0,a5
- 448:	00c12083          	lw	ra,12(sp)
- 44c:	00812403          	lw	s0,8(sp)
- 450:	01010113          	add	sp,sp,16
- 454:	00008067          	ret
+ 440:	ffdff06f          	j	43c <main+0x18>
 
 Disassembly of section .data:
 

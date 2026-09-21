@@ -37,7 +37,8 @@ int main()
 {
     config_uart_rx();
     config_uart_tx();
-    byte_test();
+    while (1)
+        byte_test();
 
     return 0;
 }
