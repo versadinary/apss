@@ -1,24 +1,17 @@
 #pragma once
 
-typedef struct {
-    char data_to_send;
-    char rcv_data;
-    char data_rcv_valid;
-
-} virtual_uart;
-
 typedef enum { FAIL = 0, SUCCESS = 1 } TEST_STATUS;
 
-extern void send_char(virtual_uart *uart_inst, char data_to_send);
+extern void send_char(char data_to_send);
 
-extern void rcv_char(virtual_uart *uart_inst, char *received_data);
+extern char rcv_char();
 
-void init_testing(virtual_uart *uart_inst);
+void init_testing();
 
 char gen_data();
 
-TEST_STATUS cmp_snd_rcv(virtual_uart *uart);
+TEST_STATUS cmp_snd_rcv();
 
-TEST_STATUS byte_test();
+void byte_test();
 
-void send_response(TEST_STATUS byte_status, virtual_uart *uart);
+void send_response(char byte_status);

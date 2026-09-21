@@ -21,33 +21,29 @@ void config_uart_tx()
 
 void send_char_bare(char data)
 {
-    while (tx_ptr->busy);
     tx_ptr->data = data;
     while (tx_ptr->busy);
 }
 
-void send_char(virtual_uart *uart_inst, char data_to_send)
+void send_char(char data_to_send)
 {
-    while (tx_ptr->busy);
-    uart_inst->data_to_send = data_to_send;
     tx_ptr->data = data_to_send;
     while (tx_ptr->busy);
 }
 
-void rcv_char(virtual_uart *uart_inst, char *received_data)
+char rcv_char()
 {
-    char flag;
     data_vld_int = 0;
     while (data_vld_int ^ 1);
+    char received_data;
+    received_data = rx_ptr->data;
     data_vld_int = 0;
-    uart_inst->rcv_data = rcv_data_int;
-    uart_inst->data_rcv_valid = 1;
+    return received_data;
 }
 
 void rcv_uart_int()
 {
     while (rx_ptr->busy);
-    rcv_data_int = rx_ptr->data;
     data_vld_int = 1;
 }
 
