@@ -21,4 +21,4 @@ TEST_STATUS cmp_snd_rcv(virtual_uart *uart);
 
 TEST_STATUS byte_test();
 
-void send_response(TEST_STATUS byte_status);
+void send_response(TEST_STATUS byte_status, virtual_uart *uart);

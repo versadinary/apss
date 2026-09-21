@@ -28,7 +28,7 @@ ENTRY(_start)                           /* мы сообщаем компоно�
 MEMORY
 {
   instr_mem (x) : ORIGIN = 0x00000000, LENGTH = 2K
-  data_mem (!x) : ORIGIN = 0x00000000, LENGTH = 2K
+  data_mem (!x) : ORIGIN = 0x00000000, LENGTH = 1K
 }
 
 _trap_stack_size = 640;                /* Размер стека обработчика перехватов.
