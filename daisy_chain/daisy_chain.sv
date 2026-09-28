@@ -15,12 +15,12 @@ module daisy_chain (
    genvar                               i;
    generate
       for (i = 0; i < 16; i++) begin
-        assign ready[i] = i ? ready[i - 1] & cause[0] : ready_i;
+         assign ready[i] = i ? ready[i - 1] & ~cause[0] : ready_i;
       end
    endgenerate
    
    
-    assign cause = masked_irq_i & ready;
+   assign cause = masked_irq_i & ready;
 
    assign irq_o = |cause;
    assign irq_cause_o = {12'h800, cause, 4'h0};
