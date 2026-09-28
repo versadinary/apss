@@ -28,7 +28,7 @@ Disassembly of section .text:
 0000003c <_main_call>:
   3c:	00000513          	li	a0,0
   40:	00000593          	li	a1,0
-  44:	42c000ef          	jal	470 <main>
+  44:	430000ef          	jal	474 <main>
 
 00000048 <_endless_loop>:
   48:	0000006f          	j	48 <_endless_loop>
@@ -311,26 +311,27 @@ Disassembly of section .text:
  43c:	fe010113          	add	sp,sp,-32
  440:	00812e23          	sw	s0,28(sp)
  444:	02010413          	add	s0,sp,32
- 448:	080007b7          	lui	a5,0x8000
- 44c:	fef42623          	sw	a5,-20(s0)
- 450:	fec42783          	lw	a5,-20(s0)
- 454:	0007c783          	lbu	a5,0(a5) # 8000000 <_gbl_ptr+0x7fff800>
- 458:	fef405a3          	sb	a5,-21(s0)
- 45c:	feb44783          	lbu	a5,-21(s0)
- 460:	00078513          	mv	a0,a5
- 464:	01c12403          	lw	s0,28(sp)
- 468:	02010113          	add	sp,sp,32
- 46c:	00008067          	ret
+ 448:	fe0407a3          	sb	zero,-17(s0)
+ 44c:	080007b7          	lui	a5,0x8000
+ 450:	fef42423          	sw	a5,-24(s0)
+ 454:	fe842783          	lw	a5,-24(s0)
+ 458:	0007c783          	lbu	a5,0(a5) # 8000000 <_gbl_ptr+0x7fff800>
+ 45c:	fef407a3          	sb	a5,-17(s0)
+ 460:	fef44783          	lbu	a5,-17(s0)
+ 464:	00078513          	mv	a0,a5
+ 468:	01c12403          	lw	s0,28(sp)
+ 46c:	02010113          	add	sp,sp,32
+ 470:	00008067          	ret
 
-00000470 <main>:
- 470:	ff010113          	add	sp,sp,-16
- 474:	00112623          	sw	ra,12(sp)
- 478:	00812423          	sw	s0,8(sp)
- 47c:	01010413          	add	s0,sp,16
- 480:	c9dff0ef          	jal	11c <config_uart_rx>
- 484:	cddff0ef          	jal	160 <config_uart_tx>
- 488:	e49ff0ef          	jal	2d0 <byte_test>
- 48c:	ffdff06f          	j	488 <main+0x18>
+00000474 <main>:
+ 474:	ff010113          	add	sp,sp,-16
+ 478:	00112623          	sw	ra,12(sp)
+ 47c:	00812423          	sw	s0,8(sp)
+ 480:	01010413          	add	s0,sp,16
+ 484:	c99ff0ef          	jal	11c <config_uart_rx>
+ 488:	cd9ff0ef          	jal	160 <config_uart_tx>
+ 48c:	e45ff0ef          	jal	2d0 <byte_test>
+ 490:	ffdff06f          	j	48c <main+0x18>
 
 Disassembly of section .data:
 
