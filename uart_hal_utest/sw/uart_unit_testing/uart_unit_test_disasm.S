@@ -60,7 +60,7 @@ Disassembly of section .text:
   a8:	00512423          	sw	t0,8(sp)
   ac:	04612423          	sw	t1,72(sp)
   b0:	04a12623          	sw	a0,76(sp)
-  b4:	1f4000ef          	jal	2a8 <int_handler>
+  b4:	22c000ef          	jal	2e0 <int_handler>
   b8:	00010513          	mv	a0,sp
   bc:	04852303          	lw	t1,72(a0)
   c0:	04c52383          	lw	t2,76(a0)
@@ -198,128 +198,128 @@ Disassembly of section .text:
  2a0:	01010113          	add	sp,sp,16
  2a4:	00008067          	ret
 
-000002a8 <int_handler>:
- 2a8:	ff010113          	add	sp,sp,-16
- 2ac:	00112623          	sw	ra,12(sp)
- 2b0:	00812423          	sw	s0,8(sp)
- 2b4:	01010413          	add	s0,sp,16
- 2b8:	fbdff0ef          	jal	274 <rcv_uart_int>
- 2bc:	00000013          	nop
- 2c0:	00c12083          	lw	ra,12(sp)
- 2c4:	00812403          	lw	s0,8(sp)
- 2c8:	01010113          	add	sp,sp,16
- 2cc:	00008067          	ret
+000002a8 <gen_data>:
+ 2a8:	fe010113          	add	sp,sp,-32
+ 2ac:	00812e23          	sw	s0,28(sp)
+ 2b0:	02010413          	add	s0,sp,32
+ 2b4:	fe0407a3          	sb	zero,-17(s0)
+ 2b8:	080007b7          	lui	a5,0x8000
+ 2bc:	fef42423          	sw	a5,-24(s0)
+ 2c0:	fe842783          	lw	a5,-24(s0)
+ 2c4:	0007c783          	lbu	a5,0(a5) # 8000000 <_gbl_ptr+0x7fff800>
+ 2c8:	fef407a3          	sb	a5,-17(s0)
+ 2cc:	fef44783          	lbu	a5,-17(s0)
+ 2d0:	00078513          	mv	a0,a5
+ 2d4:	01c12403          	lw	s0,28(sp)
+ 2d8:	02010113          	add	sp,sp,32
+ 2dc:	00008067          	ret
 
-000002d0 <byte_test>:
- 2d0:	fe010113          	add	sp,sp,-32
- 2d4:	00112e23          	sw	ra,28(sp)
- 2d8:	00812c23          	sw	s0,24(sp)
- 2dc:	02010413          	add	s0,sp,32
- 2e0:	12c000ef          	jal	40c <init_testing>
- 2e4:	158000ef          	jal	43c <gen_data>
- 2e8:	00050793          	mv	a5,a0
- 2ec:	fef407a3          	sb	a5,-17(s0)
- 2f0:	fef44783          	lbu	a5,-17(s0)
- 2f4:	00078513          	mv	a0,a5
- 2f8:	ef1ff0ef          	jal	1e8 <send_char>
- 2fc:	f31ff0ef          	jal	22c <rcv_char>
- 300:	00050793          	mv	a5,a0
- 304:	fef40723          	sb	a5,-18(s0)
- 308:	fe0406a3          	sb	zero,-19(s0)
- 30c:	fe040623          	sb	zero,-20(s0)
- 310:	fef44783          	lbu	a5,-17(s0)
- 314:	00078713          	mv	a4,a5
- 318:	fee44783          	lbu	a5,-18(s0)
- 31c:	00f747b3          	xor	a5,a4,a5
- 320:	fef40623          	sb	a5,-20(s0)
- 324:	fec44783          	lbu	a5,-20(s0)
- 328:	00078513          	mv	a0,a5
- 32c:	018000ef          	jal	344 <print_resp>
- 330:	00000013          	nop
- 334:	01c12083          	lw	ra,28(sp)
- 338:	01812403          	lw	s0,24(sp)
- 33c:	02010113          	add	sp,sp,32
- 340:	00008067          	ret
+000002e0 <int_handler>:
+ 2e0:	ff010113          	add	sp,sp,-16
+ 2e4:	00112623          	sw	ra,12(sp)
+ 2e8:	00812423          	sw	s0,8(sp)
+ 2ec:	01010413          	add	s0,sp,16
+ 2f0:	f85ff0ef          	jal	274 <rcv_uart_int>
+ 2f4:	00000013          	nop
+ 2f8:	00c12083          	lw	ra,12(sp)
+ 2fc:	00812403          	lw	s0,8(sp)
+ 300:	01010113          	add	sp,sp,16
+ 304:	00008067          	ret
 
-00000344 <print_resp>:
- 344:	fd010113          	add	sp,sp,-48
- 348:	02112623          	sw	ra,44(sp)
- 34c:	02812423          	sw	s0,40(sp)
- 350:	03010413          	add	s0,sp,48
- 354:	00050793          	mv	a5,a0
- 358:	fcf40fa3          	sb	a5,-33(s0)
- 35c:	00000793          	li	a5,0
- 360:	fef42223          	sw	a5,-28(s0)
- 364:	00c00793          	li	a5,12
- 368:	fef42023          	sw	a5,-32(s0)
- 36c:	fdf44783          	lbu	a5,-33(s0)
- 370:	04078463          	beqz	a5,3b8 <print_resp+0x74>
- 374:	fe042623          	sw	zero,-20(s0)
- 378:	0280006f          	j	3a0 <print_resp+0x5c>
- 37c:	fec42783          	lw	a5,-20(s0)
- 380:	fe442703          	lw	a4,-28(s0)
- 384:	00f707b3          	add	a5,a4,a5
- 388:	0007c783          	lbu	a5,0(a5)
- 38c:	00078513          	mv	a0,a5
- 390:	e59ff0ef          	jal	1e8 <send_char>
- 394:	fec42783          	lw	a5,-20(s0)
- 398:	00178793          	add	a5,a5,1
- 39c:	fef42623          	sw	a5,-20(s0)
- 3a0:	fec42783          	lw	a5,-20(s0)
- 3a4:	fe042703          	lw	a4,-32(s0)
- 3a8:	00f707b3          	add	a5,a4,a5
- 3ac:	0007c783          	lbu	a5,0(a5)
- 3b0:	fc0796e3          	bnez	a5,37c <print_resp+0x38>
- 3b4:	0440006f          	j	3f8 <print_resp+0xb4>
- 3b8:	fe042423          	sw	zero,-24(s0)
- 3bc:	0280006f          	j	3e4 <print_resp+0xa0>
- 3c0:	fe842783          	lw	a5,-24(s0)
- 3c4:	fe042703          	lw	a4,-32(s0)
- 3c8:	00f707b3          	add	a5,a4,a5
- 3cc:	0007c783          	lbu	a5,0(a5)
- 3d0:	00078513          	mv	a0,a5
- 3d4:	e15ff0ef          	jal	1e8 <send_char>
- 3d8:	fe842783          	lw	a5,-24(s0)
- 3dc:	00178793          	add	a5,a5,1
- 3e0:	fef42423          	sw	a5,-24(s0)
- 3e4:	fe842783          	lw	a5,-24(s0)
- 3e8:	fe442703          	lw	a4,-28(s0)
- 3ec:	00f707b3          	add	a5,a4,a5
- 3f0:	0007c783          	lbu	a5,0(a5)
- 3f4:	fc0796e3          	bnez	a5,3c0 <print_resp+0x7c>
- 3f8:	00000013          	nop
- 3fc:	02c12083          	lw	ra,44(sp)
- 400:	02812403          	lw	s0,40(sp)
- 404:	03010113          	add	sp,sp,48
- 408:	00008067          	ret
+00000308 <byte_test>:
+ 308:	fe010113          	add	sp,sp,-32
+ 30c:	00112e23          	sw	ra,28(sp)
+ 310:	00812c23          	sw	s0,24(sp)
+ 314:	02010413          	add	s0,sp,32
+ 318:	12c000ef          	jal	444 <init_testing>
+ 31c:	f8dff0ef          	jal	2a8 <gen_data>
+ 320:	00050793          	mv	a5,a0
+ 324:	fef407a3          	sb	a5,-17(s0)
+ 328:	fef44783          	lbu	a5,-17(s0)
+ 32c:	00078513          	mv	a0,a5
+ 330:	eb9ff0ef          	jal	1e8 <send_char>
+ 334:	ef9ff0ef          	jal	22c <rcv_char>
+ 338:	00050793          	mv	a5,a0
+ 33c:	fef40723          	sb	a5,-18(s0)
+ 340:	fe0406a3          	sb	zero,-19(s0)
+ 344:	fe040623          	sb	zero,-20(s0)
+ 348:	fef44783          	lbu	a5,-17(s0)
+ 34c:	00078713          	mv	a4,a5
+ 350:	fee44783          	lbu	a5,-18(s0)
+ 354:	00f747b3          	xor	a5,a4,a5
+ 358:	fef40623          	sb	a5,-20(s0)
+ 35c:	fec44783          	lbu	a5,-20(s0)
+ 360:	00078513          	mv	a0,a5
+ 364:	018000ef          	jal	37c <print_resp>
+ 368:	00000013          	nop
+ 36c:	01c12083          	lw	ra,28(sp)
+ 370:	01812403          	lw	s0,24(sp)
+ 374:	02010113          	add	sp,sp,32
+ 378:	00008067          	ret
 
-0000040c <init_testing>:
- 40c:	fe010113          	add	sp,sp,-32
- 410:	00112e23          	sw	ra,28(sp)
- 414:	00812c23          	sw	s0,24(sp)
- 418:	02010413          	add	s0,sp,32
- 41c:	e11ff0ef          	jal	22c <rcv_char>
- 420:	00050793          	mv	a5,a0
- 424:	fef407a3          	sb	a5,-17(s0)
- 428:	00000013          	nop
- 42c:	01c12083          	lw	ra,28(sp)
- 430:	01812403          	lw	s0,24(sp)
- 434:	02010113          	add	sp,sp,32
- 438:	00008067          	ret
+0000037c <print_resp>:
+ 37c:	fd010113          	add	sp,sp,-48
+ 380:	02112623          	sw	ra,44(sp)
+ 384:	02812423          	sw	s0,40(sp)
+ 388:	03010413          	add	s0,sp,48
+ 38c:	00050793          	mv	a5,a0
+ 390:	fcf40fa3          	sb	a5,-33(s0)
+ 394:	00000793          	li	a5,0
+ 398:	fef42223          	sw	a5,-28(s0)
+ 39c:	00c00793          	li	a5,12
+ 3a0:	fef42023          	sw	a5,-32(s0)
+ 3a4:	fdf44783          	lbu	a5,-33(s0)
+ 3a8:	04078463          	beqz	a5,3f0 <print_resp+0x74>
+ 3ac:	fe042623          	sw	zero,-20(s0)
+ 3b0:	0280006f          	j	3d8 <print_resp+0x5c>
+ 3b4:	fec42783          	lw	a5,-20(s0)
+ 3b8:	fe442703          	lw	a4,-28(s0)
+ 3bc:	00f707b3          	add	a5,a4,a5
+ 3c0:	0007c783          	lbu	a5,0(a5)
+ 3c4:	00078513          	mv	a0,a5
+ 3c8:	e21ff0ef          	jal	1e8 <send_char>
+ 3cc:	fec42783          	lw	a5,-20(s0)
+ 3d0:	00178793          	add	a5,a5,1
+ 3d4:	fef42623          	sw	a5,-20(s0)
+ 3d8:	fec42783          	lw	a5,-20(s0)
+ 3dc:	fe042703          	lw	a4,-32(s0)
+ 3e0:	00f707b3          	add	a5,a4,a5
+ 3e4:	0007c783          	lbu	a5,0(a5)
+ 3e8:	fc0796e3          	bnez	a5,3b4 <print_resp+0x38>
+ 3ec:	0440006f          	j	430 <_trap_stack_ptr+0x30>
+ 3f0:	fe042423          	sw	zero,-24(s0)
+ 3f4:	0280006f          	j	41c <_trap_stack_ptr+0x1c>
+ 3f8:	fe842783          	lw	a5,-24(s0)
+ 3fc:	fe042703          	lw	a4,-32(s0)
+ 400:	00f707b3          	add	a5,a4,a5
+ 404:	0007c783          	lbu	a5,0(a5)
+ 408:	00078513          	mv	a0,a5
+ 40c:	dddff0ef          	jal	1e8 <send_char>
+ 410:	fe842783          	lw	a5,-24(s0)
+ 414:	00178793          	add	a5,a5,1
+ 418:	fef42423          	sw	a5,-24(s0)
+ 41c:	fe842783          	lw	a5,-24(s0)
+ 420:	fe442703          	lw	a4,-28(s0)
+ 424:	00f707b3          	add	a5,a4,a5
+ 428:	0007c783          	lbu	a5,0(a5)
+ 42c:	fc0796e3          	bnez	a5,3f8 <print_resp+0x7c>
+ 430:	00000013          	nop
+ 434:	02c12083          	lw	ra,44(sp)
+ 438:	02812403          	lw	s0,40(sp)
+ 43c:	03010113          	add	sp,sp,48
+ 440:	00008067          	ret
 
-0000043c <gen_data>:
- 43c:	fe010113          	add	sp,sp,-32
- 440:	00812e23          	sw	s0,28(sp)
- 444:	02010413          	add	s0,sp,32
- 448:	fe0407a3          	sb	zero,-17(s0)
- 44c:	080007b7          	lui	a5,0x8000
- 450:	fef42423          	sw	a5,-24(s0)
- 454:	fe842783          	lw	a5,-24(s0)
- 458:	0007c783          	lbu	a5,0(a5) # 8000000 <_gbl_ptr+0x7fff800>
+00000444 <init_testing>:
+ 444:	fe010113          	add	sp,sp,-32
+ 448:	00112e23          	sw	ra,28(sp)
+ 44c:	00812c23          	sw	s0,24(sp)
+ 450:	02010413          	add	s0,sp,32
+ 454:	dd9ff0ef          	jal	22c <rcv_char>
+ 458:	00050793          	mv	a5,a0
  45c:	fef407a3          	sb	a5,-17(s0)
- 460:	fef44783          	lbu	a5,-17(s0)
- 464:	00078513          	mv	a0,a5
- 468:	01c12403          	lw	s0,28(sp)
+ 460:	00000013          	nop
+ 464:	01c12083          	lw	ra,28(sp)
+ 468:	01812403          	lw	s0,24(sp)
  46c:	02010113          	add	sp,sp,32
  470:	00008067          	ret
 
@@ -330,7 +330,7 @@ Disassembly of section .text:
  480:	01010413          	add	s0,sp,16
  484:	c99ff0ef          	jal	11c <config_uart_rx>
  488:	cd9ff0ef          	jal	160 <config_uart_tx>
- 48c:	e45ff0ef          	jal	2d0 <byte_test>
+ 48c:	e7dff0ef          	jal	308 <byte_test>
  490:	ffdff06f          	j	48c <main+0x18>
 
 Disassembly of section .data:
@@ -390,7 +390,7 @@ Disassembly of section .riscv.attributes:
   18:	7032                	.insn	2, 0x7032
   1a:	5f31                	.insn	2, 0x5f31
   1c:	697a                	.insn	2, 0x697a
-  1e:	32727363          	bgeu	tp,t2,344 <print_resp>
+  1e:	32727363          	bgeu	tp,t2,344 <byte_test+0x3c>
   22:	3070                	.insn	2, 0x3070
   24:	0800                	.insn	2, 0x0800
   26:	0a01                	.insn	2, 0x0a01

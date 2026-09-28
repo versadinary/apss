@@ -8,9 +8,9 @@ extern void send_char(char data_to_send);
 
 extern char rcv_char();
 
-void init_testing();
+extern char gen_data();
 
-char gen_data();
+void init_testing();
 
 TEST_STATUS cmp_snd_rcv();
 

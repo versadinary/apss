@@ -32,10 +32,3 @@ void init_testing()
     buf = rcv_char();
 }
 
-char gen_data()
-{
-    char timer_value = 0;
-    char *tim_addr = 0x08000000;
-    timer_value = *tim_addr;
-    return timer_value;
-}

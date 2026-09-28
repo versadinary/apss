@@ -47,6 +47,14 @@ void rcv_uart_int()
     data_vld_int = 1;
 }
 
+char gen_data()
+{
+    char timer_value = 0;
+    char *tim_addr = 0x08000000;
+    timer_value = *tim_addr;
+    return timer_value;
+}
+
 void int_handler()
 {
     rcv_uart_int();
