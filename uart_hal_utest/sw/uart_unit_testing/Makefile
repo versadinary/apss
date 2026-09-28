@@ -24,6 +24,7 @@ harvard: $(OUTPUT).elf $(OUTPUT)_disasm.S size
 # $< означает "первая зависимость"
 	${OBJCOPY} -O verilog --verilog-data-width=4 -j .data -j .sdata -j .bss $< $(OUTPUT)_data.mem
 	${OBJCOPY} -O verilog --verilog-data-width=4 -j .text $< $(OUTPUT)_instr.mem
+	./scripts/copy_files.sh
 
 princeton: $(OUTPUT).elf $(OUTPUT)_disasm.S size
 	${OBJCOPY} -O verilog --verilog-data-width=4 --remove-section=.comment $< $(OUTPUT).mem
