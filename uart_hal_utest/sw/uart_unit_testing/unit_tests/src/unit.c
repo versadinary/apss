@@ -1,5 +1,6 @@
 #include "unit.h"
 #include "platform.h"
+#include <stdint.h>
 
 void byte_test()
 {
@@ -36,7 +37,8 @@ void init_testing()
 char gen_data()
 {
     char timer_value;
-    timer_value = timer_ptr->system_counter_low_bits;
+    char *tim_addr = 0x08000000;
+    timer_value = *tim_addr;
     return timer_value;
 }
 

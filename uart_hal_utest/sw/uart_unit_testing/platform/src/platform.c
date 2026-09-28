@@ -1,6 +1,6 @@
+#include "platform.h"
 #include "peripherals_addr.h"
 #include "unit.h"
-#include "platform.h"
 
 char rcv_data_int;
 volatile char data_vld_int;
