@@ -35,7 +35,9 @@ void init_testing()
 
 char gen_data()
 {
-    return 0xAB;
+    char timer_value;
+    timer_value = timer_ptr->system_counter_low_bits;
+    return timer_value;
 }
 
 int main()

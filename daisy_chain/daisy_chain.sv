@@ -15,7 +15,7 @@ module daisy_chain (
    genvar                               i;
    generate
       for (i = 0; i < 16; i++) begin
-         assign ready[i] = i ? ready[i - 1] & ~cause[0] : ready_i;
+         assign ready[i] = (i != 0) ? ready[i - 1] & ~cause[i] : ready_i;
       end
    endgenerate
    
@@ -32,10 +32,10 @@ module daisy_chain (
          cause_ff <= 'd0;
       end
       else if (irq_o) begin
-         cause_ff <= cause_ff;
+         cause_ff <= cause;
       end
       else begin
-         cause_ff <= cause;
+         cause_ff <= cause_ff;
       end
    end // always_ff @ (posedge clk_i or posedge rst_i)
 
