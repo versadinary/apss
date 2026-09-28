@@ -1,6 +1,4 @@
 #include "unit.h"
-#include "platform.h"
-#include <stdint.h>
 
 void byte_test()
 {
@@ -40,14 +38,4 @@ char gen_data()
     char *tim_addr = 0x08000000;
     timer_value = *tim_addr;
     return timer_value;
-}
-
-int main()
-{
-    config_uart_rx();
-    config_uart_tx();
-    while (1)
-        byte_test();
-
-    return 0;
 }

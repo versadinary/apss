@@ -1,4 +1,6 @@
 #pragma once
+#include "platform.h"
+#include <stdint.h>
 
 typedef enum { FAIL = 0, SUCCESS = 1 } TEST_STATUS;
 

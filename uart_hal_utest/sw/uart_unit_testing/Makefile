@@ -6,7 +6,7 @@ OBJDUMP =   $(CC_PATH)/$(CC_PREFIX)-objdump
 OBJCOPY =   $(CC_PATH)/$(CC_PREFIX)-objcopy
 SIZE    =   $(CC_PATH)/$(CC_PREFIX)-size
 
-OBJS = platform/src/startup.o platform/src/platform.o unit_tests/src/unit.o
+OBJS = platform/src/startup.o platform/src/platform.o unit_tests/src/unit.o unit_tests/src/main.o
 
 LINK_SCRIPT = platform/linker_script.ld
 OUTPUT      = uart_unit_test
