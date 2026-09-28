@@ -14,4 +14,4 @@ TEST_STATUS cmp_snd_rcv();
 
 void byte_test();
 
-void send_response(char byte_status);
+void print_resp(char test);

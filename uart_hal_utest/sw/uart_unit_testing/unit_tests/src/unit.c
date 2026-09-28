@@ -12,6 +12,11 @@ void byte_test()
     char result = 0;
     char test = 0;
     test = (d_tx ^ d_rx);
+    print_resp(test);
+}
+
+void print_resp(char test)
+{
     const char *msg1 = "FAILURE\n";
     const char *msg2 = "SUCCESS\n";
     if (test) {
