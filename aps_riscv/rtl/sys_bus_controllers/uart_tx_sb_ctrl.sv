@@ -8,7 +8,8 @@ module uart_tx_sb_ctrl
    input logic         write_enable_i,
    output logic [31:0] read_data_o,
 
-   output logic        tx_o
+   output logic        tx_o,
+   output logic        ready_o
    );
 
    logic busy;
