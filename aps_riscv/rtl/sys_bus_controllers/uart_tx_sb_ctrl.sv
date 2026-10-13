@@ -18,8 +18,10 @@ module uart_tx_sb_ctrl
    logic [1:0]  stopbit;
    logic [7:0]  data;
 
+   assign ready_o = 1'b1;
+
    logic        soft_reset;
-   assign soft_reset = req_i & (addr_i[7:0] == 8'h24) & (write_data_i[0] == 1'b1);
+   assign soft_reset = req_i & write_enable_i & (addr_i[7:0] == 8'h24) & (write_data_i[0] == 1'b1);
 
    logic busy_tx;
    always_ff @ (posedge clk_i) begin
@@ -60,7 +62,7 @@ module uart_tx_sb_ctrl
       .baudrate_i(baudrate),
       .parity_en_i(parity_en),
       .stopbit_i(stopbit),
-      .tx_data_i(write_data_i[0]),
+      .tx_data_i(write_data_i[7:0]),
       .tx_valid_i(req_i & write_enable_i & (addr_i[7:0] == 16'h00) & ~busy)
       );
 
