@@ -3,6 +3,7 @@
 #define UART_TX (uint32_t *)0x06000000
 
 volatile char rcv_uart;
+volatile uint32_t read_data;
 
 void int_handler(void)
 {
@@ -36,17 +37,47 @@ void uart_send_char(char data)
     *uart_tx = data;
 }
 
+void full_read_tx()
+{
+    read_data = *(UART_TX);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+    read_data = *(UART_TX + 3);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+    read_data = *(UART_TX + 4);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+    read_data = *(UART_TX + 5);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+}
+
+void full_read_rx()
+{
+    read_data = *(UART_RX);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+    read_data = *(UART_RX + 3);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+    read_data = *(UART_RX + 4);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+    read_data = *(UART_RX + 5);
+    for (int i = 0; i < 3; i++)
+        uart_send_char((char)(read_data >> (i << 2)));
+}
+
 
 int main() 
 {
-    uint32_t read_data;
-    read_data = *(UART_TX);
-    read_data = *(UART_TX + 3);
-    read_data = *(UART_TX + 4);
-    read_data = *(UART_TX + 5);
+    full_read_tx();
+    full_read_rx();
     init_uart_tx();
-    uart_send_char(0x66);
-    
+    init_uart_rx();
+    full_read_tx();
+    full_read_rx();
     
     return 0;
 }

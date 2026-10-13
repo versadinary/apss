@@ -114,14 +114,15 @@ module uart_rx_sb_ctrl(
     end
     else if(read_req) begin
       case(addr_i)
-        32'h00: read_data_o <= data;
-        32'h04: read_data_o <= valid;
-        32'h08: read_data_o <= busy;
-        32'h0c: read_data_o <= baudrate;
-        32'h10: read_data_o <= parity_en;
-        32'h14: read_data_o <= stopbit;
+        32'h00: read_data_o <= {24'd0, data};
+        32'h04: read_data_o <= {31'd0, valid};
+        32'h08: read_data_o <= {31'd0, busy};
+        32'h0c: read_data_o <= {15'd0, baudrate};
+        32'h10: read_data_o <= {31'd0, parity_en};
+        32'h14: read_data_o <= {30'd0, stopbit};
         default: read_data_o <= read_data_o;
       endcase
     end
   end
+
 endmodule
