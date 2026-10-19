@@ -1,26 +1,30 @@
 module processor_system (
-    input logic clk_i,
-    input logic resetn_i,
+    input logic         clk_i,
+    input logic         resetn_i,
 
-    // Входы и выходы периферии
-    input logic [15:0] sw_i,  // Переключатели
+                         // Входы и выходы периферии
+    input logic [15:0]  sw_i,      // Переключатели
 
-    output logic [15:0] led_o,  // Светодиоды
+    output logic [15:0] led_o,     // Светодиоды
 
-    input logic kclk_i,  // Тактирующий сигнал клавиатуры
-    input logic kdata_i, // Сигнал данных клавиатуры
+    input logic         kclk_i,    // Тактирующий сигнал клавиатуры
+    input logic         kdata_i,   // Сигнал данных клавиатуры
 
-    output logic [6:0] hex_led_o,  // Вывод семисегментных индикаторов
+    output logic [6:0]  hex_led_o, // Вывод семисегментных индикаторов
     output logic [ 7:0] hex_sel_o, // Селектор семисегментных индикаторов
 
-    input  logic rx_i,  // Линия приёма по UART
-    output logic tx_o,  // Линия передачи по UART
+    input logic         rx_i,      // Линия приёма по UART
+    output logic        tx_o,      // Линия передачи по UART
 
-    output logic [3:0] vga_r_o,  // Красный канал vga
-    output logic [3:0] vga_g_o,  // Зелёный канал vga
-    output logic [3:0] vga_b_o,  // Синий канал vga
-    output logic        vga_hs_o, // Линия горизонтальной синхронизации vga
-    output logic vga_vs_o  // Линия вертикальной синхронизации vga
+    output logic [3:0]  vga_r_o,   // Красный канал vga
+    output logic [3:0]  vga_g_o,   // Зелёный канал vga
+    output logic [3:0]  vga_b_o,   // Синий канал vga
+    output logic        vga_hs_o,  // Линия горизонтальной синхронизации vga
+    output logic        vga_vs_o,  // Линия вертикальной синхронизации vga
+    input logic         tck_i,     // jtag signals
+    input logic         tms_i,
+    input logic         tdi_i,
+    output logic        tdo_o
 
 );
 
@@ -59,6 +63,7 @@ module processor_system (
   logic [31:0] bl_daddr_o;
   logic bl_data_we_o;
   logic [31:0] vga_rd;
+  logic [31:0] led_rd;
 
   logic [7:0] uart_tx_data;
   logic tx_o_bl;
@@ -81,7 +86,6 @@ module processor_system (
   logic [31:0] mem_addr;
   assign mem_addr = rst_bl ? bl_daddr_o : addr;
   assign ohe = 255'd1 << mem_addr[31:24];
-  assign led_o[0] = rst_bl;
   logic ua_rx_dev;
   logic [31:0] ua_rx;
   assign ua_rx_dev = rst_bl ? 1'bz : rx_i;
@@ -124,7 +128,7 @@ module processor_system (
   );
 
 
-  rw_instr_mem imem (
+  rw_instr_mem imem_inst (
       .clk_i(sysclk),
       .read_addr_i(rom_addr),
       .read_data_o(rom_ins),
@@ -149,7 +153,7 @@ module processor_system (
   );
 
 
-  data_mem dmem (
+  data_mem dmem_inst (
       .clk_i(sysclk),
       .mem_req_i(req & ohe[DMEM_ADDR_HIGH]),
       .write_enable_i(write_enable),
@@ -241,6 +245,17 @@ module processor_system (
       .vga_vs_o      (vga_vs_o)
   );
 
+   led_sb_ctrl leds (
+    .clk_i(sysclk),
+    .rst_i(rst),
+    .req_i(req & ohe[LED_ADDR_HIGH]),
+    .write_enable_i(write_enable),
+    .addr_i({8'd0, mem_addr[23:0]}),
+    .write_data_i(write_data),
+    .read_data_o(led_rd),
+    .led_o(led_o)
+);
+
 
 
   always @(*) begin
@@ -252,6 +267,7 @@ module processor_system (
       TX_ADDR_HIGH: lsu_rd = ua_tx;
       RX_ADDR_HIGH: lsu_rd = ua_rx;
       VGA_ADDR_HIGH: lsu_rd = vga_rd;
+      LED_ADDR_HIGH: lsu_rd = led_rd;
       default: lsu_rd = 'd0;
     endcase
   end

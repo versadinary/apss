@@ -66,10 +66,10 @@ package bluster_pkg;
     fd = $fopen(fname, "r");
     assert(fd)
     else $fatal(1, "Can't open file %s", fname);
-    void'($fscanf(fd, "@%x\w", start_addr));
+    void'($fscanf(fd, "@%x", start_addr));
     start_addr <<=2;
     while(!$feof(fd)) begin
-      $fscanf(fd, "%x\w", data);
+      $fscanf(fd, "%x", data);
       mem.push_back(data[ 7: 0]);
       mem.push_back(data[15: 8]);
       mem.push_back(data[23:16]);
