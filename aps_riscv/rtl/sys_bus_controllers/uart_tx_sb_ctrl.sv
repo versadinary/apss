@@ -42,7 +42,7 @@ module uart_tx_sb_ctrl
    end
 
    always_ff @ (posedge clk_i) begin
-      if (rst_i | soft_reset) stopbit <= 2'd1;
+      if (rst_i | soft_reset) stopbit <= 2'd0;
       else if (req_i & (addr_i[7:0] == 8'h14) & write_enable_i & ~busy_tx)
         stopbit <= write_data_i;
    end
