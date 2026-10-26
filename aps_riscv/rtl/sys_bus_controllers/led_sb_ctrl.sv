@@ -41,7 +41,7 @@ module led_sb_ctrl (
 
     always_ff @ (posedge clk_i) begin
         if (reset) begin
-            led_val <= 0;
+            led_val <= 16'd0;
         end
         else if (req_i & write_enable_i & (addr_i[7:0] == 8'h00)) begin
             led_val <= write_data_i[15:0];

@@ -187,7 +187,7 @@ module processor_core(
                 .result_o(alu_res)
                 );
 
-   fulladder32 fadd_pc(
+   /*fulladder32 fadd_pc(
                        .a_i(pc),
                        .b_i(pc_incr),
                        .carry_i(1'b0),
@@ -201,6 +201,8 @@ module processor_core(
                          .carry_i(1'b0),
                          .sum_o(reg_jmp)
                          // .carry_o()
-                         );
+                         );*/
+assign reg_jmp = $signed(rf_rd1) + $signed(imm_i);
+assign pc_mut = $signed(pc) + $signed(pc_incr);
 
 endmodule // processor_core
