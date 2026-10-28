@@ -102,7 +102,7 @@ module processor_system (
   assign req = rst_bl ? bl_data_we_o : lsu_mem_req;
 
   logic rx_bluster;
-  assign rx_bluster = rst_bl ? rx_i : 1'bz;
+  assign rx_bluster = rst_bl ? rx_i : 1'b1; // 1'bz
 
   logic periph_write_enable;
   assign periph_write_enable = rst_bl ? bl_data_we_o : lsu_mem_we;
@@ -120,7 +120,7 @@ module processor_system (
   assign ohe = 255'd1 << periph_mem_addr[31:24];
   
   logic uart_rx_i;
-  assign uart_rx_i = rst_bl ? 1'bz : rx_i;
+  assign uart_rx_i = rst_bl ? 1'b1 : rx_i; // 1'bz
 
 
   processor_core core_inst (

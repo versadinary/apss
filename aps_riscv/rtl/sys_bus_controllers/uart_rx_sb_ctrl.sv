@@ -43,7 +43,7 @@ module uart_rx_sb_ctrl(
     if(rst) begin
       data <= '0;
     end
-    else if(valid) begin
+    else if(rx_valid) begin
       data <= rx_data;
     end
   end
@@ -52,6 +52,7 @@ module uart_rx_sb_ctrl(
     if(rst | read_req & (addr_i == 32'h00) | interrupt_return_i) begin
       valid <= '0;
     end
+    // else valid <= rx_valid;
     else if (!valid) begin
       valid <= rx_valid;
     end
