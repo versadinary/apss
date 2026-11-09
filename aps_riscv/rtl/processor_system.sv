@@ -304,7 +304,7 @@ module processor_system (
 
 
 
-  always @(*) begin
+  always_comb begin
     case (periph_mem_addr[31:24])
       DMEM_ADDR_HIGH: lsu_rd = dmem_rd;
       HEX_ADDR_HIGH: lsu_rd = hex_rd;

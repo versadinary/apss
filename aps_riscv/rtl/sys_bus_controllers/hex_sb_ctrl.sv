@@ -78,7 +78,7 @@ module hex_sb_ctrl (
       end
    end*/
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex0 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -92,7 +92,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex1 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -106,7 +106,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex2 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -120,7 +120,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex3 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -134,7 +134,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex4 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -148,8 +148,8 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
-    if (rst_i) hex5 <= 'd0;
+  always_ff @(posedge clk_i) begin
+    if (rst_i) hex5 <= 'd0);
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
         8'h14:   hex5 <= write_data_i[3:0];
@@ -162,7 +162,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex6 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -176,7 +176,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) hex7 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
@@ -190,7 +190,7 @@ module hex_sb_ctrl (
     end
   end
 
-  always @(posedge clk_i or posedge rst_i) begin
+  always_ff @(posedge clk_i) begin
     if (rst_i) bitmask <= 'b0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])

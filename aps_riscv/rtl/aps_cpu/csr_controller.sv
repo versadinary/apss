@@ -39,7 +39,7 @@ module csr_controller(
    assign mepc_o = mepc_q;
    assign read_data_o = csr;
 
-   always @ (*) begin
+   always_comb begin
       case (opcode_i)
         CSR_RW: reg_data = rs1_data_i;
         CSR_RS: reg_data = rs1_data_i | csr;

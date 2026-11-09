@@ -27,7 +27,7 @@ module decoder (
    assign func3 = fetched_instr_i[14:12];
    assign func7 = fetched_instr_i[31:25];
 
-   always @ (*) begin
+   always_comb begin
       {a_sel_o, b_sel_o, alu_op_o, csr_op_o, csr_we_o, mem_req_o,
        mem_size_o, gpr_we_o, wb_sel_o, branch_o, jal_o, jalr_o,
        mret_o, mem_we_o} = 27'd0;

@@ -18,7 +18,7 @@ module alu(
                          .carry_o(carry_o)
                          );*/
 
-   always @ (*) begin
+   always_comb begin
       flag_o = 1'd0;
       case (alu_op_i)
         ALU_ADD:

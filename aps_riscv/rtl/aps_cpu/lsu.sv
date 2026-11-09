@@ -35,7 +35,7 @@ module lsu(
    assign core_stall_o = stall_comb;
 
    // byte enable logic
-   always @ (*) begin
+   always_comb begin
       case (core_size_i)
         LDST_W: mem_be_o = 4'b1111;
         LDST_H: mem_be_o = half_offset ? 4'b1100 : 4'b0011;
@@ -45,7 +45,7 @@ module lsu(
    end
 
    // memory write data logic
-   always @ (*) begin
+   always_comb begin
       case (core_size_i)
         LDST_H: mem_wd_o = {{2{core_wd_i[15:0]}}};
         LDST_W: mem_wd_o = core_wd_i;
@@ -55,7 +55,7 @@ module lsu(
    end
 
    // core read data logic
-   always @ (*) begin
+   always_comb begin
       core_rd_o = 'b0;     
       case (core_size_i)
         LDST_W: core_rd_o = mem_rd_i;
@@ -90,7 +90,7 @@ module lsu(
    end
 
    // core stall logic
-   always @ (posedge clk_i) begin
+   always_ff @ (posedge clk_i) begin
       if (rst_i) stall_tg <= 1'b0;
       else stall_tg <= stall_comb;
    end

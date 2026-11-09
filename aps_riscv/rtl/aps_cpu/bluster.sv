@@ -85,7 +85,7 @@ module bluster
 
     /* counters */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             size_counter <= 'd4;
             flash_counter <= 'b0;// flash_size;
@@ -136,7 +136,7 @@ module bluster
 
     /* imem interface */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             instr_addr_o <= 'd0;
             instr_wdata_o <= 'd0;
@@ -158,7 +158,7 @@ module bluster
 
     /* dmem interface */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             data_addr_o <= 'd0;
             data_wdata_o <= 'd0;
@@ -180,7 +180,7 @@ module bluster
 
     /* flash_size */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             flash_size <= 'd0;
         end
@@ -196,7 +196,7 @@ module bluster
 
     /* flash_addr */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             flash_addr <= 'd0;
         end

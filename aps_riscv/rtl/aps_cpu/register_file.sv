@@ -15,14 +15,14 @@ module register_file(
    logic [31:0]                          rf_mem [32];
 
 
-   always @ (posedge clk_i) begin
+   always_ff @ (posedge clk_i) begin
       if (write_enable_i)
         rf_mem[write_addr_i] <= write_data_i;
       else
         rf_mem[write_addr_i] <= rf_mem[write_addr_i];
    end
 
-   always @ (*) begin
+   always_comb begin
       if (read_addr1_i)
          read_data1_o = rf_mem[read_addr1_i];
       else

@@ -40,7 +40,7 @@ module ps2_sb_ctrl(
                       .keycode_valid_o(valid)
                       );
 
-  always @ (posedge clk_i or posedge rst_i) begin
+  always_ff @ (posedge clk_i) begin
     if (rst_i) begin
       scan_code           <= 8'b0;
       scan_code_is_unread <= 1'b0;

@@ -28,7 +28,7 @@ module timer_sb_ctrl(
 
     /* system_counter */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             system_counter <= 'd0;
         end
@@ -44,7 +44,7 @@ module timer_sb_ctrl(
 
     /* delay */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             delay <= 'd0;
         end
@@ -64,7 +64,7 @@ module timer_sb_ctrl(
 
     /* mode fsm */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             mode <= OFF;
         end
@@ -101,7 +101,7 @@ module timer_sb_ctrl(
 
     /* repeat counter */
 
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             repeat_counter <= 'd0;
         end
@@ -137,7 +137,7 @@ module timer_sb_ctrl(
         end
     end*/
     
-    always_ff @(posedge clk_i or posedge rst_i) begin
+    always_ff @(posedge clk_i) begin
         if (rst_i) begin
             system_counter_at_start <= 'd0;
         end

@@ -109,7 +109,7 @@ module processor_core(
    assign rf_wa = instr_i[11:7];
 
    // operate logic (right side of the diagram)
-   always @ (*) begin
+   always_comb begin
       case (dec_a_sel)
         OP_A_RS1: alu_a = rf_rd1;
         OP_A_CURR_PC: alu_a = pc;
@@ -136,7 +136,7 @@ module processor_core(
    assign sel_imm = dec_branch ? imm_b : imm_j;
    assign pc_incr = (dec_jal | alu_flag & dec_branch) ? sel_imm : 32'd4;
 
-   always @ (posedge clk_i or posedge rst_i) begin
+   always_ff @ (posedge clk_i) begin
       if (rst_i) pc <= 32'd0;
       else begin
          if (~stall_i | trap) begin

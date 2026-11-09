@@ -12,7 +12,7 @@ module uart_tx_sb_ctrl
    output logic        ready_o
    );
 
-   logic [2:0] busy;
+   logic busy;
    logic [16:0] baudrate;
    logic        parity_en;
    logic [1:0]  stopbit;
@@ -31,18 +31,19 @@ module uart_tx_sb_ctrl
 
    logic new_data_flag;
 
+   // reset on when not busy; set on when busy & write_request and keep it set
+   // until resetted 
    always_ff @ (posedge clk_i) begin
       if (rst_i | soft_reset) new_data_flag <= 1'b0;
       else begin
-         if (write_request | ~busy_tx) begin
-            new_data_flag <= busy_tx;
-         end
+          if (~busy) new_data_flag <= 1'b0;
+          else if (busy & write_request) new_data_flag <= 1'b1;
       end
    end
 
    always_ff @ (posedge clk_i) begin
       if (rst_i | soft_reset) busy <= 2'b0;
-      else busy <= {busy[1:0], busy_tx};
+      else busy <= busy_tx;
    end
 
    always_ff @ (posedge clk_i) begin
@@ -66,14 +67,14 @@ module uart_tx_sb_ctrl
    always_ff @ (posedge clk_i) begin
       if (rst_i | soft_reset) data <= 8'd0;
       else if (write_request) begin
-        if (~busy_tx) begin
-            data <= write_data_i;
-            data_hold <= data;
+        if (busy_tx) begin
+            data_hold <= write_data_i;
         end
         else begin
             data_hold <= write_data_i;
         end
       end
+      else data_hold <= data_hold;
    end
 
    uart_tx tx
@@ -86,7 +87,7 @@ module uart_tx_sb_ctrl
       .parity_en_i(parity_en),
       .stopbit_i(stopbit),
       .tx_data_i(new_data_flag ? data_hold : write_data_i[7:0]),
-      .tx_valid_i(write_request & ~busy_tx | new_data_flag)
+      .tx_valid_i(~busy_tx & (write_request | new_data_flag))
       );
 
    always_ff @ (posedge clk_i) begin
