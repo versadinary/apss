@@ -170,7 +170,7 @@ module processor_system (
   );
 
 
-  bluster prg (
+  bluster programmer (
       .clk_i(sysclk),
       .rst_i(rst),
       .rx_i(rx_bluster),
@@ -223,9 +223,9 @@ module processor_system (
       .kdata_i(kdata_i)
   );
 
-  timer_sb_ctrl timer (
+  timer_sb_ctrl timer_control (
       .clk_i(sysclk),
-      .rst_i(rst_bl),
+      .rst_i(rst),
       .req_i(req & ohe[TIMER_ADDR_HIGH]),
       .write_enable_i(periph_write_enable),
       .addr_i({8'd0, periph_mem_addr[23:0]}),

@@ -43,7 +43,7 @@ module uart_rx_sb_ctrl(
     if(rst) begin
       data <= '0;
     end
-    else if(rx_valid) begin
+    else if(valid) begin
       data <= rx_data;
     end
   end

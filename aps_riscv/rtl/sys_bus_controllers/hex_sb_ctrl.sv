@@ -149,7 +149,7 @@ module hex_sb_ctrl (
   end
 
   always_ff @(posedge clk_i) begin
-    if (rst_i) hex5 <= 'd0);
+    if (rst_i) hex5 <= 'd0;
     else if (write_enable_i & req_i) begin
       case (addr_i[7:0])
         8'h14:   hex5 <= write_data_i[3:0];
